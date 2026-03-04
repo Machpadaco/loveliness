@@ -3,9 +3,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-dotenv.config();   // Load environment variables
-
-connectDB();       // Connect to MongoDB
+dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -13,12 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Routes
+app.use('/api/contact', require('./routes/contactRoutes'));
+
 // Test Route
 app.get('/', (req, res) => {
   res.send('Loveliness Backend Running ✅');
 });
 
-// Sample API test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀' });
 });
