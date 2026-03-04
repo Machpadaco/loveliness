@@ -4,11 +4,18 @@ exports.submitContact = async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
-    return res.status(400).json({ message: 'All fields are required' });
+    return res.status(400).json({
+      success: false,
+      message: 'All fields are required'
+    });
   }
 
   try {
-    const newContact = await Contact.create({ name, email, message });
+    const newContact = await Contact.create({
+      name,
+      email,
+      message
+    });
 
     res.status(201).json({
       success: true,
@@ -19,7 +26,8 @@ exports.submitContact = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Server Error'
+      message: 'Server Error',
+      error: error.message
     });
   }
 };
