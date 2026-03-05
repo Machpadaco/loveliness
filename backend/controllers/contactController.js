@@ -1,61 +1,29 @@
-const Contact = require('../models/Contact');
-const sendEmail = require('../utils/sendEmail');
+const emailService = require("../services/emailService");
 
-exports.submitContact = async (req, res) => {
-  const { name, email, phone, message } = req.body;
-
-  if (!name || !email || !phone || !message) {
-    return res.status(400).json({
-      success: false,
-      message: 'All fields are required'
-    });
-  }
+exports.contact = async (req, res) => {
 
   try {
 
-    // 1️⃣ Save to MongoDB
-    const newContact = await Contact.create({
-      name,
-      email,
-      phone,
-      message
-    });
+    const { name, email, phone, message } = req.body;
 
-    // 2️⃣ Send email notification to admin
-    await sendEmail({
-      to: process.env.EMAIL_USER,
-      subject: "New Contact Message",
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `
-    });
+    const data = { name, email, phone, message };
 
-    // 3️⃣ Send auto-reply to the user
-    await sendEmail({
-      to: email,
-      subject: "We received your message",
-      html: `
-        <p>Hello ${name},</p>
-        <p>Thank you for contacting Loveliness. We will reply soon.</p>
-      `
-    });
+    await emailService.sendContactEmails(data);
 
-    // 4️⃣ Send API response
-    res.status(201).json({
+    res.status(200).json({
       success: true,
-      message: 'Contact submitted successfully',
-      data: newContact
+      message: "Message sent successfully"
     });
 
   } catch (error) {
+
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: 'Server Error',
-      error: error.message
+      message: "Server error"
     });
+
   }
+
 };
