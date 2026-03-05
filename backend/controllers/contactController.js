@@ -2,9 +2,9 @@ const Contact = require('../models/Contact');
 const sendEmail = require('../utils/sendEmail');
 
 exports.submitContact = async (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, phone, message } = req.body;
 
-  if (!name || !email || !message) {
+  if (!name || !email || !phone || !message) {
     return res.status(400).json({
       success: false,
       message: 'All fields are required'
@@ -17,6 +17,7 @@ exports.submitContact = async (req, res) => {
     const newContact = await Contact.create({
       name,
       email,
+      phone,
       message
     });
 
@@ -28,6 +29,7 @@ exports.submitContact = async (req, res) => {
         <h3>New Contact Form Submission</h3>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Message:</strong> ${message}</p>
       `
     });
