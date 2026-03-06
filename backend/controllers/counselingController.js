@@ -1,34 +1,17 @@
-const emailService = require("../services/emailService");
-
 exports.submitCounselling = async (req, res) => {
-
   try {
 
     const {
       name,
       email,
       phone,
-      country,
       counsellingType,
-      preferredContact,
       message
     } = req.body;
 
-    const data = {
-      name,
-      email,
-      phone,
-      country,
-      counsellingType,
-      preferredContact,
-      message
-    };
-
-    await emailService.sendCounsellingEmails(data);
-
     res.status(200).json({
       success: true,
-      message: "Counselling request submitted successfully"
+      message: "Counselling request received successfully"
     });
 
   } catch (error) {
@@ -41,5 +24,4 @@ exports.submitCounselling = async (req, res) => {
     });
 
   }
-
 };
