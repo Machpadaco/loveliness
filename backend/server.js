@@ -20,6 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/counselling', require('./routes/counsellingRoutes')); // Counselling route added
 
 // Test Route
 app.get('/', (req, res) => {
