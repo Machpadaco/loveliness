@@ -1,23 +1,45 @@
-const Counseling = require('../models/Counseling');
-const sendEmail = require('../utils/sendEmail');
+const emailService = require("../services/emailService");
 
-exports.submitCounseling = async (req, res) => {
-  const { fullName, email, phone, issue } = req.body;
-
-  if (!fullName || !email || !issue)
-    return res.status(400).json({ message: 'All required fields must be filled' });
+exports.submitCounselling = async (req, res) => {
 
   try {
-    await Counseling.create({ fullName, email, phone, issue });
 
-    await sendEmail({
-      to: process.env.EMAIL_USER,
-      subject: 'New Counseling Form Submission',
-      text: `Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nIssue: ${issue}`,
+    const {
+      name,
+      email,
+      phone,
+      country,
+      counsellingType,
+      preferredContact,
+      message
+    } = req.body;
+
+    const data = {
+      name,
+      email,
+      phone,
+      country,
+      counsellingType,
+      preferredContact,
+      message
+    };
+
+    await emailService.sendCounsellingEmails(data);
+
+    res.status(200).json({
+      success: true,
+      message: "Counselling request submitted successfully"
     });
 
-    res.status(201).json({ message: 'Counseling request submitted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error });
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+
   }
+
 };
