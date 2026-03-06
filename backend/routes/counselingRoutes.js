@@ -1,45 +1,8 @@
-const emailService = require("../services/emailService");
+const express = require("express");
+const router = express.Router();
 
-exports.submitCounselling = async (req, res) => {
+const { submitCounselling } = require("../controllers/counsellingController");
 
-  try {
+router.post("/", submitCounselling);
 
-    const {
-      name,
-      email,
-      phone,
-      country,
-      counsellingType,
-      preferredContact,
-      message
-    } = req.body;
-
-    const data = {
-      name,
-      email,
-      phone,
-      country,
-      counsellingType,
-      preferredContact,
-      message
-    };
-
-    await emailService.sendCounsellingEmails(data);
-
-    res.status(200).json({
-      success: true,
-      message: "Counselling request submitted successfully"
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-      success: false,
-      message: "Server error"
-    });
-
-  }
-
-};
+module.exports = router;
