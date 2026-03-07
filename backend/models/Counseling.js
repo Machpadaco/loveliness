@@ -1,11 +1,44 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const counselingSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String },
-  issue: { type: String, required: true }, // trauma, guidance, abuse, etc.
-  submittedAt: { type: Date, default: Date.now },
+const counsellingSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+
+  email: {
+    type: String,
+    required: true
+  },
+
+  phone: {
+    type: String,
+    required: true
+  },
+
+  country: {
+    type: String
+  },
+
+  counsellingType: {
+    type: String,
+    required: true
+  },
+
+  preferredContact: {
+    type: String
+  },
+
+  message: {
+    type: String,
+    required: true
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
 });
 
-module.exports = mongoose.model('Counseling', counselingSchema);
+module.exports = mongoose.model("Counselling", counsellingSchema);
