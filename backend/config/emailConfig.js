@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 
-// Create transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -9,7 +8,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Optional: Verify connection when server starts
 transporter.verify((error, success) => {
   if (error) {
     console.log("❌ Email server connection failed:", error.message);

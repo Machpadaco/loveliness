@@ -1,6 +1,7 @@
 const sendEmail = require("../utils/sendEmail");
 
 /* CONTACT EMAILS */
+
 exports.sendContactEmails = async (data) => {
 
   await sendEmail({
@@ -24,7 +25,6 @@ exports.sendContactEmails = async (data) => {
       <p>Our team will respond to you shortly.</p>
     `
   });
-
 };
 
 
@@ -32,7 +32,6 @@ exports.sendContactEmails = async (data) => {
 
 exports.sendCounsellingEmails = async (data) => {
 
-  // Email to Lovelines
   await sendEmail({
     to: process.env.EMAIL_USER,
     subject: "New Counselling Request",
@@ -48,7 +47,6 @@ exports.sendCounsellingEmails = async (data) => {
     `
   });
 
-  // Confirmation email to client
   await sendEmail({
     to: data.email,
     subject: "Counselling Request Received",
@@ -59,5 +57,4 @@ exports.sendCounsellingEmails = async (data) => {
       <p>Remain blessed.</p>
     `
   });
-
 };

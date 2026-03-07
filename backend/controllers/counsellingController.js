@@ -1,16 +1,17 @@
 const emailService = require("../services/emailService");
 
 exports.submitCounselling = async (req, res) => {
-
   try {
 
-    const { name, email, phone, counsellingType, message } = req.body;
+    const { name, email, phone, country, counsellingType, preferredContact, message } = req.body;
 
     const data = {
       name,
       email,
       phone,
+      country,
       counsellingType,
+      preferredContact,
       message
     };
 
@@ -22,14 +23,11 @@ exports.submitCounselling = async (req, res) => {
     });
 
   } catch (error) {
-
     console.error(error);
 
     res.status(500).json({
       success: false,
       message: "Server error"
     });
-
   }
-
 };
