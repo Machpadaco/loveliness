@@ -58,3 +58,37 @@ exports.sendCounsellingEmails = async (data) => {
     `
   });
 };
+
+/* VOLUNTEER EMAILS */
+
+exports.sendVolunteerEmails = async (data) => {
+
+  // Email to Lovelines admin
+  await sendEmail({
+    to: process.env.EMAIL_USER,
+    subject: "New Volunteer Application",
+    html: `
+      <h3>New Volunteer Application</h3>
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Phone:</strong> ${data.phone}</p>
+      <p><strong>Country:</strong> ${data.country}</p>
+      <p><strong>Area of Interest:</strong> ${data.areaOfInterest}</p>
+      <p><strong>Availability:</strong> ${data.availability}</p>
+      <p><strong>Message:</strong> ${data.message}</p>
+    `
+  });
+
+  // Confirmation email to volunteer
+  await sendEmail({
+    to: data.email,
+    subject: "Volunteer Application Received",
+    html: `
+      <p>Dear ${data.name},</p>
+      <p>Thank you for volunteering with Lovelines International Christian Fellowship.</p>
+      <p>Our team will review your application and contact you soon.</p>
+      <p>Remain blessed.</p>
+    `
+  });
+
+};
