@@ -1,23 +1,46 @@
-const Volunteer = require('../models/Volunteer');
-const sendEmail = require('../utils/sendEmail');
+const Volunteer = require("../models/Volunteer");
+const emailService = require("../services/emailService");
 
 exports.submitVolunteer = async (req, res) => {
-  const { fullName, email, country, interestArea } = req.body;
-
-  if (!fullName || !email || !country)
-    return res.status(400).json({ message: 'Required fields missing' });
 
   try {
-    await Volunteer.create({ fullName, email, country, interestArea });
 
-    await sendEmail({
-      to: process.env.EMAIL_USER,
-      subject: 'New Volunteer Signup',
-      text: `Name: ${fullName}\nEmail: ${email}\nCountry: ${country}\nInterest: ${interestArea}`,
+    const {
+      name,
+      email,
+      phone,
+      country,
+      areaOfInterest,
+      availability,
+      message
+    } = req.body;
+
+    const volunteer = await Volunteer.create({
+      name,
+      email,
+      phone,
+      country,
+      areaOfInterest,
+      availability,
+      message
     });
 
-    res.status(201).json({ message: 'Volunteer signup submitted successfully' });
+    await emailService.sendVolunteerEmails(volunteer);
+
+    res.status(200).json({
+      success: true,
+      message: "Volunteer application submitted successfully"
+    });
+
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error });
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+
   }
+
 };
