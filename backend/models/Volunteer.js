@@ -1,11 +1,44 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const volunteerSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
-  email: { type: String, required: true },
-  country: { type: String, required: true },
-  interestArea: { type: String }, // education, counseling, outreach, etc.
-  submittedAt: { type: Date, default: Date.now },
+
+  name: {
+    type: String,
+    required: true
+  },
+
+  email: {
+    type: String,
+    required: true
+  },
+
+  phone: {
+    type: String,
+    required: true
+  },
+
+  country: {
+    type: String
+  },
+
+  areaOfInterest: {
+    type: String,
+    required: true
+  },
+
+  availability: {
+    type: String
+  },
+
+  message: {
+    type: String
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
 });
 
-module.exports = mongoose.model('Volunteer', volunteerSchema);
+module.exports = mongoose.model("Volunteer", volunteerSchema);
