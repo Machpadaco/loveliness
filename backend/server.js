@@ -22,6 +22,7 @@ app.use(express.json());
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/counselling', require('./routes/counsellingRoutes')); // Counselling route added
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 // Test Route
 app.get('/', (req, res) => {
