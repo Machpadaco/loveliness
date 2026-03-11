@@ -2,7 +2,10 @@ const Contact = require("../models/Contact");
 const Counselling = require("../models/Counselling");
 const Volunteer = require("../models/Volunteer");
 
-/* GET ALL CONTACT MESSAGES */
+
+/* =========================
+GET ALL CONTACT MESSAGES
+========================= */
 
 exports.getContacts = async (req, res) => {
 
@@ -18,9 +21,11 @@ exports.getContacts = async (req, res) => {
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
@@ -28,7 +33,10 @@ exports.getContacts = async (req, res) => {
 };
 
 
-/* GET ALL COUNSELLING REQUESTS */
+
+/* =========================
+GET ALL COUNSELLING REQUESTS
+========================= */
 
 exports.getCounselling = async (req, res) => {
 
@@ -44,9 +52,11 @@ exports.getCounselling = async (req, res) => {
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
@@ -54,7 +64,10 @@ exports.getCounselling = async (req, res) => {
 };
 
 
-/* GET ALL VOLUNTEERS */
+
+/* =========================
+GET ALL VOLUNTEERS
+========================= */
 
 exports.getVolunteers = async (req, res) => {
 
@@ -70,9 +83,11 @@ exports.getVolunteers = async (req, res) => {
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
@@ -80,7 +95,10 @@ exports.getVolunteers = async (req, res) => {
 };
 
 
-/* DELETE CONTACT */
+
+/* =========================
+DELETE CONTACT
+========================= */
 
 exports.deleteContact = async (req, res) => {
 
@@ -90,14 +108,16 @@ exports.deleteContact = async (req, res) => {
 
     res.json({
       success: true,
-      message: "Contact deleted"
+      message: "Contact deleted successfully"
     });
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
@@ -105,7 +125,10 @@ exports.deleteContact = async (req, res) => {
 };
 
 
-/* DELETE COUNSELLING */
+
+/* =========================
+DELETE COUNSELLING
+========================= */
 
 exports.deleteCounselling = async (req, res) => {
 
@@ -115,14 +138,16 @@ exports.deleteCounselling = async (req, res) => {
 
     res.json({
       success: true,
-      message: "Counselling request deleted"
+      message: "Counselling deleted successfully"
     });
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
@@ -130,7 +155,10 @@ exports.deleteCounselling = async (req, res) => {
 };
 
 
-/* DELETE VOLUNTEER */
+
+/* =========================
+DELETE VOLUNTEER
+========================= */
 
 exports.deleteVolunteer = async (req, res) => {
 
@@ -140,14 +168,16 @@ exports.deleteVolunteer = async (req, res) => {
 
     res.json({
       success: true,
-      message: "Volunteer deleted"
+      message: "Volunteer deleted successfully"
     });
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server Error"
     });
 
   }
