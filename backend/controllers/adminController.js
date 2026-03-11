@@ -1,6 +1,6 @@
-const Contact = require("../models/contactModel");
-const Counselling = require("../models/counsellingModel");
-const Volunteer = require("../models/volunteerModel");
+const Contact = require("../models/contact");
+const Counselling = require("../models/counselling");
+const Volunteer = require("../models/volunteer");
 
 /* GET ALL CONTACT MESSAGES */
 
