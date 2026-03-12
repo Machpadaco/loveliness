@@ -1,0 +1,185 @@
+/* --- Global Variables --- */
+:root {
+    --primary-red: #D32F2F;    /* Main Red */
+    --hover-red: #B71C1C;      /* Darker Red for hover states */
+    --white: #FFFFFF;
+    --light-grey: #F8F9FA;
+    --dark-text: #212121;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: var(--white);
+}
+
+/* --- Header & Navigation --- */
+.top-bar {
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 8px 5%;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: var(--white);
+    border-bottom: 3px solid var(--primary-red);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px; /* Adjust based on your logo shape */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-red);
+}
+
+.btn-primary {
+    background: var(--primary-red);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background: var(--hover-red);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* --- Footer --- */
+.footer {
+    background: #1a1a1a; /* Dark background to make red/white pop */
+    color: var(--white);
+    padding: 60px 5% 20px;
+    margin-top: 40px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for Desktop */
+    gap: 40px;
+}
+
+.footer-section h3, .footer-section h4 {
+    color: var(--primary-red);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-section a:hover {
+    color: var(--white);
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVENESS (Media Queries) --- */
+
+/* 1. Tablets (up to 992px) */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    }
+    
+    .nav-links {
+        gap: 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 2. Mobile Phones (up to 768px) */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .nav-links {
+        display: none; /* Usually, we'd add a hamburger menu here later */
+        margin: 20px 0;
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+        text-align: center;
+    }
+
+    .nav-cta {
+        margin-top: 10px;
+    }
+}
+
+/* 3. Small Mobile Screens (up to 480px) */
+@media (max-width: 480px) {
+    .logo img {
+        height: 40px;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
