@@ -218,3 +218,124 @@ main {
         text-align: center;
     }
 }
+
+/* --- CONTACT PAGE STYLES --- */
+.contact-page {
+    padding: 60px 20px;
+    background-color: var(--off-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.contact-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-top: 5px solid var(--primary-red);
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-header h2 {
+    color: var(--primary-red);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.contact-header p {
+    color: #666;
+}
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-text);
+}
+
+.form-group input, 
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition);
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.2);
+}
+
+.submit-btn {
+    background-color: var(--primary-red);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.submit-btn:hover {
+    background-color: var(--hover-red);
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE CONTACT FORM --- */
+
+/* Laptop / Desktop (Standard) */
+@media (min-width: 1024px) {
+    .contact-page { padding: 80px 0; }
+}
+
+/* Tablets (Portrait) */
+@media (max-width: 768px) {
+    .contact-card {
+        padding: 30px;
+    }
+    .contact-header h2 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    .contact-page {
+        padding: 20px 15px;
+    }
+    .contact-card {
+        padding: 20px;
+        border-radius: 0; /* Full width feel on tiny screens */
+    }
+    .contact-header h2 {
+        font-size: 1.5rem;
+    }
+    .submit-btn {
+        padding: 12px;
+    }
+}
