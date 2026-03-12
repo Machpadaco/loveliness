@@ -82,16 +82,15 @@ volunteerForm.reset();
 }
 
 /**
- * Automatically detects if we are in a subfolder 
- * and adjusts the path to the components folder.
+ * Automatically detects path depth and loads HTML components (Header/Footer)
  */
 function getBasePath() {
-    // Check if the current URL contains "/admin/"
     const path = window.location.pathname;
+    // If the file is inside the admin folder, we need to go up one level
     if (path.includes("/admin/")) {
-        return "../"; // Step out one level
+        return "../";
     }
-    return ""; // Stay in current level (for root files like index.html)
+    return "";
 }
 
 function loadComponent(elementId, fileName) {
@@ -100,16 +99,35 @@ function loadComponent(elementId, fileName) {
 
     fetch(filePath)
         .then(response => {
-            if (!response.ok) throw new Error(`Failed to load ${filePath}`);
+            if (!response.ok) throw new Error(`Could not load ${fileName}`);
             return response.text();
         })
         .then(data => {
             document.getElementById(elementId).innerHTML = data;
+            
+            // If we just loaded the header, initialize the mobile menu logic
+            if (fileName === 'header.html') {
+                initMobileMenu();
+            }
         })
-        .catch(err => console.error(err));
+        .catch(err => console.error("Component Error:", err));
 }
 
-// Now you just call the filename, and the script handles the rest!
+function initMobileMenu() {
+    const menuBtn = document.querySelector('#mobile-menu');
+    const navList = document.querySelector('#nav-list');
+
+    if (menuBtn && navList) {
+        menuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            
+            // Optional: Animation for hamburger bars
+            menuBtn.classList.toggle('is-active');
+        });
+    }
+}
+
+// Start loading components when the page is ready
 document.addEventListener("DOMContentLoaded", () => {
     loadComponent("header-placeholder", "header.html");
     loadComponent("footer-placeholder", "footer.html");

@@ -1,10 +1,10 @@
-/* --- Global Variables --- */
+/* --- Variables & Reset --- */
 :root {
-    --primary-red: #D32F2F;    /* Main Red */
-    --hover-red: #B71C1C;      /* Darker Red for hover states */
+    --primary-red: #D32F2F;
+    --hover-red: #B71C1C;
     --white: #FFFFFF;
-    --light-grey: #F8F9FA;
-    --dark-text: #212121;
+    --off-white: #F4F4F4;
+    --dark-text: #1A1A1A;
     --transition: all 0.3s ease;
 }
 
@@ -12,21 +12,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--dark-text);
-    background-color: var(--white);
 }
 
 /* --- Header & Navigation --- */
 .top-bar {
     background-color: var(--primary-red);
     color: var(--white);
-    padding: 8px 5%;
+    padding: 10px 5%;
     font-size: 0.85rem;
+}
+
+.top-bar-content {
     display: flex;
     justify-content: space-between;
 }
@@ -44,7 +46,8 @@ body {
 }
 
 .logo img {
-    height: 50px; /* Adjust based on your logo shape */
+    height: 50px;
+    display: block;
 }
 
 .nav-links {
@@ -66,121 +69,81 @@ body {
 
 .btn-primary {
     background: var(--primary-red);
-    color: var(--white) !important;
+    color: var(--white);
     padding: 10px 22px;
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
     transition: var(--transition);
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
     background: var(--hover-red);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* --- Footer --- */
-.footer {
-    background: #1a1a1a; /* Dark background to make red/white pop */
-    color: var(--white);
-    padding: 60px 5% 20px;
-    margin-top: 40px;
+/* --- Mobile Menu Toggle --- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    gap: 5px;
 }
 
-.footer-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns for Desktop */
-    gap: 40px;
-}
-
-.footer-section h3, .footer-section h4 {
-    color: var(--primary-red);
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 10px;
-}
-
-.footer-section a {
-    color: #ccc;
-    text-decoration: none;
+.menu-toggle .bar {
+    width: 28px;
+    height: 3px;
+    background-color: var(--primary-red);
     transition: var(--transition);
 }
 
-.footer-section a:hover {
-    color: var(--white);
-    padding-left: 5px;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 40px;
-    margin-top: 40px;
-    border-top: 1px solid #333;
-    font-size: 0.9rem;
-}
-
-/* --- RESPONSIVENESS (Media Queries) --- */
-
-/* 1. Tablets (up to 992px) */
+/* --- Responsive (Tablets & Mobile) --- */
 @media (max-width: 992px) {
-    .footer-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
-    }
-    
-    .nav-links {
-        gap: 15px;
-        font-size: 0.9rem;
-    }
+    .nav-links { gap: 15px; }
 }
 
-/* 2. Mobile Phones (up to 768px) */
 @media (max-width: 768px) {
-    .top-bar {
+    .top-bar-content {
         flex-direction: column;
-        text-align: center;
-        gap: 5px;
+        align-items: center;
     }
 
-    .navbar {
-        flex-direction: column;
-        padding: 15px;
+    .menu-toggle {
+        display: flex; /* Show Hamburger */
+    }
+
+    .nav-cta-desktop {
+        display: none; /* Hide button in mobile bar */
     }
 
     .nav-links {
-        display: none; /* Usually, we'd add a hamburger menu here later */
-        margin: 20px 0;
+        display: none; /* Hidden by default */
         flex-direction: column;
-        text-align: center;
+        position: absolute;
+        top: 100%; /* Sits right under the nav */
+        left: 0;
         width: 100%;
-    }
-
-    .footer-container {
-        grid-template-columns: 1fr; /* 1 column on mobile */
+        background-color: var(--white);
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         text-align: center;
+        border-top: 1px solid var(--off-white);
     }
 
-    .nav-cta {
-        margin-top: 10px;
+    .nav-links.active {
+        display: flex; /* Shown when clicked */
+    }
+
+    .nav-links li {
+        padding: 15px 0;
+        border-bottom: 1px solid var(--off-white);
+    }
+
+    .nav-cta-mobile {
+        color: var(--primary-red) !important;
+        font-weight: bold;
     }
 }
-
-/* 3. Small Mobile Screens (up to 480px) */
-@media (max-width: 480px) {
-    .logo img {
-        height: 40px;
-    }
-    
-    .btn-primary {
-        width: 100%;
-        display: block;
-        text-align: center;
-    }
-}
-
