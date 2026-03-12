@@ -80,3 +80,37 @@ volunteerForm.reset();
 });
 
 }
+
+/**
+ * Automatically detects if we are in a subfolder 
+ * and adjusts the path to the components folder.
+ */
+function getBasePath() {
+    // Check if the current URL contains "/admin/"
+    const path = window.location.pathname;
+    if (path.includes("/admin/")) {
+        return "../"; // Step out one level
+    }
+    return ""; // Stay in current level (for root files like index.html)
+}
+
+function loadComponent(elementId, fileName) {
+    const base = getBasePath();
+    const filePath = `${base}components/${fileName}`;
+
+    fetch(filePath)
+        .then(response => {
+            if (!response.ok) throw new Error(`Failed to load ${filePath}`);
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById(elementId).innerHTML = data;
+        })
+        .catch(err => console.error(err));
+}
+
+// Now you just call the filename, and the script handles the rest!
+document.addEventListener("DOMContentLoaded", () => {
+    loadComponent("header-placeholder", "header.html");
+    loadComponent("footer-placeholder", "footer.html");
+});
