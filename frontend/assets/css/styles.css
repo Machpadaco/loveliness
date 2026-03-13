@@ -1,41 +1,47 @@
-/* --- 1. Variables & Global Reset --- */
+/* --- Variables & Reset --- */
 :root {
     --primary-red: #D32F2F;
     --hover-red: #B71C1C;
     --white: #FFFFFF;
     --off-white: #F4F4F4;
-    --dark-bg: #1A1A1A;
+    --dark-bg: #1A1A1A; /* For Footer */
     --dark-text: #212121;
-    --light-text: #666666;
+    --light-text: #CCCCCC;
     --transition: all 0.3s ease;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--dark-text);
-    background-color: var(--white);
-    overflow-x: hidden; /* Prevents horizontal shaking */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Keeps footer at bottom if page is short */
 }
 
-/* --- 2. Layout Containers --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+main {
+    flex: 1; /* Pushes footer down */
 }
 
-section {
-    padding: 80px 0;
-    position: relative;
-    display: block; /* Forces sections to stack correctly */
-    width: 100%;
-    clear: both;
+/* --- Header & Navigation --- */
+.top-bar {
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 10px 5%;
+    font-size: 0.85rem;
 }
 
-/* --- 3. Navigation Fixes --- */
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -48,91 +54,637 @@ section {
     z-index: 1000;
 }
 
-.logo img { height: 50px; }
+.logo img {
+    height: 50px;
+    display: block;
+}
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 25px;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--dark-text);
     font-weight: 600;
+    transition: var(--transition);
 }
 
-/* --- 4. Index (Home) Page Fixes --- */
-.hero-home {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg') center/cover;
-    height: 80vh;
-    display: flex;
+.nav-links a:hover {
+    color: var(--primary-red);
+}
+
+.btn-primary {
+    background: var(--primary-red);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--hover-red);
+}
+
+/* --- Hamburger Menu Toggle --- */
+.menu-toggle {
+    display: none;
     flex-direction: column;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    gap: 5px;
+}
+
+.menu-toggle .bar {
+    width: 28px;
+    height: 3px;
+    background-color: var(--primary-red);
+    transition: var(--transition);
+}
+
+/* --- Footer Styles --- */
+.footer {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 60px 5% 20px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3, 
+.footer-section h4 {
+    color: var(--primary-red);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p {
+    color: var(--light-text);
+    font-size: 0.95rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section ul li a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-section ul li a:hover {
+    color: var(--white);
+    padding-left: 8px;
+}
+
+.footer-email {
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* --- Responsive (Tablets & Mobile) --- */
+@media (max-width: 992px) {
+    .nav-links { gap: 15px; }
+}
+
+@media (max-width: 768px) {
+    .top-bar-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: flex; 
+    }
+
+    .nav-cta-desktop {
+        display: none;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 15px 0;
+        border-bottom: 1px solid var(--off-white);
+    }
+    
+    .footer-container {
+        text-align: center;
+    }
+}
+
+/* --- CONTACT PAGE STYLES --- */
+.contact-page {
+    padding: 60px 20px;
+    background-color: var(--off-white);
+    display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 80vh;
+}
+
+.contact-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-top: 5px solid var(--primary-red);
+}
+
+.contact-header {
     text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-header h2 {
+    color: var(--primary-red);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.contact-header p {
+    color: #666;
+}
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-text);
+}
+
+.form-group input, 
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition);
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.2);
+}
+
+.submit-btn {
+    background-color: var(--primary-red);
     color: white;
-    padding-top: 0; /* Prevents hero from overlapping header */
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.welcome-section { text-align: center; background: var(--off-white); }
-
-/* Fixes overlapping grid on Home page */
-.focus-grid-section .focus-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+.submit-btn:hover {
+    background-color: var(--hover-red);
+    transform: translateY(-2px);
 }
 
-/* --- 5. About Page & Leadership Fixes --- */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+/* --- RESPONSIVE CONTACT FORM --- */
+
+/* Laptop / Desktop (Standard) */
+@media (min-width: 1024px) {
+    .contact-page { padding: 80px 0; }
+}
+
+/* Tablets (Portrait) */
+@media (max-width: 768px) {
+    .contact-card {
+        padding: 30px;
+    }
+    .contact-header h2 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    .contact-page {
+        padding: 20px 15px;
+    }
+    .contact-card {
+        padding: 20px;
+        border-radius: 0; /* Full width feel on tiny screens */
+    }
+    .contact-header h2 {
+        font-size: 1.5rem;
+    }
+    .submit-btn {
+        padding: 12px;
+    }
+}
+
+/* --- ABOUT PAGE STYLES --- */
+
+/* Hero Banner */
+.about-hero {
+    background: linear-gradient(rgba(211, 47, 47, 0.9), rgba(183, 28, 28, 0.9)), url('../img/about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: 100px 5%;
+    text-align: center;
+}
+
+.about-hero h1 { font-size: 3rem; margin-bottom: 15px; }
+.about-hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
+
+/* Main Content Area */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.about-content { padding: 80px 0; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+
+.section-title {
+    color: var(--primary-red);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-red);
+    margin-top: 10px;
+}
+
+.about-text p { margin-bottom: 20px; font-size: 1.1rem; color: #444; }
+
+.image-placeholder {
+    background: #eee;
+    height: 400px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px dashed var(--primary-red);
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+/* --- STAKEHOLDER SECTION STYLES --- */
+.stakeholders-section {
+    padding: 80px 0;
+    background-color: var(--white);
 }
 
 .stakeholder-list {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
+    margin-top: 50px;
 }
 
-.directors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-}
-
+/* Base Card Style */
 .stakeholder-card {
     display: flex;
     background: var(--off-white);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     border-left: 5px solid var(--primary-red);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: var(--transition);
 }
 
-.stakeholder-img { width: 300px; flex-shrink: 0; }
-.stakeholder-img img { width: 100%; height: 100%; object-fit: cover; }
-
-/* Small cards for the grid */
-.stakeholder-card.small { flex-direction: column; }
-.stakeholder-card.small .stakeholder-img { width: 100%; height: 250px; }
-
-/* --- 6. Footer --- */
-.footer { background: var(--dark-bg); color: white; padding: 60px 0 20px; }
-.footer-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
+.stakeholder-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.1);
 }
 
-/* --- 7. Mobile Responsiveness --- */
+.stakeholder-img img {
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.stakeholder-info {
+    padding: 30px;
+    flex: 1;
+}
+
+.rank-tag {
+    background: var(--primary-red);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.stakeholder-info h3 {
+    font-size: 1.6rem;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+}
+
+.organization {
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.bio-text p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+/* Responsive Grid for smaller profile cards */
+@media (min-width: 769px) {
+    .stakeholder-list {
+        display: grid;
+        grid-template-columns: 1fr; /* Full width for top leaders */
+    }
+    
+    /* Make the less ranking members appear in 2 columns */
+    .stakeholder-card.small {
+        grid-template-columns: 1fr; 
+        flex-direction: column;
+    }
+    
+    .stakeholder-card.small .stakeholder-img img {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+/* Tablet & Mobile Responsiveness */
 @media (max-width: 768px) {
-    .about-grid, .directors-grid { grid-template-columns: 1fr; }
-    .stakeholder-card { flex-direction: column; }
-    .stakeholder-img { width: 100%; height: 300px; }
-    .hero-home h1 { font-size: 1.8rem; }
+    .stakeholder-card {
+        flex-direction: column;
+    }
+    
+    .stakeholder-img img {
+        width: 100%;
+        height: 350px;
+    }
+
+    .stakeholder-info {
+        padding: 20px;
+    }
+
+    .stakeholder-info h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Focus Cards */
+.about-focus { background-color: var(--off-white); padding: 80px 0; }
+.focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+.focus-card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.focus-card:hover { transform: translateY(-10px); border-bottom: 4px solid var(--primary-red); }
+.focus-card h3 { color: var(--primary-red); margin-bottom: 15px; }
+
+/* Global Impact Section */
+.about-global {
+    padding: 80px 0;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.about-global h2 { color: var(--primary-red); margin-bottom: 20px; font-size: 2.5rem; }
+.about-global p { max-width: 900px; margin: 0 auto; font-size: 1.2rem; }
+
+/* --- RESPONSIVE ABOUT PAGE --- */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .focus-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-hero h1 { font-size: 2.5rem; }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .about-hero { padding: 60px 5%; }
+    .about-hero h1 { font-size: 2rem; }
+    .section-title { font-size: 1.8rem; }
+    .about-global h2 { font-size: 2rem; }
+}
+
+/* --- INDEX (HOME) PAGE NEW STYLES --- */
+
+.hero-home {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.motto-tag {
+    background: var(--primary-red);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.sub-hero {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: var(--off-white);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-red);
+    padding: 12px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--off-white);
+    transform: translateY(-2px);
+}
+
+/* Welcome & Video Section */
+.welcome-text { 
+    max-width: 800px; 
+    margin: 0 auto 40px; 
+    line-height: 1.8; 
+    font-size: 1.1rem; 
+}
+
+.video-wrapper { 
+    max-width: 800px; 
+    margin: 40px auto; 
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border: none;
+}
+
+.video-caption { 
+    margin-top: 15px; 
+    font-style: italic; 
+    color: #666; 
+    text-align: center;
+}
+
+/* Scripture Banner */
+.scripture-banner { 
+    background: var(--primary-red); 
+    color: var(--white); 
+    padding: 60px 5%; 
+    text-align: center; 
+}
+
+.bible-quote { 
+    font-size: 1.5rem; 
+    font-style: italic; 
+    font-weight: 300; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bible-quote cite { 
+    display: block; 
+    margin-top: 15px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    font-style: normal; 
+    opacity: 0.9; 
+}
+
+/* Call to Action Banner */
+.cta-banner { 
+    background: #1a1a1a; 
+    color: var(--white); 
+    padding: 80px 5%; 
+    text-align: center; 
+}
+
+.btn-white-outline {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    border: 2px solid var(--white);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.btn-white-outline:hover { 
+    background: var(--white); 
+    color: #1a1a1a; 
+}
+
+/* Focus Grid Section spacing */
+.focus-grid-section {
+    padding: 80px 5%;
+}
+
+/* --- Responsive Adjustments for Index --- */
+@media (max-width: 768px) {
+    .hero-home { padding: 80px 20px; }
+    .hero-home h1 { font-size: 2rem; }
+    .sub-hero { font-size: 1.2rem; }
+    .btn-secondary { margin-left: 0; margin-top: 15px; display: block; }
+    .bible-quote { font-size: 1.2rem; }
 }
