@@ -390,78 +390,113 @@ main {
     font-weight: bold;
 }
 
-/* --- LEADERSHIP SECTION --- */
-.leadership-section {
+/* --- STAKEHOLDER SECTION STYLES --- */
+.stakeholders-section {
     padding: 80px 0;
     background-color: var(--white);
 }
 
-.center { text-align: center; }
-.center::after { margin: 10px auto !important; }
-
-.section-subtitle {
-    text-align: center;
-    margin-bottom: 50px;
-    color: #666;
+.stakeholder-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 50px;
 }
 
-.leader-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.leader-card {
+/* Base Card Style */
+.stakeholder-card {
+    display: flex;
     background: var(--off-white);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary-red);
     transition: var(--transition);
-    border-bottom: 4px solid transparent;
 }
 
-.leader-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-red);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+.stakeholder-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.1);
 }
 
-.leader-img img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover; /* Keeps faces from looking stretched */
+.stakeholder-img img {
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
-.leader-info {
-    padding: 20px;
-    text-align: center;
+.stakeholder-info {
+    padding: 30px;
+    flex: 1;
 }
 
-.leader-info h3 {
+.rank-tag {
+    background: var(--primary-red);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.stakeholder-info h3 {
+    font-size: 1.6rem;
     color: var(--dark-text);
     margin-bottom: 5px;
-    font-size: 1.3rem;
 }
 
-.leader-role {
-    color: var(--primary-red);
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
+.organization {
+    font-weight: 600;
+    color: #666;
     margin-bottom: 15px;
-    display: block;
 }
 
-.leader-bio {
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.4;
+.bio-text p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #444;
 }
 
-/* Responsive adjustment for small phones */
-@media (max-width: 480px) {
-    .leader-img img {
-        height: 300px;
+/* Responsive Grid for smaller profile cards */
+@media (min-width: 769px) {
+    .stakeholder-list {
+        display: grid;
+        grid-template-columns: 1fr; /* Full width for top leaders */
+    }
+    
+    /* Make the less ranking members appear in 2 columns */
+    .stakeholder-card.small {
+        grid-template-columns: 1fr; 
+        flex-direction: column;
+    }
+    
+    .stakeholder-card.small .stakeholder-img img {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+/* Tablet & Mobile Responsiveness */
+@media (max-width: 768px) {
+    .stakeholder-card {
+        flex-direction: column;
+    }
+    
+    .stakeholder-img img {
+        width: 100%;
+        height: 350px;
+    }
+
+    .stakeholder-info {
+        padding: 20px;
+    }
+
+    .stakeholder-info h3 {
+        font-size: 1.3rem;
     }
 }
 
