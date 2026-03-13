@@ -688,3 +688,35 @@ main {
     .btn-secondary { margin-left: 0; margin-top: 15px; display: block; }
     .bible-quote { font-size: 1.2rem; }
 }
+
+/* --- UPDATED ABOUT PAGE DIRECTORS GRID --- */
+.directors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.statement-box {
+    background: var(--off-white);
+    padding: 25px;
+    border-left: 5px solid var(--primary-red);
+    margin-top: 30px;
+}
+
+.statement-box h3 {
+    color: var(--primary-red);
+    margin-bottom: 10px;
+}
+
+.center { text-align: center; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .directors-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-hero h1 {
+        font-size: 2.2rem;
+    }
+}
