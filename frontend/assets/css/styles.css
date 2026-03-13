@@ -339,3 +339,97 @@ main {
         padding: 12px;
     }
 }
+
+/* --- ABOUT PAGE STYLES --- */
+
+/* Hero Banner */
+.about-hero {
+    background: linear-gradient(rgba(211, 47, 47, 0.9), rgba(183, 28, 28, 0.9)), url('../img/about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: 100px 5%;
+    text-align: center;
+}
+
+.about-hero h1 { font-size: 3rem; margin-bottom: 15px; }
+.about-hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
+
+/* Main Content Area */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.about-content { padding: 80px 0; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+
+.section-title {
+    color: var(--primary-red);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-red);
+    margin-top: 10px;
+}
+
+.about-text p { margin-bottom: 20px; font-size: 1.1rem; color: #444; }
+
+.image-placeholder {
+    background: #eee;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px dashed var(--primary-red);
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+/* Focus Cards */
+.about-focus { background-color: var(--off-white); padding: 80px 0; }
+.focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+.focus-card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.focus-card:hover { transform: translateY(-10px); border-bottom: 4px solid var(--primary-red); }
+.focus-card h3 { color: var(--primary-red); margin-bottom: 15px; }
+
+/* Global Impact Section */
+.about-global {
+    padding: 80px 0;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.about-global h2 { color: var(--primary-red); margin-bottom: 20px; font-size: 2.5rem; }
+.about-global p { max-width: 900px; margin: 0 auto; font-size: 1.2rem; }
+
+/* --- RESPONSIVE ABOUT PAGE --- */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .focus-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-hero h1 { font-size: 2.5rem; }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .about-hero { padding: 60px 5%; }
+    .about-hero h1 { font-size: 2rem; }
+    .section-title { font-size: 1.8rem; }
+    .about-global h2 { font-size: 2rem; }
+}
