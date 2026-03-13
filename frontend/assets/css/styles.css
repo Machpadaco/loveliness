@@ -390,6 +390,81 @@ main {
     font-weight: bold;
 }
 
+/* --- LEADERSHIP SECTION --- */
+.leadership-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.center { text-align: center; }
+.center::after { margin: 10px auto !important; }
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #666;
+}
+
+.leader-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.leader-card {
+    background: var(--off-white);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: var(--transition);
+    border-bottom: 4px solid transparent;
+}
+
+.leader-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-red);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.leader-img img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* Keeps faces from looking stretched */
+    display: block;
+}
+
+.leader-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.leader-info h3 {
+    color: var(--dark-text);
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+}
+
+.leader-role {
+    color: var(--primary-red);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.leader-bio {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Responsive adjustment for small phones */
+@media (max-width: 480px) {
+    .leader-img img {
+        height: 300px;
+    }
+}
+
 /* Focus Cards */
 .about-focus { background-color: var(--off-white); padding: 80px 0; }
 .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
