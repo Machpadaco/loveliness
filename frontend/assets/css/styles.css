@@ -689,34 +689,39 @@ main {
     .bible-quote { font-size: 1.2rem; }
 }
 
-/* --- UPDATED ABOUT PAGE DIRECTORS GRID --- */
-.directors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+/* --- UPDATED STAKEHOLDER IMAGE STYLES --- */
+
+/* Ensures images in the grid look uniform */
+.stakeholder-card.small {
+    flex-direction: column; /* Stacks image on top of info */
+    height: 100%;
 }
 
-.statement-box {
-    background: var(--off-white);
-    padding: 25px;
-    border-left: 5px solid var(--primary-red);
-    margin-top: 30px;
+.stakeholder-card.small .stakeholder-img img {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency in the grid */
+    object-fit: cover;
 }
 
-.statement-box h3 {
-    color: var(--primary-red);
+.stakeholder-card.small .stakeholder-info {
+    padding: 20px;
+    background: var(--white);
+}
+
+/* Specific styling for the Bio Section */
+.bio-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
     margin-bottom: 10px;
 }
 
-.center { text-align: center; }
-
-/* Responsive adjustments */
+/* Tablet/Mobile logic for the leadership grid */
 @media (max-width: 768px) {
-    .directors-grid {
-        grid-template-columns: 1fr;
+    .stakeholder-card.small .stakeholder-img img {
+        height: 350px; /* Taller on mobile for better visibility */
     }
-    .about-hero h1 {
-        font-size: 2.2rem;
+    
+    .stakeholder-card {
+        margin-bottom: 20px;
     }
 }
