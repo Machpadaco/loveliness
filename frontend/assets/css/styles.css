@@ -219,7 +219,185 @@ main {
     }
 }
 
+main{
+    width:100%;
+}
 
+/* GENERAL */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    font-size:32px;
+    margin-bottom:40px;
+    color:#c40000;
+}
+
+/* HERO */
+.hero{
+    background:#c40000;
+    color:white;
+    padding:100px 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.hero h3{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.motto{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero-text{
+    max-width:750px;
+    margin:auto;
+    margin-bottom:30px;
+}
+
+.btn-primary{
+    background:white;
+    color:#c40000;
+    padding:12px 25px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+}
+
+.btn-primary:hover{
+    background:#f2f2f2;
+}
+
+/* ABOUT */
+.about-home{
+    padding:80px 20px;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:40px;
+}
+
+.about-highlight{
+    background:#c40000;
+    color:white;
+    padding:30px;
+    border-radius:8px;
+}
+
+/* SERVICES */
+.services{
+    background:#f9f9f9;
+    padding:80px 20px;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.service-card{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.service-card h3{
+    color:#c40000;
+    margin-bottom:10px;
+}
+
+/* OUTREACH */
+.outreach{
+    padding:80px 20px;
+}
+
+.outreach-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.outreach-card{
+    background:white;
+    padding:25px;
+    border-left:5px solid #c40000;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* CTA */
+.cta{
+    background:#c40000;
+    color:white;
+    padding:80px 20px;
+    text-align:center;
+}
+
+.cta-buttons{
+    margin-top:25px;
+}
+
+.btn-secondary{
+    background:white;
+    color:#c40000;
+    padding:12px 25px;
+    text-decoration:none;
+    margin-left:10px;
+    border-radius:5px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+.services-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.outreach-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.about-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero h1{
+font-size:28px;
+}
+
+.services-grid{
+grid-template-columns:1fr;
+}
+
+.outreach-grid{
+grid-template-columns:1fr;
+}
+
+.section-title{
+font-size:24px;
+}
+
+}
 
 /* --- CONTACT PAGE STYLES --- */
 .contact-page {
