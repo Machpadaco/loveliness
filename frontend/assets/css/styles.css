@@ -333,12 +333,12 @@ padding:30px;
 border-radius:8px;
 }
 
-.about-box h3 {
+.about-box h2 {
     text-align: center;
 }
 
 .about-box p {
-    font-size: 80px;
+    font-size: 20px;
     
 }
 .btn-readmore{
