@@ -638,7 +638,7 @@ grid-template-columns:1fr;
 /* Updated placeholder for a professional Portrait look */
 .photo-placeholder {
     width: 100%;
-    height: 420px; /* Increased height for a true portrait ratio */
+    height: 500px; /* Increased height for a true portrait ratio */
     background-color: #f2f2f2;
     overflow: hidden; 
     display: flex;
