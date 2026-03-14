@@ -571,7 +571,7 @@ grid-template-columns:1fr;
 
 /* --- Hero / Mission Banner --- */
 .mission-banner {
-    background:url('../img/gallery/outreach.jpg') center/cover no-repeat;
+    background:url('../img/gallery/hero2.jpg') center/cover no-repeat;
     color: var(--pure-white);
     padding: 80px 0;
     text-align: center;
