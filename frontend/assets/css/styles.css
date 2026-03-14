@@ -245,7 +245,9 @@ background:url('../img/gallery/hero.jpg') center/cover no-repeat;
 height:90vh;
 position:relative;
 display:flex;
+justify-content:center;
 align-items:center;
+text-align:center;
 }
 
 /* DARK OVERLAY FOR TEXT READABILITY */
