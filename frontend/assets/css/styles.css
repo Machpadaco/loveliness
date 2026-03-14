@@ -615,7 +615,8 @@ grid-template-columns:1fr;
 /* --- Profile Grid & Cards --- */
 .profile-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    justify-content: center;
     gap: 35px;
 }
 
@@ -628,6 +629,7 @@ grid-template-columns:1fr;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .profile-card:hover {
@@ -638,12 +640,10 @@ grid-template-columns:1fr;
 /* --- Profile Image Container --- */
 .photo-placeholder {
     width: 100%;
+    height: 500px; /* Increased height for better portrait display */
     background-color: #f2f2f2;
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
-
-    /* Strong portrait ratio */
-    aspect-ratio: 2 / 3;
 }
 
 .profile-img {
@@ -654,23 +654,39 @@ grid-template-columns:1fr;
     display: block;
 }
 
-/* Tablet */
+/* --- Tablet Devices --- */
 @media (max-width: 992px) {
-    .photo-placeholder {
-        aspect-ratio: 2 / 3.2;
+
+    .profile-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
+
+    .photo-placeholder {
+        height: 540px; /* Taller for tablets */
+    }
+
 }
 
-/* Mobile */
+/* --- Mobile Devices --- */
 @media (max-width: 600px) {
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .profile-card {
+        max-width: 340px;
+    }
+
     .photo-placeholder {
-        /* Make image taller for phones */
-        aspect-ratio: 2 / 3.5;
+        height: 600px; /* Taller portrait for mobile */
     }
 
     .profile-img {
         object-position: center 5%;
     }
+
 }
 
 .profile-info {
