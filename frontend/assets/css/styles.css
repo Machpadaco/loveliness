@@ -246,7 +246,7 @@ position:relative;
 }
 
 .hero-overlay{
-background:rgba(196,0,0,0.75);
+background:rgba(245, 239, 239, 0.75), 0.75);
 height:100%;
 display:flex;
 align-items:center;
