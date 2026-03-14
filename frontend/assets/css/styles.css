@@ -333,6 +333,13 @@ padding:30px;
 border-radius:8px;
 }
 
+.about-box h3 {
+    text-align: center;
+}
+
+.about-box p {
+    font: 40px;
+}
 .btn-readmore{
 display:inline-block;
 margin-top:20px;
