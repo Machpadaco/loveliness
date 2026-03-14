@@ -465,11 +465,31 @@ height:100%;
 
 /* CTA */
 
-.cta{
-background:#c40000;
-color:white;
-text-align:center;
-padding:80px 0;
+/* Your existing section style */
+.cta {
+  background: #c40000;
+  color: white;
+  text-align: center;
+  padding: 80px 0;
+}
+
+/* Specific styles for the "Become a Volunteer" button */
+.cta .btn-primary {
+  background-color: white;    /* White background */
+  color: #c40000;             /* Red text to match the section */
+  padding: 12px 28px;
+  text-decoration: none;      /* Removes the underline from the link */
+  display: inline-block;      /* Allows padding to work correctly */
+  font-weight: bold;
+  border-radius: 5px;         /* Gives it a clean, modern look */
+  margin-top: 20px;           /* Adds space between the text and button */
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect so users know it's clickable */
+.cta .btn-primary:hover {
+  background-color: #f2f2f2;  /* Slightly greyish white on hover */
+  color: #a30000;             /* Darkens the red slightly on hover */
 }
 
 /* RESPONSIVE */
