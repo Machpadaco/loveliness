@@ -240,7 +240,7 @@ color:#c40000;
 /* HERO */
 
 .hero{
-background:url('../img/hero.jpg') center/cover no-repeat;
+background:url('../img/gallery/hero.jpg') center/cover no-repeat;
 height:85vh;
 position:relative;
 }
