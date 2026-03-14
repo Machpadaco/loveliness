@@ -338,7 +338,8 @@ border-radius:8px;
 }
 
 .about-box p {
-    font: 40px;
+    font-size: 80px;
+    
 }
 .btn-readmore{
 display:inline-block;
