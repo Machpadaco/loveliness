@@ -407,6 +407,22 @@ color:#c40000;
 margin-bottom:10px;
 }
 
+.btn-readmore{
+display:inline-block;
+margin-top:15px;
+background:#c40000;
+color:#ffffff;
+padding:10px 20px;
+text-decoration:none;
+border-radius:5px;
+font-weight:600;
+transition:0.3s;
+}
+
+.btn-readmore:hover{
+background:#a30000;
+}
+
 /* GALLERY */
 
 .gallery{
