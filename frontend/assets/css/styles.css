@@ -635,12 +635,12 @@ grid-template-columns:1fr;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
-/* Updated placeholder to handle both text and images correctly */
+/* Updated placeholder for a professional Portrait look */
 .photo-placeholder {
     width: 100%;
-    height: 300px;
+    height: 420px; /* Increased height for a true portrait ratio */
     background-color: #f2f2f2;
-    overflow: hidden; /* Ensures image doesn't spill out of corners */
+    overflow: hidden; 
     display: flex;
     align-items: center;
     justify-content: center;
