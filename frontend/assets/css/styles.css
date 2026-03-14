@@ -635,27 +635,51 @@ grid-template-columns:1fr;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
-/* Updated for a Taller Portrait (Head to Waist/Chest) */
+/* --- Optimized Profile Image Container --- */
 .photo-placeholder {
     width: 100%;
-    /* Taller ratio: for every 3 units of width, there are 5 units of height */
-    aspect-ratio: 3 / 5; 
-    
     background-color: #f2f2f2;
-    overflow: hidden; 
+    overflow: hidden;
     display: flex;
     border-bottom: 5px solid var(--primary-red);
+    
+    /* Default height for Desktop/Laptop (3-4 cards per row) */
+    height: 400px; 
 }
 
-/* Updated Image Scaling */
 .profile-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
-    /* 'center 10%' ensures the head isn't cut off at the top, 
-       while the tall aspect ratio shows the body below */
-    object-position: center 10%; 
+    /* 'object-fit: cover' ensures the image fills the space */
+    object-fit: cover;
+    /* 'top' keeps the head in frame, 'cover' shows as much body as the height allows */
+    object-position: top; 
     display: block;
+}
+
+/* --- Responsive Adjustments via Media Queries --- */
+
+/* For Tablets (Usually 2 cards per row) */
+@media (max-width: 992px) {
+    .photo-placeholder {
+        /* We increase height because the cards get wider on tablets */
+        height: 480px; 
+    }
+}
+
+/* For Mobile Devices (1 card per row - where the stretching is worst) */
+@media (max-width: 600px) {
+    .photo-placeholder {
+        /* We set a tall, fixed height to ensure head and body are visible 
+           even when the card takes up the full width of the phone */
+        height: 520px; 
+    }
+    
+    .profile-img {
+        /* On mobile, we shift the position slightly down from the very top 
+           to ensure a natural head-to-waist crop */
+        object-position: center 5%;
+    }
 }
 
 .profile-info {
