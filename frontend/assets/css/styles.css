@@ -628,7 +628,21 @@ grid-template-columns:1fr;
     transform: translateY(-3px);
 }
 
-
+@media (max-width: 768px) {
+    .mission-banner {
+        /* This ensures the full width of the collage is visible */
+        background-size: contain; 
+        background-position: top center;
+        /* We reduce padding so the text doesn't overlap the faces too much */
+        padding: 40px 15px; 
+        min-height: auto; 
+    }
+    
+    .mission-banner h1 {
+        font-size: 1.5rem;
+        margin-top: 150px; /* Pushes text below the main faces in the image */
+    }
+}
 
 /* --- Profile Grid & Cards --- */
 .profile-grid {
