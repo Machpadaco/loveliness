@@ -640,7 +640,7 @@ grid-template-columns:1fr;
 /* --- Profile Image Container --- */
 .photo-placeholder {
     width: 100%;
-    height: 500px; /* Increased height for better portrait display */
+    height: 400px; /* Increased height for better portrait display */
     background-color: #f2f2f2;
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
