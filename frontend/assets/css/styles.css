@@ -971,6 +971,65 @@ grid-template-columns:1fr;
         font-size: 1.5rem;
     }
 }
+
+/* --- Styling for the 15th Mandate Card --- */
+.mandate-card {
+    background-color: var(--primary-red) !important; /* Red background to stand out */
+    color: var(--pure-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 450px; /* Adjust to match the height of your image cards */
+}
+
+.mandate-content {
+    padding: 30px;
+}
+
+.mandate-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.mandate-divider {
+    width: 60px;
+    border: 2px solid var(--pure-white);
+    margin: 0 auto 20px;
+}
+
+.mandate-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.mandate-focus {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mandate-footer {
+    margin-top: 30px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    border: 2px solid var(--pure-white);
+    padding: 10px;
+    display: inline-block;
+}
+
+/* Responsive adjust to ensure it matches the image heights */
+@media screen and (max-width: 480px) {
+    .mandate-card {
+        min-height: auto;
+        padding: 40px 0;
+    }
+}
 /* --- Scripture Footer Section --- */
 .scripture-footer {
     background-color: #1a1a1a;
