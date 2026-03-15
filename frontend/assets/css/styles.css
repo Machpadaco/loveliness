@@ -833,6 +833,15 @@ grid-template-columns:1fr;
     width: 100%;
 }
 
+/* Feature Card (The 11th wide card) */
+.feature-statement-card {
+    grid-column: span 2; 
+    background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
+    color: var(--pure-white);
+    min-height: 450px;
+    justify-content: center;
+}
+
 .profile-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
@@ -841,7 +850,7 @@ grid-template-columns:1fr;
 /* --- Profile Image Container --- */
 .photo-placeholder {
     width: 100%;
-    height: 400px; /* Increased height for better portrait display */
+    height: 400px; 
     background-color: #f2f2f2;
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
@@ -855,22 +864,74 @@ grid-template-columns:1fr;
     display: block;
 }
 
+/* --- Read More / Bio Logic --- */
+.full-bio-content {
+    display: none; /* JavaScript will toggle this */
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Specific text color for expanded bio inside the red feature card */
+.feature-statement-card .full-bio-content {
+    border-top: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+}
+
+.show-content {
+    display: block !important;
+}
+
+.read-more-btn {
+    background: transparent;
+    border: 1.5px solid var(--primary-red);
+    color: var(--primary-red);
+    padding: 8px 18px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    align-self: flex-start; /* Keeps button on the left */
+}
+
+.feature-statement-card .read-more-btn {
+    border-color: #fff;
+    color: #fff;
+    align-self: center;
+}
+
+.read-more-btn:hover {
+    background-color: var(--primary-red);
+    color: var(--pure-white);
+}
+
+.feature-statement-card .read-more-btn:hover {
+    background-color: #fff;
+    color: var(--primary-red);
+}
+
 /* --- Tablet Devices --- */
 @media (max-width: 992px) {
-
     .profile-grid {
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
 
     .photo-placeholder {
-        height: 540px; /* Taller for tablets */
+        height: 540px; 
     }
-
+    
+    .feature-statement-card {
+        grid-column: span 2;
+    }
 }
 
 /* --- Mobile Devices --- */
 @media (max-width: 600px) {
-
     .profile-grid {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -880,19 +941,25 @@ grid-template-columns:1fr;
         max-width: 340px;
     }
 
+    .feature-statement-card {
+        grid-column: span 1;
+        max-width: 340px;
+    }
+
     .photo-placeholder {
-        height: 600px; /* Taller portrait for mobile */
+        height: 600px; 
     }
 
     .profile-img {
         object-position: center 5%;
     }
-
 }
 
 .profile-info {
     padding: 25px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-name {
@@ -920,7 +987,6 @@ grid-template-columns:1fr;
     color: #444;
     text-align: left;
 }
-
 /* --- Feature Card: Spanning 2 Columns --- */
 .feature-statement-card {
     grid-column: span 2; /* This fills the remaining 2 slots on desktop */
