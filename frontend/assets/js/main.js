@@ -132,3 +132,30 @@ document.addEventListener("DOMContentLoaded", () => {
     loadComponent("header-placeholder", "header.html");
     loadComponent("footer-placeholder", "footer.html");
 });
+
+/* --- Profile Bio Toggle Logic --- */
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.read-more-btn');
+
+    if (buttons.length > 0) {
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Find the specific info container for this button
+                const infoContainer = this.closest('.profile-info');
+                const fullBio = infoContainer.querySelector('.full-bio-content');
+                
+                // Toggle the 'show-content' class
+                fullBio.classList.toggle('show-content');
+
+                // Update the button text based on state
+                if (fullBio.classList.contains('show-content')) {
+                    this.textContent = 'Read Less';
+                    // Optional: Scroll slightly to keep the expanded text in view
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    this.textContent = 'Read More';
+                }
+            });
+        });
+    }
+});
