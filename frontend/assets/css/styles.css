@@ -999,6 +999,7 @@ grid-template-columns:1fr;
     border: none !important;
     position: relative;
     overflow: hidden;
+    width: 30%;
 }
 
 .feature-content {
