@@ -925,7 +925,7 @@ grid-template-columns:1fr;
 .feature-statement-card {
     grid-column: span 2; /* This fills the remaining 2 slots on desktop */
     background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
-    color: var(--pure-white);
+    color: var(--off-white);
     display: flex;
     align-items: center;
     justify-content: center;
