@@ -813,12 +813,14 @@ grid-template-columns:1fr;
     }
 }
 
-/* --- Profile Grid & Cards --- */
+/* --- Optimized Profile Grid (3-Column Fix) --- */
 .profile-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
-    justify-content: center;
-    gap: 35px;
+    /* Explicitly set 3 columns for desktop to ensure the span works perfectly */
+    grid-template-columns: repeat(3, 1fr); 
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
 }
 
 .profile-card {
@@ -835,11 +837,14 @@ grid-template-columns:1fr;
 
 /* Feature Card (The 11th wide card) */
 .feature-statement-card {
-    grid-column: span 2; 
+    grid-column: span 2; /* Fills the 2 empty slots in the 3rd column row */
     background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
     color: var(--pure-white);
     min-height: 450px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    border: none !important;
 }
 
 .profile-card:hover {
@@ -865,8 +870,15 @@ grid-template-columns:1fr;
 }
 
 /* --- Read More / Bio Logic --- */
+.profile-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .full-bio-content {
-    display: none; /* JavaScript will toggle this */
+    display: none; /* Controlled by main.js */
     margin-top: 15px;
     border-top: 1px solid #eee;
     padding-top: 15px;
@@ -874,7 +886,7 @@ grid-template-columns:1fr;
     color: #555;
 }
 
-/* Specific text color for expanded bio inside the red feature card */
+/* White text for expanded bio inside the red card */
 .feature-statement-card .full-bio-content {
     border-top: 1px solid rgba(255,255,255,0.3);
     color: #fff;
@@ -889,14 +901,14 @@ grid-template-columns:1fr;
     border: 1.5px solid var(--primary-red);
     color: var(--primary-red);
     padding: 8px 18px;
-    margin-top: 15px;
+    margin-top: auto; /* Pushes button to the bottom */
     cursor: pointer;
     font-weight: 700;
     border-radius: 6px;
     font-size: 0.85rem;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    align-self: flex-start; /* Keeps button on the left */
+    align-self: flex-start;
 }
 
 .feature-statement-card .read-more-btn {
@@ -915,53 +927,7 @@ grid-template-columns:1fr;
     color: var(--primary-red);
 }
 
-/* --- Tablet Devices --- */
-@media (max-width: 992px) {
-    .profile-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .photo-placeholder {
-        height: 540px; 
-    }
-    
-    .feature-statement-card {
-        grid-column: span 2;
-    }
-}
-
-/* --- Mobile Devices --- */
-@media (max-width: 600px) {
-    .profile-grid {
-        grid-template-columns: 1fr;
-        justify-items: center;
-    }
-
-    .profile-card {
-        max-width: 340px;
-    }
-
-    .feature-statement-card {
-        grid-column: span 1;
-        max-width: 340px;
-    }
-
-    .photo-placeholder {
-        height: 600px; 
-    }
-
-    .profile-img {
-        object-position: center 5%;
-    }
-}
-
-.profile-info {
-    padding: 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
+/* --- Profile Text Styles --- */
 .profile-name {
     color: var(--primary-red);
     font-size: 1.3rem;
@@ -985,7 +951,41 @@ grid-template-columns:1fr;
     font-size: 0.95rem;
     line-height: 1.6;
     color: #444;
-    text-align: left;
+}
+
+/* --- Tablet Devices (2 Columns) --- */
+@media (max-width: 992px) {
+    .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-statement-card {
+        grid-column: span 2; /* Full width row on tablets */
+    }
+
+    .photo-placeholder {
+        height: 500px; 
+    }
+}
+
+/* --- Mobile Devices (1 Column) --- */
+@media (max-width: 600px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card, .feature-statement-card {
+        grid-column: span 1;
+        max-width: 100%;
+    }
+
+    .photo-placeholder {
+        height: 550px; 
+    }
+
+    .profile-img {
+        object-position: center 5%;
+    }
 }
 /* --- Feature Card: Spanning 2 Columns --- */
 .feature-statement-card {
