@@ -921,43 +921,98 @@ grid-template-columns:1fr;
     text-align: left;
 }
 
-/* --- Styling for the Leadership Statement Cards --- */
-.statement-card {
-    border: 2px solid var(--primary-red) !important;
-}
-
-.statement-bg {
-    background-color: var(--primary-red) !important; /* Solid red top to contrast photos */
+/* --- Feature Card: Spanning 2 Columns --- */
+.feature-statement-card {
+    grid-column: span 2; /* This fills the remaining 2 slots on desktop */
+    background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
+    color: var(--pure-white);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: none !important;
+    min-height: 450px; /* Adjust to match the total height of a profile card */
+    border: none !important;
+    position: relative;
+    overflow: hidden;
 }
 
-.statement-icon {
-    font-size: 5rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-}
-
-.statement-card .profile-info {
-    background-color: var(--pure-white);
+.feature-content {
+    padding: 40px;
     text-align: center;
+    z-index: 2;
 }
 
-.statement-card .profile-name {
+.feature-tag {
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
 }
 
-.statement-card .profile-bio {
-    font-style: italic;
-    color: #555;
+.feature-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
-/* Ensure these match the height of your portrait images */
-@media screen and (max-width: 768px) {
-    .statement-bg {
-        height: 350px; /* Matches your mobile photo-placeholder height */
+.feature-divider {
+    width: 80px;
+    height: 4px;
+    background: var(--pure-white);
+    margin: 0 auto 25px;
+}
+
+.feature-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+.feature-grid-mini {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.feature-motto {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    border: 2px solid var(--pure-white);
+    padding: 10px 25px;
+    display: inline-block;
+}
+
+/* --- Responsive Behavior --- */
+@media (max-width: 992px) {
+    /* On tablets with 2 columns, 10 profiles fill the grid perfectly (5 rows of 2). 
+       We make the feature card span 2 columns here too to act as a footer. */
+    .feature-statement-card {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    /* On mobile with 1 column, the card spans 1 column naturally */
+    .feature-statement-card {
+        grid-column: span 1;
+        min-height: auto;
+    }
+    
+    .feature-title { font-size: 1.8rem; }
+    
+    .feature-grid-mini {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
