@@ -924,7 +924,7 @@ grid-template-columns:1fr;
 /* --- Scripture Footer Section --- */
 .scripture-footer {
     background-color: #1a1a1a;
-    color: var(--pure-white);
+    color: whitesmoke;
     padding: 60px 0;
 }
 
