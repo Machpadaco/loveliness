@@ -1067,6 +1067,81 @@ grid-template-columns:1fr;
     }
 }
 
+/* --- Compliance Section Styles --- */
+.compliance-section {
+    padding: 80px 20px;
+    background-color: #fcfcfc;
+    text-align: center;
+}
+
+.cert-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.cert-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 400px;
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+}
+
+.cert-image-container {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.cert-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer; /* Suggests it can be clicked to enlarge */
+}
+
+.cert-info h4 {
+    color: var(--primary-red);
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.cert-info p {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.legal-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #e8f5e9; /* Light green for "Approved" look */
+    color: #2e7d32;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+    .cert-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 /* --- Scripture Footer Section --- */
 .scripture-footer {
     background-color: #1a1a1a;
