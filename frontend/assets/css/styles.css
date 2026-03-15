@@ -1000,6 +1000,7 @@ grid-template-columns:1fr;
     position: relative;
     overflow: hidden;
     width: 30%;
+    height: 40vh;
 }
 
 .feature-content {
