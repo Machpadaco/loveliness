@@ -742,7 +742,76 @@ grid-template-columns:1fr;
     color: var(--primary-red);
 }
 
+/* --- Media Queries for Responsive Design --- */
 
+/* Tablets and Small Laptops (1024px and below) */
+@media screen and (max-width: 1024px) {
+    .about-content {
+        max-width: 90%;
+    }
+    
+    .info-card {
+        padding: 30px;
+    }
+}
+
+/* Tablets / Phablets (768px and below) */
+@media screen and (max-width: 768px) {
+    .about-section, 
+    .services-section, 
+    .scripture-banner {
+        padding: 60px 15px; /* Reduced padding for smaller screens */
+    }
+
+    .section-heading {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    /* Stack the Vision & Mission cards vertically */
+    .grid-two-col {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    .bible-quote {
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile Devices (480px and below) */
+@media screen and (max-width: 480px) {
+    .section-heading {
+        font-size: 1.5rem;
+    }
+
+    .about-content {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .info-card {
+        padding: 25px 20px;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+    }
+
+    /* Make services grid single column on very small screens */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-category {
+        padding: 20px;
+    }
+
+    .bible-quote {
+        font-size: 1.1rem;
+    }
+}
 
 /* --- Profile Grid & Cards --- */
 .profile-grid {
