@@ -840,7 +840,7 @@ grid-template-columns:1fr;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
-/* --- Feature Card (11th Card beside the 10th) --- */
+/* --- Feature Card --- */
 .feature-statement-card {
     grid-column: 2 / span 2;
     background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
@@ -851,27 +851,25 @@ grid-template-columns:1fr;
     min-height: 450px;
     border: none !important;
     position: relative;
-    overflow: hidden;
 }
 
-/* --- Profile Image Container --- */
+/* --- Image Container (FIXED) --- */
 .photo-placeholder {
     width: 100%;
-    height: 400px;
-    background-color: #f2f2f2;
+    height: auto;
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
 }
 
+/* --- Image --- */
 .profile-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    height: auto;
     display: block;
+    object-fit: contain;
 }
 
-/* --- Profile Info Section --- */
+/* --- Profile Info --- */
 .profile-info {
     padding: 25px;
     flex-grow: 1;
@@ -889,7 +887,6 @@ grid-template-columns:1fr;
     color: #555;
 }
 
-/* White text for feature card expanded content */
 .feature-statement-card .full-bio-content {
     border-top: 1px solid rgba(255,255,255,0.3);
     color: #fff;
@@ -961,11 +958,10 @@ grid-template-columns:1fr;
 .feature-content {
     padding: 40px;
     text-align: center;
-    z-index: 2;
 }
 
 .feature-tag {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.2);
     display: inline-block;
     padding: 5px 15px;
     border-radius: 20px;
@@ -979,7 +975,6 @@ grid-template-columns:1fr;
     font-size: 2.2rem;
     font-weight: 800;
     margin-bottom: 20px;
-    line-height: 1.2;
 }
 
 .feature-divider {
@@ -994,7 +989,6 @@ grid-template-columns:1fr;
     line-height: 1.8;
     max-width: 600px;
     margin: 0 auto 30px;
-    opacity: 0.9;
 }
 
 .feature-grid-mini {
@@ -1015,7 +1009,7 @@ grid-template-columns:1fr;
     display: inline-block;
 }
 
-/* --- Tablet Devices (2 Columns) --- */
+/* --- Tablet Devices --- */
 @media (max-width: 992px) {
 
     .profile-grid {
@@ -1025,13 +1019,9 @@ grid-template-columns:1fr;
     .feature-statement-card {
         grid-column: span 2;
     }
-
-    .photo-placeholder {
-        height: 500px;
-    }
 }
 
-/* --- Mobile Devices (1 Column) --- */
+/* --- Mobile Devices --- */
 @media (max-width: 600px) {
 
     .profile-grid {
@@ -1041,21 +1031,6 @@ grid-template-columns:1fr;
     .profile-card,
     .feature-statement-card {
         grid-column: span 1;
-        max-width: 100%;
-    }
-
-    /* Mobile image fix */
-    .photo-placeholder {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-    }
-
-    .profile-img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        display: block;
     }
 
     .feature-title {
