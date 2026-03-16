@@ -816,13 +816,13 @@ grid-template-columns:1fr;
 /* --- Optimized Profile Grid (3-Column Fix) --- */
 .profile-grid {
     display: grid;
-    /* Explicitly set 3 columns for desktop to ensure the span works perfectly */
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
     max-width: 1200px;
     margin: 0 auto;
     gap: 30px;
 }
 
+/* --- Profile Card --- */
 .profile-card {
     background: var(--pure-white);
     border: 1px solid var(--border-color);
@@ -835,27 +835,29 @@ grid-template-columns:1fr;
     width: 100%;
 }
 
-/* Feature Card (The 11th wide card) */
-.feature-statement-card {
-    grid-column: span 2; /* Fills the 2 empty slots in the 3rd column row */
-    background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
-    color: var(--pure-white);
-    min-height: 450px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: none !important;
-}
-
 .profile-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
+/* --- Feature Card (11th Card beside the 10th) --- */
+.feature-statement-card {
+    grid-column: 2 / span 2; /* Forces it to sit beside the 10th card */
+    background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
+    color: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 450px;
+    border: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
 /* --- Profile Image Container --- */
 .photo-placeholder {
     width: 100%;
-    height: 400px; 
+    height: 400px;
     background-color: #f2f2f2;
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
@@ -869,7 +871,7 @@ grid-template-columns:1fr;
     display: block;
 }
 
-/* --- Read More / Bio Logic --- */
+/* --- Profile Info Section --- */
 .profile-info {
     padding: 25px;
     flex-grow: 1;
@@ -877,8 +879,9 @@ grid-template-columns:1fr;
     flex-direction: column;
 }
 
+/* --- Bio Expand Logic --- */
 .full-bio-content {
-    display: none; /* Controlled by main.js */
+    display: none;
     margin-top: 15px;
     border-top: 1px solid #eee;
     padding-top: 15px;
@@ -886,7 +889,7 @@ grid-template-columns:1fr;
     color: #555;
 }
 
-/* White text for expanded bio inside the red card */
+/* White text for feature card expanded content */
 .feature-statement-card .full-bio-content {
     border-top: 1px solid rgba(255,255,255,0.3);
     color: #fff;
@@ -896,12 +899,13 @@ grid-template-columns:1fr;
     display: block !important;
 }
 
+/* --- Read More Button --- */
 .read-more-btn {
     background: transparent;
     border: 1.5px solid var(--primary-red);
     color: var(--primary-red);
     padding: 8px 18px;
-    margin-top: auto; /* Pushes button to the bottom */
+    margin-top: auto;
     cursor: pointer;
     font-weight: 700;
     border-radius: 6px;
@@ -953,54 +957,7 @@ grid-template-columns:1fr;
     color: #444;
 }
 
-/* --- Tablet Devices (2 Columns) --- */
-@media (max-width: 992px) {
-    .profile-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .feature-statement-card {
-        grid-column: span 2; /* Full width row on tablets */
-    }
-
-    .photo-placeholder {
-        height: 500px; 
-    }
-}
-
-/* --- Mobile Devices (1 Column) --- */
-@media (max-width: 600px) {
-    .profile-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-card, .feature-statement-card {
-        grid-column: span 1;
-        max-width: 100%;
-    }
-
-    .photo-placeholder {
-        height: 550px; 
-    }
-
-    .profile-img {
-        object-position: center 5%;
-    }
-}
-/* --- Feature Card: Spanning 2 Columns --- */
-.feature-statement-card {
-    grid-column: span 2; /* This fills the remaining 2 slots on desktop */
-    background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
-    color: var(--off-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 450px; /* Adjust to match the total height of a profile card */
-    border: none !important;
-    position: relative;
-    overflow: hidden;
-}
-
+/* --- Feature Content --- */
 .feature-content {
     padding: 40px;
     text-align: center;
@@ -1058,24 +1015,47 @@ grid-template-columns:1fr;
     display: inline-block;
 }
 
-/* --- Responsive Behavior --- */
+/* --- Tablet Devices (2 Columns) --- */
 @media (max-width: 992px) {
-    /* On tablets with 2 columns, 10 profiles fill the grid perfectly (5 rows of 2). 
-       We make the feature card span 2 columns here too to act as a footer. */
+
+    .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .feature-statement-card {
         grid-column: span 2;
     }
+
+    .photo-placeholder {
+        height: 500px;
+    }
 }
 
-@media (max-width: 768px) {
-    /* On mobile with 1 column, the card spans 1 column naturally */
+/* --- Mobile Devices (1 Column) --- */
+@media (max-width: 600px) {
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card,
     .feature-statement-card {
         grid-column: span 1;
-        min-height: auto;
+        max-width: 100%;
     }
-    
-    .feature-title { font-size: 1.8rem; }
-    
+
+    .photo-placeholder {
+        height: 550px;
+    }
+
+    .profile-img {
+        object-position: center 5%;
+    }
+
+    .feature-title {
+        font-size: 1.8rem;
+    }
+
     .feature-grid-mini {
         flex-direction: column;
         gap: 10px;
