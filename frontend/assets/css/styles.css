@@ -840,9 +840,9 @@ grid-template-columns:1fr;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
-/* --- Feature Card --- */
+/* --- Feature Card (11th card) --- */
 .feature-statement-card {
-    grid-column: 2 / span 2;
+    grid-column: 2 / span 2; /* align with 10th card */
     background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
     color: var(--off-white);
     display: flex;
@@ -853,10 +853,10 @@ grid-template-columns:1fr;
     position: relative;
 }
 
-/* --- Image Container (FIXED) --- */
+/* --- Image Container --- */
 .photo-placeholder {
     width: 100%;
-    height: auto;
+    height: auto; /* let height adjust based on image */
     overflow: hidden;
     border-bottom: 5px solid var(--primary-red);
 }
@@ -866,10 +866,11 @@ grid-template-columns:1fr;
     width: 100%;
     height: auto;
     display: block;
-    object-fit: contain;
+    object-fit: cover; /* fill container while keeping aspect ratio */
+    object-position: center; /* center image to handle uneven space */
 }
 
-/* --- Profile Info --- */
+/* --- Profile Info Section --- */
 .profile-info {
     padding: 25px;
     flex-grow: 1;
