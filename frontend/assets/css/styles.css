@@ -842,7 +842,7 @@ grid-template-columns:1fr;
 
 /* --- Feature Card (11th Card beside the 10th) --- */
 .feature-statement-card {
-    grid-column: 2 / span 2; /* Forces it to sit beside the 10th card */
+    grid-column: 2 / span 2;
     background: linear-gradient(135deg, var(--primary-red) 0%, #a11f1f 100%) !important;
     color: var(--off-white);
     display: flex;
@@ -1044,12 +1044,18 @@ grid-template-columns:1fr;
         max-width: 100%;
     }
 
+    /* Mobile image fix */
     .photo-placeholder {
-        height: 550px;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
     }
 
     .profile-img {
-        object-position: center 5%;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
     }
 
     .feature-title {
