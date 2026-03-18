@@ -64,6 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
             const data = {
                 name: document.getElementById("name").value.trim(),
                 email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim(),  // new
                 subject: document.getElementById("subject").value.trim(),
                 message: document.getElementById("message").value.trim()
             };
