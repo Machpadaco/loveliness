@@ -45,53 +45,58 @@ function sendVolunteer(data) {
 // =======================
 // CONNECT CONTACT FORM
 // =======================
-const contactForm = document.getElementById("contactForm");
+window.addEventListener("DOMContentLoaded", () => {
 
-if (contactForm) {
+    const contactForm = document.getElementById("contactForm");
 
-    const status = document.createElement("p");
-    status.style.marginTop = "10px";
-    contactForm.appendChild(status);
+    if (contactForm) {
 
-    contactForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        const status = document.createElement("p");
+        status.style.marginTop = "10px";
+        contactForm.appendChild(status);
 
-        const submitBtn = contactForm.querySelector("button");
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            console.log("Form submitted"); // DEBUG
 
-        const data = {
-            name: document.getElementById("name").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            subject: document.getElementById("subject").value.trim(),
-            message: document.getElementById("message").value.trim()
-        };
+            const submitBtn = contactForm.querySelector("button");
 
-        // Simple validation
-        if (!data.name || !data.email || !data.subject || !data.message) {
-            status.textContent = "Please fill all fields.";
-            status.style.color = "red";
-            return;
-        }
+            const data = {
+                name: document.getElementById("name").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                subject: document.getElementById("subject").value.trim(),
+                message: document.getElementById("message").value.trim()
+            };
 
-        try {
-            // UI Feedback
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Sending...";
-            status.textContent = "";
-            
-            const response = await sendContact(data);
+            // Simple validation
+            if (!data.name || !data.email || !data.subject || !data.message) {
+                status.textContent = "Please fill all fields.";
+                status.style.color = "red";
+                return;
+            }
 
-            status.textContent = response.message || "Message sent successfully!";
-            status.style.color = "green";
+            try {
+                // UI Feedback
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Sending...";
+                status.textContent = "";
+                
+                const response = await sendContact(data);
 
-            contactForm.reset();
+                status.textContent = response.message || "Message sent successfully!";
+                status.style.color = "green";
 
-        } catch (error) {
-            status.textContent = error.message || "Something went wrong.";
-            status.style.color = "red";
+                contactForm.reset();
 
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "SUBMIT MESSAGE";
-        }
-    });
-}
+            } catch (error) {
+                status.textContent = error.message || "Something went wrong.";
+                status.style.color = "red";
+
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "SUBMIT MESSAGE";
+            }
+        });
+    }
+
+});
