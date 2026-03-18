@@ -10,12 +10,14 @@
 
     <div id="header-placeholder"></div>
 
-<main class="contact-page">
-    <section class="contact-hero">
-        <div class="hero-overlay">
+<main class="contact-page-wrapper">
+    <section class="contact-hero-banner">
+        <div class="hero-overlay-content">
             <h1>Contact Us</h1>
-            <p>LOVELINES INTERNATIONAL CHRISTIAN FELLOWSHIP</p>
-            <span>"Love in Practice"</span>
+            <div class="contact-sub-text">
+                <p>LOVELINES INTERNATIONAL CHRISTIAN FELLOWSHIP</p>
+                <span>"LOVE IN PRACTICE"</span>
+            </div>
         </div>
     </section>
 
@@ -24,19 +26,26 @@
             
             <aside class="contact-sidebar">
                 <div class="info-block">
+                    <div class="icon-circle">📍</div>
                     <h3>National Headquarters</h3>
-                    <p>9 Oyebanji Lawal Street, Orelope Bus Stop, Egbeda, Lagos.</p>
+                    <p>9 Oyebanji Lawal Street, Orelope Bus Stop, Egbeda, Lagos, Nigeria.</p>
                 </div>
 
                 <div class="info-block">
-                    <h3>Talk to Us</h3>
+                    <div class="icon-circle">📞</div>
+                    <h3>Call / WhatsApp</h3>
                     <p>+234 704 859 4627</p>
                     <p>+234 906 635 6356</p>
                     <p>+234 802 362 9641</p>
+                </div>
+
+                <div class="info-block">
+                    <div class="icon-circle">✉️</div>
+                    <h3>Email Address</h3>
                     <p>info.lovelinesnig.africa@gmail.com</p>
                 </div>
 
-                <div class="info-block highlight">
+                <div class="info-block bank-highlight">
                     <h3>Partnership & Support</h3>
                     <p><strong>Bank:</strong> Zenith Bank</p>
                     <p><strong>Account:</strong> 1228609259</p>
@@ -46,30 +55,30 @@
 
             <section class="contact-card">
                 <div class="contact-header">
-                    <h2>Send Us a Message</h2>
-                    <p>Reach out for counseling, volunteering, or general inquiries.</p>
+                    <h2>Send a Message</h2>
+                    <p>For counseling, volunteering, or sponsorship inquiries.</p>
                 </div>
 
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
                     </div>
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" required placeholder="e.g. Counseling Request">
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="submit" class="submit-btn">SUBMIT MESSAGE</button>
                 </form>
-                </section>
+            </section>
         </div>
     </div>
 </main>
