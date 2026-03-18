@@ -1,68 +1,62 @@
 const API_BASE = "http://localhost:5000/api";
 
-// CONTACT
-async function sendContact(data){
+// =======================
+// GENERIC REQUEST HANDLER
+// =======================
+async function postData(endpoint, data) {
+    try {
+        const res = await fetch(`${API_BASE}/${endpoint}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
 
-const res = await fetch(`${API_BASE}/contact`,{
+        const result = await res.json();
 
-method:"POST",
+        if (!res.ok) {
+            throw new Error(result.message || "Request failed");
+        }
 
-headers:{
-"Content-Type":"application/json"
-},
+        return result;
 
-body: JSON.stringify(data)
-
-});
-
-return res.json();
-
+    } catch (error) {
+        console.error("API Error:", error);
+        throw error;
+    }
 }
 
-// COUNSELLING
-async function sendCounselling(data){
-
-const res = await fetch(`${API_BASE}/counselling`,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body: JSON.stringify(data)
-
-});
-
-return res.json();
-
+// =======================
+// API FUNCTIONS
+// =======================
+function sendContact(data) {
+    return postData("contact", data);
 }
 
-// VOLUNTEER
-async function sendVolunteer(data){
-
-const res = await fetch(`${API_BASE}/volunteer`,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body: JSON.stringify(data)
-
-});
-
-return res.json();
-
+function sendCounselling(data) {
+    return postData("counselling", data);
 }
 
+function sendVolunteer(data) {
+    return postData("volunteer", data);
+}
+
+// =======================
 // CONNECT CONTACT FORM
+// =======================
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
+
+    const status = document.createElement("p");
+    status.style.marginTop = "10px";
+    contactForm.appendChild(status);
+
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        const submitBtn = contactForm.querySelector("button");
 
         const data = {
             name: document.getElementById("name").value.trim(),
@@ -71,15 +65,33 @@ if (contactForm) {
             message: document.getElementById("message").value.trim()
         };
 
+        // Simple validation
+        if (!data.name || !data.email || !data.subject || !data.message) {
+            status.textContent = "Please fill all fields.";
+            status.style.color = "red";
+            return;
+        }
+
         try {
+            // UI Feedback
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+            status.textContent = "";
+            
             const response = await sendContact(data);
 
-            alert(response.message || "Message sent successfully!");
+            status.textContent = response.message || "Message sent successfully!";
+            status.style.color = "green";
+
             contactForm.reset();
 
         } catch (error) {
-            console.error(error);
-            alert("Something went wrong. Try again.");
+            status.textContent = error.message || "Something went wrong.";
+            status.style.color = "red";
+
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "SUBMIT MESSAGE";
         }
     });
 }
