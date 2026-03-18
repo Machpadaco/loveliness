@@ -1212,20 +1212,31 @@ grid-template-columns:1fr;
     }
 }
 
-/* --- HERO BANNER (Matched to About Page Size) --- */
+/* --- CONTACT PAGE RESET & VARIABLES --- */
+:root {
+    --primary-red: #ff0000;
+    --hover-red: #cc0000;
+    --white: #ffffff;
+    --off-white: #f9f9f9;
+    --dark-text: #222;
+    --transition: all 0.3s ease;
+}
+
+/* --- HERO BANNER SECTION --- */
 .contact-hero-banner {
-    /* Replace '../img/loveliness.jpg' with your actual image path if different */
+    /* Background Image using the path you corrected */
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
                 url('../assets/img/gallery/loveliness.jpg') no-repeat center center;
     background-size: cover;
     color: var(--white);
-    padding: 100px 20px;
+    padding: 80px 20px;
     text-align: center;
     min-height: 450px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
+    border-bottom: 8px solid var(--primary-red); /* Strong brand line at bottom of image */
 }
 
 .contact-hero-banner h1 {
@@ -1244,9 +1255,9 @@ grid-template-columns:1fr;
     background: rgba(255, 255, 255, 0.1); 
     padding: 25px;
     border-radius: 4px;
-    border-top: 4px solid var(--primary-red); 
     backdrop-filter: blur(5px); 
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .contact-sub-text p {
@@ -1261,29 +1272,35 @@ grid-template-columns:1fr;
     font-style: italic;
 }
 
-/* --- MAIN LAYOUT --- */
+/* --- MAIN CONTENT CONTAINER --- */
+.contact-page-wrapper {
+    background-color: var(--off-white);
+    padding-bottom: 80px;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 0 20px;
 }
 
+/* --- FLEXBOX LAYOUT (NO OVERLAP) --- */
 .contact-layout {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    margin-top: -100px; /* Pulls content up over the banner for a modern look */
+    margin-top: 50px; /* Provides a clean gap below the banner */
+    align-items: flex-start;
 }
 
-/* --- SIDEBAR INFO --- */
+/* --- LEFT SIDE: ADDRESS & INFO --- */
 .contact-sidebar {
     flex: 1;
     min-width: 320px;
     background: var(--white);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .info-block {
@@ -1291,52 +1308,53 @@ grid-template-columns:1fr;
 }
 
 .icon-circle {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     background: #fff0f0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
 }
 
 .info-block h3 {
     color: var(--primary-red);
     font-size: 1.1rem;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: uppercase;
+    font-weight: 700;
 }
 
 .info-block p {
     color: #555;
     line-height: 1.6;
-    margin: 2px 0;
+    margin: 4px 0;
+    font-size: 1rem;
 }
 
 .bank-highlight {
     background: #fff5f5;
-    padding: 20px;
+    padding: 25px;
     border-radius: 6px;
-    border-left: 4px solid var(--primary-red);
+    border-left: 5px solid var(--primary-red);
+    margin-top: 20px;
 }
 
-/* --- YOUR FORM STYLING --- */
+/* --- RIGHT SIDE: YOUR FORM --- */
 .contact-card {
-    flex: 2;
+    flex: 1.5;
     min-width: 320px;
     background: var(--white);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     border-top: 6px solid var(--primary-red);
-    z-index: 2;
 }
 
 .contact-header {
-    margin-bottom: 30px;
-    text-align: left;
+    margin-bottom: 35px;
 }
 
 .contact-header h2 {
@@ -1359,7 +1377,7 @@ grid-template-columns:1fr;
 
 .form-group label {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--dark-text);
 }
 
@@ -1371,6 +1389,7 @@ grid-template-columns:1fr;
     font-size: 1rem;
     width: 100%;
     transition: var(--transition);
+    font-family: inherit;
 }
 
 .form-group input:focus, 
@@ -1387,37 +1406,50 @@ grid-template-columns:1fr;
     border: none;
     border-radius: 4px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
     transition: var(--transition);
     letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 10px;
 }
 
 .submit-btn:hover {
     background-color: var(--hover-red);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(204, 0, 0, 0.3);
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* --- RESPONSIVE OPTIMIZATION --- */
 @media (max-width: 992px) {
     .contact-layout {
-        margin-top: 20px;
+        flex-direction: column;
+        margin-top: 40px;
+    }
+    
+    .contact-sidebar, .contact-card {
+        width: 100%;
+        flex: none;
     }
 }
 
 @media (max-width: 768px) {
     .contact-hero-banner {
-        min-height: 350px;
+        min-height: 380px;
         padding: 60px 15px;
     }
     
-    .contact-hero-banner h1 { font-size: 1.8rem; }
+    .contact-hero-banner h1 { 
+        font-size: 2rem; 
+    }
     
-    .contact-sub-text { font-size: 1rem; padding: 15px; }
+    .contact-sub-text { 
+        font-size: 1rem; 
+        padding: 20px; 
+    }
 
     .contact-sidebar, .contact-card {
-        padding: 25px;
+        padding: 30px 20px;
     }
 }
 
