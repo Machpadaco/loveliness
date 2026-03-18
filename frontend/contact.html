@@ -10,35 +10,93 @@
 
     <div id="header-placeholder"></div>
 
-    <main>
-        <section class="contact-page">
-            <div class="contact-card">
+<main class="contact-page">
+    <section class="contact-hero">
+        <div class="hero-overlay">
+            <h1>Contact Us</h1>
+            <p>Love in Practice — Reaching out to the world with compassion.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="contact-wrapper">
+            <aside class="contact-info">
+                <div class="info-item">
+                    <div class="icon">📍</div>
+                    <h3>National Headquarters</h3>
+                    <p>9 Oyebanji Lawal Street, Orelope Bus Stop,<br>Egbeda, Lagos, Nigeria.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">📞</div>
+                    <h3>Phone Numbers</h3>
+                    <p>+234 704 859 4627</p>
+                    <p>+234 906 635 6356</p>
+                    <p>+234 802 362 9641</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">✉️</div>
+                    <h3>Email Address</h3>
+                    <p>info.lovelinesnig.africa@gmail.com</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">🏦</div>
+                    <h3>Donations & Partnerships</h3>
+                    <p><strong>Bank:</strong> Zenith Bank</p>
+                    <p><strong>Account:</strong> 1228609259</p>
+                    <p><strong>Name:</strong> Lovelines International Christian Fellowship</p>
+                </div>
+            </aside>
+
+            <section class="contact-card">
                 <div class="contact-header">
-                    <h2>Contact Us</h2>
-                    <p>Reach out for counseling, support, or partnership inquiries.</p>
+                    <h2>Send Us a Message</h2>
+                    <p>Have a question or need support? We are here to listen.</p>
                 </div>
 
                 <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input id="name" type="text" placeholder="Enter your name" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input id="email" type="email" placeholder="email@example.com" required>
+                        <label for="subject">Purpose of Contact</label>
+                        <select id="subject" name="subject" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="counseling">Request Counseling & Emotional Support</option>
+                            <option value="volunteer">Become a Volunteer</option>
+                            <option value="partnership">Corporate Sponsorship / Partnership</option>
+                            <option value="humanitarian">Humanitarian & Relief Inquiry</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="How can we help you today?" required></textarea>
                     </div>
 
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
-            </div>
-        </section>
-    </main>
+            </section>
+        </div>
+    </div>
+
+    <section class="map-section">
+        <div id="map">
+            <p style="text-align: center; color: #666; padding: 40px;">[ Map Interaction Area - Egbeda, Lagos ]</p>
+        </div>
+    </section>
+</main>
 
     <div id="footer-placeholder"></div>
 
