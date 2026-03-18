@@ -10,12 +10,120 @@
 
     <div id="header-placeholder"></div>
 
-    <main>
-        <section style="padding: 50px 5%;">
-            <h1>Welcome to the Page</h1>
-            <p>Content for this section will go here.</p>
-        </section>
-    </main>
+    <main class="counselling-main">
+
+  <!-- ===== Banner Section ===== -->
+  <section class="banner">
+    <div class="banner-overlay">
+      <div class="banner-content">
+        <h1>LOVELINES INTERNATIONAL CHRISTIAN FELLOWSHIP</h1>
+        <h2>MINNESOTA (USA) – NIGERIA CHAPTER</h2>
+        <p class="slogan">LOVE IN PRACTICE</p>
+        <p class="intro">
+          Christ-centered counselling for healing, restoration, and guidance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Portrait Section ===== -->
+  <section class="portraits">
+    <div class="portrait-container">
+
+      <div class="portrait">
+        <img src="assets/img/leader1.jpg" alt="Evangelist Dr. Kingsley Dike">
+        <p>Evangelist Dr. Kingsley Dike</p>
+      </div>
+
+      <div class="portrait">
+        <img src="assets/img/leader2.jpg" alt="Dr. Felix Dike">
+        <p>Dr. Felix Dike</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Counselling Write-up ===== -->
+  <section class="counselling-info">
+    <div class="info-container">
+      <h2>Our Counselling Approach</h2>
+
+      <p>
+        We provide Christ-centered counselling rooted in biblical truth and professional care.
+        Our mission is to help individuals and families experience healing, clarity, and direction.
+      </p>
+
+      <p>
+        Whether you are facing personal, marital, career, or spiritual challenges,
+        our counsellors are ready to guide you with wisdom, compassion, and confidentiality.
+      </p>
+
+      <p>
+        Your journey to peace, restoration, and purpose begins here.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Counselling Form ===== -->
+  <section class="form-section">
+    <div class="container">
+      <h2 class="page-title">Counselling Request Form</h2>
+
+      <form id="counsellingForm" class="form-card">
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" name="country" required>
+        </div>
+
+        <div class="form-group">
+          <label>Counselling Type</label>
+          <select name="counsellingType" required>
+            <option value="">Select</option>
+            <option>Personal</option>
+            <option>Marriage</option>
+            <option>Career</option>
+            <option>Spiritual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Contact</label>
+          <select name="preferredContact" required>
+            <option value="">Select</option>
+            <option>Email</option>
+            <option>Phone/WhatsApp</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">SUBMIT REQUEST</button>
+        <p id="statusMsg"></p>
+
+      </form>
+    </div>
+  </section>
+
+</main>
 
     <div id="footer-placeholder"></div>
 
