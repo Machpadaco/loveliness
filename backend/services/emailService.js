@@ -1,9 +1,11 @@
 const sendEmail = require("../utils/sendEmail");
 
-/* CONTACT EMAILS */
-
+/* =======================
+   CONTACT EMAILS
+======================= */
 exports.sendContactEmails = async (data) => {
 
+  // Email to admin
   await sendEmail({
     to: process.env.EMAIL_USER,
     subject: "New Contact Message - Lovelines",
@@ -12,26 +14,31 @@ exports.sendContactEmails = async (data) => {
       <p><strong>Name:</strong> ${data.name}</p>
       <p><strong>Email:</strong> ${data.email}</p>
       <p><strong>Phone:</strong> ${data.phone}</p>
+      <p><strong>Subject:</strong> ${data.subject}</p>
       <p><strong>Message:</strong> ${data.message}</p>
     `
   });
 
+  // Confirmation email to sender
   await sendEmail({
     to: data.email,
     subject: "We Received Your Message",
     html: `
       <p>Dear ${data.name},</p>
       <p>Thank you for contacting Lovelines International Christian Fellowship.</p>
+      <p>We received your message regarding: <strong>${data.subject}</strong>.</p>
       <p>Our team will respond to you shortly.</p>
+      <p>Remain blessed.</p>
     `
   });
 };
 
-
-/* COUNSELLING EMAILS */
-
+/* =======================
+   COUNSELLING EMAILS
+======================= */
 exports.sendCounsellingEmails = async (data) => {
 
+  // Email to admin
   await sendEmail({
     to: process.env.EMAIL_USER,
     subject: "New Counselling Request",
@@ -47,6 +54,7 @@ exports.sendCounsellingEmails = async (data) => {
     `
   });
 
+  // Confirmation email to sender
   await sendEmail({
     to: data.email,
     subject: "Counselling Request Received",
@@ -59,11 +67,12 @@ exports.sendCounsellingEmails = async (data) => {
   });
 };
 
-/* VOLUNTEER EMAILS */
-
+/* =======================
+   VOLUNTEER EMAILS
+======================= */
 exports.sendVolunteerEmails = async (data) => {
 
-  // Email to Lovelines admin
+  // Email to admin
   await sendEmail({
     to: process.env.EMAIL_USER,
     subject: "New Volunteer Application",
@@ -90,5 +99,4 @@ exports.sendVolunteerEmails = async (data) => {
       <p>Remain blessed.</p>
     `
   });
-
 };
