@@ -1212,74 +1212,160 @@ grid-template-columns:1fr;
     }
 }
 
-/* --- Hero Banner --- */
-.contact-hero {
-    height: 250px;
-    background: url('../img/gallery/loveliness.jpg') no-repeat center center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* --- HERO BANNER (Matched to About Page Size) --- */
+.contact-hero-banner {
+    /* Replace '../img/loveliness.jpg' with your actual image path if different */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
+                url('../img/loveliness.jpg') no-repeat center center;
+    background-size: cover;
     color: var(--white);
+    padding: 100px 20px;
     text-align: center;
-}
-
-.hero-overlay {
-    background: rgba(247, 246, 246, 0.8); /* Red tint overlay */
-    width: 100%;
-    height: 100%;
+    min-height: 450px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    position: relative;
 }
 
-/* --- Layout --- */
+.contact-hero-banner h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem); 
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.contact-sub-text {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    background: rgba(255, 255, 255, 0.1); 
+    padding: 25px;
+    border-radius: 4px;
+    border-top: 4px solid var(--primary-red); 
+    backdrop-filter: blur(5px); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.contact-sub-text p {
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.contact-sub-text span {
+    color: var(--primary-red);
+    font-weight: 800;
+    font-style: italic;
+}
+
+/* --- MAIN LAYOUT --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px;
 }
 
 .contact-layout {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 40px;
+    margin-top: -100px; /* Pulls content up over the banner for a modern look */
 }
 
+/* --- SIDEBAR INFO --- */
 .contact-sidebar {
     flex: 1;
-    min-width: 300px;
-    background: var(--white);
-    padding: 30px;
-    border-radius: 8px;
-    border-left: 5px solid var(--primary-red);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.info-block { margin-bottom: 25px; }
-.info-block h3 { color: var(--primary-red); margin-bottom: 8px; font-size: 1.2rem; }
-.info-block p { line-height: 1.6; color: #555; }
-.highlight { background: #fff5f5; padding: 15px; border-radius: 4px; }
-
-/* --- Your Form Styling --- */
-.contact-card {
-    flex: 2;
-    min-width: 300px;
+    min-width: 320px;
     background: var(--white);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    border-top: 5px solid var(--primary-red);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    z-index: 2;
 }
 
-.contact-header { text-align: center; margin-bottom: 30px; }
-.contact-header h2 { color: var(--primary-red); font-size: 2rem; }
+.info-block {
+    margin-bottom: 30px;
+}
 
-#contactForm { display: flex; flex-direction: column; gap: 20px; }
-.form-group { display: flex; flex-direction: column; gap: 8px; }
-.form-group label { font-weight: 600; font-size: 0.9rem; color: var(--dark-text); }
-.form-group input, .form-group textarea {
-    padding: 12px;
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    background: #fff0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.info-block h3 {
+    color: var(--primary-red);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.info-block p {
+    color: #555;
+    line-height: 1.6;
+    margin: 2px 0;
+}
+
+.bank-highlight {
+    background: #fff5f5;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-red);
+}
+
+/* --- YOUR FORM STYLING --- */
+.contact-card {
+    flex: 2;
+    min-width: 320px;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-top: 6px solid var(--primary-red);
+    z-index: 2;
+}
+
+.contact-header {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.contact-header h2 {
+    color: var(--dark-text);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--dark-text);
+}
+
+.form-group input, 
+.form-group textarea {
+    padding: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
@@ -1287,30 +1373,51 @@ grid-template-columns:1fr;
     transition: var(--transition);
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus, 
+.form-group textarea:focus {
     outline: none;
     border-color: var(--primary-red);
-    box-shadow: 0 0 5px rgba(211, 47, 47, 0.2);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.1);
 }
 
 .submit-btn {
     background-color: var(--primary-red);
-    color: white;
-    padding: 15px;
+    color: var(--white);
+    padding: 18px;
     border: none;
     border-radius: 4px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    letter-spacing: 1px;
 }
 
-.submit-btn:hover { background-color: var(--hover-red); transform: translateY(-2px); }
+.submit-btn:hover {
+    background-color: var(--hover-red);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+}
 
-/* --- Responsive Optimization --- */
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .contact-layout {
+        margin-top: 20px;
+    }
+}
+
 @media (max-width: 768px) {
-    .contact-layout { flex-direction: column; }
-    .contact-hero { height: 180px; }
-    .contact-card { padding: 25px; }
+    .contact-hero-banner {
+        min-height: 350px;
+        padding: 60px 15px;
+    }
+    
+    .contact-hero-banner h1 { font-size: 1.8rem; }
+    
+    .contact-sub-text { font-size: 1rem; padding: 15px; }
+
+    .contact-sidebar, .contact-card {
+        padding: 25px;
+    }
 }
 
