@@ -1215,7 +1215,7 @@ grid-template-columns:1fr;
 /* --- Hero Banner --- */
 .contact-hero {
     height: 250px;
-    background: url('.../assets/img/loveliness.jpg') no-repeat center center/cover;
+    background: url('../assets/img/loveliness.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
