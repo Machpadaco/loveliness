@@ -1216,7 +1216,7 @@ grid-template-columns:1fr;
 .contact-hero-banner {
     /* Replace '../img/loveliness.jpg' with your actual image path if different */
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
-                url('../img/loveliness.jpg') no-repeat center center;
+                url('../assets/img/gallery/loveliness.jpg') no-repeat center center;
     background-size: cover;
     color: var(--white);
     padding: 100px 20px;
