@@ -1570,27 +1570,26 @@ grid-template-columns:1fr;
 
 
 /* ===== Counselling Form Section ===== */
-.counselling-main .form-section {
+#form-section {
   padding: 60px 20px;
   background: #fff;
 }
 
-.counselling-main .container {
+#container {
   max-width: 800px;
   margin: 0 auto;
 }
 
 /* === TITLE: MAIN COUNSELLING FORM SECTION === */
-.counselling-main .page-title {
+#page-title {
   text-align: center;
   font-size: 2rem;
   color: #b71c1c;
   margin-bottom: 30px;
 }
 
-
 /* ===== Form Card ===== */
-.counselling-main .form-card {
+#counsellingForm {
   border: 2px solid #b71c1c;
   border-radius: 8px;
   padding: 30px;
@@ -1598,22 +1597,21 @@ grid-template-columns:1fr;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-
 /* ===== Form Fields ===== */
-.counselling-main .form-group {
+.form-group {
   margin-bottom: 20px;
 }
 
-.counselling-main .form-group label {
+.form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
   color: #b71c1c;
 }
 
-.counselling-main input,
-.counselling-main select,
-.counselling-main textarea {
+#counsellingForm input,
+#counsellingForm select,
+#counsellingForm textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #b71c1c;
@@ -1623,15 +1621,14 @@ grid-template-columns:1fr;
   transition: border 0.3s ease;
 }
 
-.counselling-main input:focus,
-.counselling-main select:focus,
-.counselling-main textarea:focus {
+#counsellingForm input:focus,
+#counsellingForm select:focus,
+#counsellingForm textarea:focus {
   border-color: #e53935;
 }
 
-
 /* ===== Submit Button ===== */
-.counselling-main .submit-btn {
+#submit-btn {
   width: 100%;
   padding: 12px;
   background: #b71c1c;
@@ -1643,49 +1640,25 @@ grid-template-columns:1fr;
   transition: background 0.3s ease;
 }
 
-.counselling-main .submit-btn:hover {
+#submit-btn:hover {
   background: #e53935;
 }
 
-
 /* ===== Status Message ===== */
-.counselling-main #statusMsg {
+#statusMsg {
   margin-top: 15px;
   text-align: center;
   font-weight: bold;
   font-size: 0.95rem;
 }
 
-
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .counselling-main .banner {
-    height: 70vh;
-  }
-
-  .counselling-main .banner-content h1 {
-    font-size: 1.8rem;
-  }
-
-  .counselling-main .banner-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .counselling-main .portrait-container {
-    gap: 20px;
-  }
-
-  .counselling-main .portrait img {
-    width: 140px;
-    height: 140px;
-  }
-
-  .counselling-main .form-card {
+  #counsellingForm {
     padding: 20px;
   }
 
-  .counselling-main .page-title {
+  #page-title {
     font-size: 1.6rem;
   }
 }
-
