@@ -1464,23 +1464,21 @@ grid-template-columns:1fr;
 
 
 .counselling-main .banner {
-  background-image: url("../img/gallery/counselling3.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 90vh;
-  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
+                url('../img/gallery/counselling3.jpg') no-repeat center center;
+    background-size: cover;
+    color: var(--white);
+    padding: 80px 20px;
+    text-align: center;
+    min-height: 450px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-bottom: 8px solid var(--primary-red); /* Strong brand line at bottom of image */
 }
 
-.counselling-main .banner-overlay {
-  background: rgba(0, 0, 0, 0.6);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-}
+
 
 .counselling-main .banner-content {
   color: #fff;
