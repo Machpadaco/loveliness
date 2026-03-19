@@ -1,27 +1,37 @@
+// SEND COUNSELLING DATA TO BACKEND
+async function sendCounselling(data) {
+  return fetch("http://localhost:5000/api/counselling", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+}
+
+
 // CONTACT FORM
 const contactForm = document.getElementById("contactForm");
 
 if(contactForm){
 
-contactForm.addEventListener("submit", async function(e){
+  contactForm.addEventListener("submit", async function(e){
 
-e.preventDefault();
+    e.preventDefault();
 
-const data = {
+    const data = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    };
 
-name: document.getElementById("name").value,
-email: document.getElementById("email").value,
-message: document.getElementById("message").value
+    const response = await sendContact(data);
 
-};
+    alert(response.message);
 
-const response = await sendContact(data);
+    contactForm.reset();
 
-alert(response.message);
-
-contactForm.reset();
-
-});
+  });
 
 }
 
@@ -31,44 +41,38 @@ const counsellingForm = document.getElementById("counsellingForm");
 
 if(counsellingForm){
 
-const statusMsg = document.getElementById("statusMsg");
-const submitBtn = document.getElementById("submit-btn");
+  const statusMsg = document.getElementById("statusMsg");
+  const submitBtn = document.getElementById("submit-btn");
 
-counsellingForm.addEventListener("submit", async function(e){
+  counsellingForm.addEventListener("submit", async function(e){
 
-e.preventDefault();
+    e.preventDefault();
 
-submitBtn.disabled = true;
-statusMsg.innerText = "Submitting...";
+    submitBtn.disabled = true;
+    statusMsg.innerText = "Submitting...";
 
-const data = {
+    const data = {
+      name: document.getElementById("userName").value,
+      email: document.getElementById("userEmail").value,
+      phone: document.getElementById("userPhone").value,
+      country: document.getElementById("userCountry").value,
+      counsellingType: document.getElementById("counsellingType").value,
+      preferredContact: document.getElementById("preferredContact").value,
+      message: document.getElementById("userMessage").value
+    };
 
-name: document.getElementById("userName").value,
-email: document.getElementById("userEmail").value,
-phone: document.getElementById("userPhone").value,
-country: document.getElementById("userCountry").value,
-counsellingType: document.getElementById("counsellingType").value,
-preferredContact: document.getElementById("preferredContact").value,
-message: document.getElementById("userMessage").value
+    try {
+      const response = await sendCounselling(data);
+      statusMsg.innerText = response.message;
+      counsellingForm.reset();
+    } catch (error) {
+      console.error(error);
+      statusMsg.innerText = "Error submitting form";
+    }
 
-};
+    submitBtn.disabled = false;
 
-try {
-
-const response = await sendCounselling(data);
-
-statusMsg.innerText = response.message;
-counsellingForm.reset();
-
-} catch (error) {
-
-statusMsg.innerText = "Error submitting form";
-
-}
-
-submitBtn.disabled = false;
-
-});
+  });
 
 }
 
@@ -78,25 +82,23 @@ const volunteerForm = document.getElementById("volunteerForm");
 
 if(volunteerForm){
 
-volunteerForm.addEventListener("submit", async function(e){
+  volunteerForm.addEventListener("submit", async function(e){
 
-e.preventDefault();
+    e.preventDefault();
 
-const data = {
+    const data = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value
+    };
 
-name: document.getElementById("name").value,
-email: document.getElementById("email").value,
-phone: document.getElementById("phone").value
+    const response = await sendVolunteer(data);
 
-};
+    alert(response.message);
 
-const response = await sendVolunteer(data);
+    volunteerForm.reset();
 
-alert(response.message);
-
-volunteerForm.reset();
-
-});
+  });
 
 }
 
@@ -105,7 +107,6 @@ volunteerForm.reset();
  */
 function getBasePath() {
     const path = window.location.pathname;
-    // If the file is inside the admin folder, we need to go up one level
     if (path.includes("/admin/")) {
         return "../";
     }
@@ -123,8 +124,6 @@ function loadComponent(elementId, fileName) {
         })
         .then(data => {
             document.getElementById(elementId).innerHTML = data;
-            
-            // If we just loaded the header, initialize the mobile menu logic
             if (fileName === 'header.html') {
                 initMobileMenu();
             }
@@ -139,8 +138,6 @@ function initMobileMenu() {
     if (menuBtn && navList) {
         menuBtn.addEventListener('click', () => {
             navList.classList.toggle('active');
-            
-            // Optional: Animation for hamburger bars
             menuBtn.classList.toggle('is-active');
         });
     }
@@ -159,17 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (buttons.length > 0) {
         buttons.forEach(button => {
             button.addEventListener('click', function() {
-                // Find the specific info container for this button
                 const infoContainer = this.closest('.profile-info');
                 const fullBio = infoContainer.querySelector('.full-bio-content');
-                
-                // Toggle the 'show-content' class
                 fullBio.classList.toggle('show-content');
-
-                // Update the button text based on state
                 if (fullBio.classList.contains('show-content')) {
                     this.textContent = 'Read Less';
-                    // Optional: Scroll slightly to keep the expanded text in view
                     this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
                     this.textContent = 'Read More';
