@@ -31,23 +31,42 @@ const counsellingForm = document.getElementById("counsellingForm");
 
 if(counsellingForm){
 
+const statusMsg = document.getElementById("statusMsg");
+const submitBtn = document.getElementById("submit-btn");
+
 counsellingForm.addEventListener("submit", async function(e){
 
 e.preventDefault();
 
+submitBtn.disabled = true;
+statusMsg.innerText = "Submitting...";
+
 const data = {
 
-name: document.getElementById("name").value,
-email: document.getElementById("email").value,
-reason: document.getElementById("reason").value
+name: document.getElementById("userName").value,
+email: document.getElementById("userEmail").value,
+phone: document.getElementById("userPhone").value,
+country: document.getElementById("userCountry").value,
+counsellingType: document.getElementById("counsellingType").value,
+preferredContact: document.getElementById("preferredContact").value,
+message: document.getElementById("userMessage").value
 
 };
 
+try {
+
 const response = await sendCounselling(data);
 
-alert(response.message);
-
+statusMsg.innerText = response.message;
 counsellingForm.reset();
+
+} catch (error) {
+
+statusMsg.innerText = "Error submitting form";
+
+}
+
+submitBtn.disabled = false;
 
 });
 
