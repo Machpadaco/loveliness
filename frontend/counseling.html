@@ -64,57 +64,65 @@
     </div>
   </section>
 
-  <form id="counsellingForm" class="form-card">
+  <!-- ===== Counselling Form ===== -->
+  <section class="form-section">
+    <div class="container">
+      <h2 class="page-title">Counselling Request Form</h2>
 
-  <div class="form-group">
-    <label>Full Name</label>
-    <input type="text" name="name" id="name" required>
-  </div>
+      <form id="counsellingForm" class="form-card">
 
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" id="email" required>
-  </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required>
+        </div>
 
-  <div class="form-group">
-    <label>Phone</label>
-    <input type="tel" name="phone" id="phone" required>
-  </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
 
-  <div class="form-group">
-    <label>Country</label>
-    <input type="text" name="country" id="country" required>
-  </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" required>
+        </div>
 
-  <div class="form-group">
-    <label>Counselling Type</label>
-    <select name="counsellingType" id="counsellingType" required>
-      <option value="">Select</option>
-      <option>Personal</option>
-      <option>Marriage</option>
-      <option>Career</option>
-      <option>Spiritual</option>
-    </select>
-  </div>
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" name="country" required>
+        </div>
 
-  <div class="form-group">
-    <label>Preferred Contact</label>
-    <select name="preferredContact" id="preferredContact" required>
-      <option value="">Select</option>
-      <option>Email</option>
-      <option>Phone/WhatsApp</option>
-    </select>
-  </div>
+        <div class="form-group">
+          <label>Counselling Type</label>
+          <select name="counsellingType" required>
+            <option value="">Select</option>
+            <option>Personal</option>
+            <option>Marriage</option>
+            <option>Career</option>
+            <option>Spiritual</option>
+          </select>
+        </div>
 
-  <div class="form-group">
-    <label>Message</label>
-    <textarea name="message" id="message" rows="5" required></textarea>
-  </div>
+        <div class="form-group">
+          <label>Preferred Contact</label>
+          <select name="preferredContact" required>
+            <option value="">Select</option>
+            <option>Email</option>
+            <option>Phone/WhatsApp</option>
+          </select>
+        </div>
 
-  <button type="submit" class="submit-btn">SUBMIT REQUEST</button>
-  <p id="statusMsg"></p>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" rows="5" required></textarea>
+        </div>
 
-</form>
+        <button type="submit" class="submit-btn">SUBMIT REQUEST</button>
+        <p id="statusMsg"></p>
+
+      </form>
+    </div>
+  </section>
+
 </main>
 
     <div id="footer-placeholder"></div>
