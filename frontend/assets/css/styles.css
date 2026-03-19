@@ -1570,18 +1570,18 @@ grid-template-columns:1fr;
 
 
 /* ===== Counselling Form Section ===== */
-#counsellingForm .form-section {
+.counselling-main .form-section {
   padding: 60px 20px;
   background: #fff;
 }
 
-#counsellingForm .container {
+.counselling-main .container {
   max-width: 800px;
   margin: 0 auto;
 }
 
 /* === TITLE: MAIN COUNSELLING FORM SECTION === */
-#counsellingForm .page-title {
+.counselling-main .page-title {
   text-align: center;
   font-size: 2rem;
   color: #b71c1c;
@@ -1590,7 +1590,7 @@ grid-template-columns:1fr;
 
 
 /* ===== Form Card ===== */
-#counsellingForm .form-card {
+.counselling-main .form-card {
   border: 2px solid #b71c1c;
   border-radius: 8px;
   padding: 30px;
@@ -1600,20 +1600,20 @@ grid-template-columns:1fr;
 
 
 /* ===== Form Fields ===== */
-#counsellingForm .form-group {
+.counselling-main .form-group {
   margin-bottom: 20px;
 }
 
-#counsellingForm .form-group label {
+.counselling-main .form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
   color: #b71c1c;
 }
 
-#counsellingForm input,
-#counsellingForm select,
-#counsellingForm textarea {
+.counselling-main input,
+.counselling-main select,
+.counselling-main textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #b71c1c;
@@ -1623,15 +1623,15 @@ grid-template-columns:1fr;
   transition: border 0.3s ease;
 }
 
-#counsellingForm input:focus,
-#counsellingForm select:focus,
-#counsellingForm textarea:focus {
+.counselling-main input:focus,
+.counselling-main select:focus,
+.counselling-main textarea:focus {
   border-color: #e53935;
 }
 
 
 /* ===== Submit Button ===== */
-#counsellingForm .submit-btn {
+.counselling-main .submit-btn {
   width: 100%;
   padding: 12px;
   background: #b71c1c;
@@ -1643,13 +1643,13 @@ grid-template-columns:1fr;
   transition: background 0.3s ease;
 }
 
-#counsellingForm .submit-btn:hover {
+.counselling-main .submit-btn:hover {
   background: #e53935;
 }
 
 
 /* ===== Status Message ===== */
-#statusMsg {
+.counselling-main #statusMsg {
   margin-top: 15px;
   text-align: center;
   font-weight: bold;
@@ -1680,11 +1680,12 @@ grid-template-columns:1fr;
     height: 140px;
   }
 
-  #counsellingForm .form-card {
+  .counselling-main .form-card {
     padding: 20px;
   }
 
-  #counsellingForm .page-title {
+  .counselling-main .page-title {
     font-size: 1.6rem;
   }
 }
+
