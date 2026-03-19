@@ -1528,8 +1528,8 @@ grid-template-columns:1fr;
 }
 
 .counselling-main .portrait img {
-  width: 180px;
-  height: 240px; /* taller than width = portrait */
+  width: 360px;
+  height: 480px; /* taller than width = portrait */
   object-fit: cover;
   border-radius: 10px; /* small curve instead of circle */
   border: 4px solid #b71c1c;
