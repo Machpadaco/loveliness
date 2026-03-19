@@ -1465,24 +1465,24 @@ grid-template-columns:1fr;
 
 .counselling-main .banner {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), 
-                url('../img/gallery/counselling3.jpg') no-repeat center center;
-    background-size: cover;
-    color: var(--white);
-    padding: 80px 20px;
-    text-align: center;
-    min-height: 450px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    border-bottom: 8px solid var(--primary-red); /* Strong brand line at bottom of image */
+              url('../img/gallery/counselling3.jpg') no-repeat center center;
+  background-size: cover;
+  color: var(--white);
+  padding: 80px 20px;
+  text-align: center;
+  min-height: 450px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* ✅ THIS IS THE FIX */
+  position: relative;
+  border-bottom: 8px solid var(--primary-red);
 }
-
-
 
 .counselling-main .banner-content {
   color: #fff;
   max-width: 900px;
+  margin: 0 auto; /* optional extra safety */
 }
 
 .counselling-main .banner-content h1 {
