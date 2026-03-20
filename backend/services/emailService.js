@@ -33,6 +33,7 @@ exports.sendContactEmails = async (data) => {
   });
 };
 
+
 /* =======================
    COUNSELLING EMAILS
 ======================= */
@@ -41,31 +42,58 @@ exports.sendCounsellingEmails = async (data) => {
   // Email to admin
   await sendEmail({
     to: process.env.EMAIL_USER,
-    subject: "New Counselling Request",
+    subject: "New Counselling Request - Lovelines",
     html: `
-      <h3>New Counselling Request</h3>
-      <p><strong>Name:</strong> ${data.name}</p>
+      <h2 style="color:#b71c1c;">New Counselling Request</h2>
+      <hr/>
+      <p><strong>Full Name:</strong> ${data.name}</p>
       <p><strong>Email:</strong> ${data.email}</p>
       <p><strong>Phone:</strong> ${data.phone}</p>
       <p><strong>Country:</strong> ${data.country}</p>
       <p><strong>Counselling Type:</strong> ${data.counsellingType}</p>
       <p><strong>Preferred Contact:</strong> ${data.preferredContact}</p>
-      <p><strong>Message:</strong> ${data.message}</p>
+      <p><strong>Message:</strong></p>
+      <p style="background:#f9f9f9; padding:10px; border-left:4px solid #b71c1c;">
+        ${data.message}
+      </p>
+      <hr/>
+      <p style="font-size:12px; color:gray;">This request was submitted via the Lovelines website.</p>
     `
   });
 
   // Confirmation email to sender
   await sendEmail({
     to: data.email,
-    subject: "Counselling Request Received",
+    subject: "Your Counselling Request Has Been Received",
     html: `
       <p>Dear ${data.name},</p>
-      <p>Your counselling request has been received.</p>
-      <p>A Lovelines counselor will contact you soon.</p>
+
+      <p>Thank you for reaching out to <strong>Lovelines International Christian Fellowship</strong>.</p>
+
+      <p>Your counselling request has been successfully received. Our team will carefully review your message and reach out to you via your preferred contact method (<strong>${data.preferredContact}</strong>) as soon as possible.</p>
+
+      <p>We are committed to supporting you with care, confidentiality, and compassion.</p>
+
+      <br/>
+
+      <p><strong>Summary of Your Request:</strong></p>
+      <ul>
+        <li><strong>Counselling Type:</strong> ${data.counsellingType}</li>
+        <li><strong>Country:</strong> ${data.country}</li>
+      </ul>
+
+      <br/>
+
       <p>Remain blessed.</p>
+
+      <p style="margin-top:20px;">
+        <strong>Lovelines International Christian Fellowship</strong><br/>
+        <em>Love in Practice</em>
+      </p>
     `
   });
 };
+
 
 /* =======================
    VOLUNTEER EMAILS
