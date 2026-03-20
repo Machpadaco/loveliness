@@ -1662,3 +1662,124 @@ grid-template-columns:1fr;
     font-size: 1.6rem;
   }
 }
+
+/* ===== HERO SECTION ===== */
+#volunteer-hero {
+  height: 90vh;
+  background: url("../img/volunteer.jpg") no-repeat center center/cover;
+  position: relative;
+}
+
+#hero-overlay {
+  background: rgba(183, 28, 28, 0.75);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+#hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+#hero-content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+
+/* ===== FORM SECTION ===== */
+#volunteer-form-section {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+#volunteer-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+#volunteer-title {
+  text-align: center;
+  color: #b71c1c;
+  margin-bottom: 30px;
+}
+
+
+/* ===== FORM ===== */
+#volunteerForm {
+  border: 2px solid #b71c1c;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+#form-group {
+  margin-bottom: 20px;
+}
+
+#form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #b71c1c;
+}
+
+#form-group input,
+#form-group select,
+#form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b71c1c;
+  border-radius: 5px;
+}
+
+#form-group input:focus,
+#form-group select:focus,
+#form-group textarea:focus {
+  border-color: #e53935;
+}
+
+
+/* ===== BUTTON ===== */
+#vol-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #b71c1c;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#vol-submit-btn:hover {
+  background: #e53935;
+}
+
+#volStatusMsg {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+  #hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  #hero-content p {
+    font-size: 1rem;
+  }
+
+  #volunteerForm {
+    padding: 20px;
+  }
+
+}

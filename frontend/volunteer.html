@@ -10,12 +10,81 @@
 
     <div id="header-placeholder"></div>
 
-    <main>
-        <section style="padding: 50px 5%;">
-            <h1>Welcome to the Page</h1>
-            <p>Content for this section will go here.</p>
-        </section>
-    </main>
+   <main>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="volunteer-hero">
+    <div id="hero-overlay">
+      <div id="hero-content">
+        <h1>Join Us as a Volunteer</h1>
+        <p>Be a part of a mission that restores lives, heals hearts, and brings hope to communities.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== VOLUNTEER FORM SECTION ===== -->
+  <section id="volunteer-form-section">
+    <div id="volunteer-container">
+      <h2 id="volunteer-title">Volunteer Registration Form</h2>
+
+      <form id="volunteerForm">
+
+        <div id="form-group">
+          <label>Full Name</label>
+          <input type="text" id="volName" name="name" required>
+        </div>
+
+        <div id="form-group">
+          <label>Email</label>
+          <input type="email" id="volEmail" name="email" required>
+        </div>
+
+        <div id="form-group">
+          <label>Phone</label>
+          <input type="tel" id="volPhone" name="phone" required>
+        </div>
+
+        <div id="form-group">
+          <label>Country</label>
+          <input type="text" id="volCountry" name="country">
+        </div>
+
+        <div id="form-group">
+          <label>Area of Interest</label>
+          <select id="volInterest" name="areaOfInterest" required>
+            <option value="">Select</option>
+            <option>Humanitarian Services</option>
+            <option>Counselling Support</option>
+            <option>Community Outreach</option>
+            <option>Media & Publicity</option>
+            <option>Administration</option>
+          </select>
+        </div>
+
+        <div id="form-group">
+          <label>Availability</label>
+          <select id="volAvailability" name="availability">
+            <option value="">Select</option>
+            <option>Full Time</option>
+            <option>Part Time</option>
+            <option>Weekends</option>
+          </select>
+        </div>
+
+        <div id="form-group">
+          <label>Message (Optional)</label>
+          <textarea id="volMessage" name="message" rows="5"></textarea>
+        </div>
+
+        <button type="submit" id="vol-submit-btn">Submit Application</button>
+        <p id="volStatusMsg"></p>
+
+      </form>
+    </div>
+  </section>
+
+</main>
 
     <div id="footer-placeholder"></div>
 
