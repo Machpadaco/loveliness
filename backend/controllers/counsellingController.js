@@ -7,7 +7,15 @@ exports.submitCounselling = async (req, res) => {
 
     const { name, email, phone, country, counsellingType, preferredContact, message } = req.body;
 
-    // Save to database
+    // ✅ Basic Validation
+    if (!name || !email || !phone || !country || !counsellingType || !preferredContact || !message) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      });
+    }
+
+    // ✅ Save to database
     const counselling = await Counselling.create({
       name,
       email,
@@ -18,7 +26,7 @@ exports.submitCounselling = async (req, res) => {
       message
     });
 
-    // Send email notification
+    // ✅ Send email notification
     await emailService.sendCounsellingEmails(counselling);
 
     res.status(200).json({
@@ -28,11 +36,11 @@ exports.submitCounselling = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error);
+    console.error("Counselling Error:", error);
 
     res.status(500).json({
       success: false,
-      message: "Server error"
+      message: "Server error, please try again"
     });
 
   }
