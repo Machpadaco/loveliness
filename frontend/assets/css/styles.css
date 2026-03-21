@@ -1663,32 +1663,72 @@ grid-template-columns:1fr;
   }
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION (IMPROVED) ===== */
 #volunteer-hero {
   height: 70vh;
-  background: url("../img/gallery/loveliness.jpg") no-repeat center center/cover;
-  position: relative;
-}
 
-#hero-overlay {
-  background: rgba(183, 28, 28, 0.75);
-  height: 100%;
+  /* Balanced overlay + image visibility */
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(183, 28, 28, 0.35)
+    ),
+    url("../img/gallery/loveliness.jpg") no-repeat center center/cover;
+
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+/* ===== HERO OVERLAY (NOW LIGHTER & PREMIUM) ===== */
+#hero-overlay {
+  width: 100%;
+  padding: 20px;
   text-align: center;
   color: #fff;
 }
 
+
+/* ===== HERO CONTENT ===== */
 #hero-content h1 {
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   margin-bottom: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  /* Better readability */
+  text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.8);
 }
 
 #hero-content p {
-  font-size: 1.2rem;
-  max-width: 600px;
+  font-size: 1.1rem;
+  max-width: 700px;
   margin: auto;
+  line-height: 1.6;
+
+  /* glass effect */
+  background: rgba(0, 0, 0, 0.45);
+  padding: 15px 20px;
+  border-radius: 6px;
+
+  backdrop-filter: blur(4px);
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  #volunteer-hero {
+    height: 60vh;
+  }
+
+  #hero-content h1 {
+    font-size: 2rem;
+  }
+
+  #hero-content p {
+    font-size: 0.95rem;
+  }
 }
 
 /* ===== GENERAL SECTION STYLING ===== */
