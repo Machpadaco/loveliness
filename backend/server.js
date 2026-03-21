@@ -9,31 +9,42 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
-// Initialize email transporter (this triggers verification)
+// Initialize email transporter (verifies connection)
 require('./config/emailConfig');
 
 const app = express();
 
-// Middleware
+/* =======================
+   MIDDLEWARE
+======================= */
 app.use(cors());
 app.use(express.json());
 
-// Routes
+/* =======================
+   ROUTES
+======================= */
 app.use('/api/contact', require('./routes/contactRoutes'));
-app.use('/api/counselling', require('./routes/counsellingRoutes')); // Counselling route added
+app.use('/api/counselling', require('./routes/counsellingRoutes'));
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
-app.use("/api/admin", require("./routes/adminRoutes"));
-app.use("/api/admin", require("./routes/adminAuthRoutes"));
 
-// Test Route
+// Admin Routes
+app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/admin', require('./routes/adminAuthRoutes'));
+
+/* =======================
+   TEST ROUTES
+======================= */
 app.get('/', (req, res) => {
-  res.send('Loveliness Backend Running ✅');
+  res.send('Lovelines Backend Running ✅');
 });
 
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀' });
 });
 
+/* =======================
+   SERVER START
+======================= */
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
