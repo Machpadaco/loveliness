@@ -1691,6 +1691,153 @@ grid-template-columns:1fr;
   margin: auto;
 }
 
+/* ===== GENERAL SECTION STYLING ===== */
+.volunteer-about,
+.volunteer-areas,
+.volunteer-types,
+.volunteer-cta {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+.volunteer-areas {
+  background: #f9f9f9;
+}
+
+.volunteer-cta {
+  background: #b71c1c;
+  color: #fff;
+  text-align: center;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===== HEADINGS ===== */
+.volunteer-about h2,
+.volunteer-areas h2,
+.volunteer-types h2,
+.volunteer-cta h2 {
+  text-align: center;
+  color: #b71c1c;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.volunteer-cta h2 {
+  color: #fff;
+}
+
+/* ===== TEXT ===== */
+.volunteer-about p,
+.volunteer-cta p {
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 750px;
+  margin: 0 auto 15px;
+}
+
+.volunteer-cta p {
+  color: #fff;
+}
+
+/* ===== GRID (AREAS SECTION) ===== */
+.volunteer-areas .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* ===== CARDS ===== */
+.volunteer-areas .card {
+  background: #fff;
+  border: 2px solid #b71c1c;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.volunteer-areas .card h3 {
+  color: #b71c1c;
+  margin-bottom: 10px;
+}
+
+.volunteer-areas .card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* HOVER EFFECT */
+.volunteer-areas .card:hover {
+  background: #b71c1c;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.volunteer-areas .card:hover h3 {
+  color: #fff;
+}
+
+/* ===== VOLUNTEER TYPES ===== */
+.volunteer-types ul {
+  max-width: 700px;
+  margin: 30px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.volunteer-types li {
+  background: #fff;
+  border-left: 5px solid #b71c1c;
+  margin-bottom: 12px;
+  padding: 12px 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ===== CTA SECTION ===== */
+.volunteer-cta {
+  border-top: 5px solid #fff;
+}
+
+.volunteer-cta p {
+  font-size: 1.1rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .volunteer-areas .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .volunteer-areas .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .volunteer-about h2,
+  .volunteer-areas h2,
+  .volunteer-types h2,
+  .volunteer-cta h2 {
+    font-size: 1.6rem;
+  }
+
+  .volunteer-about p,
+  .volunteer-cta p {
+    font-size: 0.95rem;
+  }
+}
 
 /* ===== FORM SECTION ===== */
 #volunteer-form-section {
