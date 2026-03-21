@@ -9,6 +9,17 @@ async function sendCounselling(data) {
   }).then(res => res.json());
 }
 
+// SEND VOLUNTEER DATA TO BACKEND
+async function sendVolunteer(data) {
+  return fetch("http://localhost:5000/api/volunteer", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+}
+
 
 // CONTACT FORM
 const contactForm = document.getElementById("contactForm");
@@ -82,25 +93,46 @@ const volunteerForm = document.getElementById("volunteerForm");
 
 if(volunteerForm){
 
+  const volStatusMsg = document.getElementById("volStatusMsg");
+  const volSubmitBtn = document.getElementById("vol-submit-btn");
+
   volunteerForm.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
+    volSubmitBtn.disabled = true;
+    volStatusMsg.innerText = "Submitting...";
+
     const data = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value
+      name: document.getElementById("volName").value,
+      email: document.getElementById("volEmail").value,
+      phone: document.getElementById("volPhone").value,
+      country: document.getElementById("volCountry").value,
+      areaOfInterest: document.getElementById("volInterest").value,
+      availability: document.getElementById("volAvailability").value,
+      message: document.getElementById("volMessage").value
     };
 
-    const response = await sendVolunteer(data);
+    try {
 
-    alert(response.message);
+      const response = await sendVolunteer(data);
 
-    volunteerForm.reset();
+      volStatusMsg.innerText = response.message;
+      volunteerForm.reset();
+
+    } catch (error) {
+
+      console.error(error);
+      volStatusMsg.innerText = "Error submitting application";
+
+    }
+
+    volSubmitBtn.disabled = false;
 
   });
 
 }
+
 
 /**
  * Automatically detects path depth and loads HTML components (Header/Footer)
