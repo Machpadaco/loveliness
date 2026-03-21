@@ -1665,7 +1665,7 @@ grid-template-columns:1fr;
 
 /* ===== HERO SECTION ===== */
 #volunteer-hero {
-  height: 90vh;
+  height: 70vh;
   background: url("../img/volunteer.jpg") no-repeat center center/cover;
   position: relative;
 }
