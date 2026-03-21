@@ -1970,3 +1970,235 @@ grid-template-columns:1fr;
   }
 
 }
+
+/* ===== MAIN ===== */
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+/* ===== HERO SECTION ===== */
+#program-hero {
+  height: 70vh;
+  background: url("../img/gallery/loveliness.jpg") no-repeat center center/cover;
+  position: relative;
+}
+
+#program-overlay {
+  background: rgba(0, 0, 0, 0.65);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+#program-content h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+#program-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+
+/* ===== INTRO SECTION ===== */
+#program-intro {
+  background: #fff;
+}
+
+#program-intro h2 {
+  color: #b71c1c;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#program-intro p {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+
+/* ===== PROGRAM GRID ===== */
+#programs-grid {
+  background: #f9f9f9;
+}
+
+#programs-grid .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+/* PROGRAM CARD */
+.program-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border-top: 4px solid #b71c1c;
+  transition: 0.3s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+}
+
+.program-card h3 {
+  color: #b71c1c;
+  margin-bottom: 15px;
+}
+
+.program-card ul {
+  padding-left: 18px;
+}
+
+.program-card ul li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+
+/* ===== IMPACT SECTION ===== */
+#program-impact {
+  background: #fff;
+}
+
+#program-impact h2 {
+  color: #b71c1c;
+  margin-bottom: 15px;
+}
+
+#program-impact p {
+  max-width: 800px;
+  margin: auto;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+/* STATS */
+.impact-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.impact-stats div {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  min-width: 150px;
+}
+
+.impact-stats h3 {
+  color: #b71c1c;
+  font-size: 2rem;
+}
+
+.impact-stats p {
+  margin-top: 5px;
+}
+
+
+/* ===== CTA SECTION ===== */
+#program-cta {
+  background: #b71c1c;
+  color: #fff;
+}
+
+#program-cta h2 {
+  margin-bottom: 15px;
+}
+
+#program-cta p {
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+/* BUTTONS */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 25px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  background: #fff;
+  color: #b71c1c;
+}
+
+.btn-primary:hover {
+  background: #f1f1f1;
+}
+
+/* SECONDARY BUTTON */
+.btn-secondary {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #fff;
+  color: #b71c1c;
+}
+
+
+/* ===== RESPONSIVENESS ===== */
+
+/* Tablet */
+@media (max-width: 768px) {
+
+  #program-content h1 {
+    font-size: 2rem;
+  }
+
+  #program-content p {
+    font-size: 1rem;
+  }
+
+  .impact-stats {
+    gap: 20px;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+  #program-content h1 {
+    font-size: 1.7rem;
+  }
+
+  #program-content p {
+    font-size: 0.95rem;
+  }
+
+  .program-card {
+    padding: 20px;
+  }
+
+}
