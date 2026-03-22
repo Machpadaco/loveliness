@@ -18,9 +18,9 @@ async function loadContact() {
   fetchData("contact");
 }
 
-async function loadCounseling() {
-  currentType = "counseling";
-  fetchData("counseling");
+async function loadCounselling() {
+  currentType = "counselling";
+  fetchData("counselling");
 }
 
 async function loadVolunteer() {
