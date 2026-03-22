@@ -314,6 +314,70 @@ transition:0.3s;
 background:#a30000;
 }
 
+/* ===== Home Intro Section ===== */
+.ll-home-intro {
+  padding: 60px 20px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.ll-home-intro-wrapper {
+  max-width: 900px;
+  margin: auto;
+}
+
+.ll-home-small {
+  color: #c62828;
+  margin-bottom: 8px;
+}
+
+.ll-home-title {
+  color: #c62828;
+  margin: 10px 0;
+}
+
+.ll-home-tag {
+  font-weight: bold;
+  color: #c62828;
+  margin-bottom: 15px;
+}
+
+.ll-home-text {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.ll-home-list {
+  text-align: left;
+  display: inline-block;
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+.ll-home-list li {
+  margin-bottom: 8px;
+}
+
+.ll-home-intro strong {
+  color: #c62828;
+}
+
+.ll-home-closing {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #c62828;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ll-home-title {
+    font-size: 20px;
+  }
+
+  .ll-home-list {
+    text-align: left;
+  }
+}
 /* ABOUT */
 
 .about-home{
@@ -377,77 +441,7 @@ font-size:40px;
 margin-bottom:10px;
 }
 
-/* ===== Lovelines Intro Showcase (Unique Classes) ===== */
-.ll-intro-showcase {
-  padding: 60px 20px;
-  background: #ffffff;
-}
 
-.ll-intro-wrapper {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.ll-intro-image {
-  flex: 1 1 45%;
-}
-
-.ll-intro-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-
-.ll-intro-text {
-  flex: 1 1 50%;
-  line-height: 1.7;
-}
-
-.ll-small-title {
-  color: #c62828;
-  margin-bottom: 8px;
-}
-
-.ll-main-title {
-  color: #c62828;
-  margin: 10px 0;
-}
-
-.ll-tagline {
-  font-weight: bold;
-  color: #c62828;
-  margin-bottom: 15px;
-}
-
-.ll-intro-text strong {
-  color: #c62828;
-}
-
-.ll-intro-text ul {
-  padding-left: 20px;
-  margin-top: 10px;
-}
-
-.ll-closing {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #c62828;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .ll-intro-wrapper {
-    flex-direction: column;
-  }
-
-  .ll-intro-text {
-    text-align: left;
-  }
-}
 
 /* SERVICES */
 
