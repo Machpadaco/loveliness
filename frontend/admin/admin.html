@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
-<title>Loveliness Admin Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lovelines Admin Dashboard</title>
 
 <link rel="stylesheet" href="admin.css">
 
@@ -10,32 +13,40 @@
 
 <body>
 
-<h1>Loveliness Admin Dashboard</h1>
+<div class="admin-container">
 
-<button onclick="loadContacts()">Load Contacts</button>
-<button onclick="loadCounselling()">Load Counselling</button>
-<button onclick="loadVolunteers()">Load Volunteers</button>
+  <!-- Header -->
+  <header class="admin-header">
+    <h1>Lovelines Admin Dashboard</h1>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </header>
 
-<hr>
+  <!-- Actions -->
+  <div class="actions">
+    <button onclick="loadContact()">📩 Contact</button>
+    <button onclick="loadCounseling()">🧠 Counseling</button>
+    <button onclick="loadVolunteer()">🙌 Volunteer</button>
+  </div>
 
-<table border="1" width="100%">
+  <hr>
 
-<thead>
+  <!-- Table -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Action</th>
+        </tr>
+      </thead>
 
-<tr>
-<th>Name</th>
-<th>Email</th>
-<th>Message</th>
-<th>Action</th>
-</tr>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 
-</thead>
-
-<tbody id="tableBody">
-
-</tbody>
-
-</table>
+</div>
 
 <script src="admin.js"></script>
 
