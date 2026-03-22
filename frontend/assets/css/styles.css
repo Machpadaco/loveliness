@@ -2352,3 +2352,57 @@ main {
   }
 
 }
+
+/* ===== Video Section ===== */
+.ll-video-section {
+  padding: 60px 20px;
+  background: #ffffff;
+}
+
+.ll-video-title {
+  text-align: center;
+  color: #c62828;
+  margin-bottom: 30px;
+}
+
+/* GRID */
+.ll-video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.ll-video-card {
+  border: 2px solid #c62828;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.ll-video-card:hover {
+  transform: translateY(-5px);
+}
+
+/* VIDEO */
+.ll-video-card video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* TEXT */
+.ll-video-card p {
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .ll-video-card video {
+    height: 180px;
+  }
+}
