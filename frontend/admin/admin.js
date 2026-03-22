@@ -57,19 +57,81 @@ async function fetchData(type) {
 
 function renderTable(data) {
   const table = document.getElementById("tableBody");
+  const thead = document.querySelector("thead tr");
+
   table.innerHTML = "";
+  thead.innerHTML = "";
 
   if (data.length === 0) {
-    table.innerHTML = `<tr><td colspan="4">No data found</td></tr>`;
+    table.innerHTML = `<tr><td colspan="6">No data found</td></tr>`;
     return;
   }
 
+  let headers = [];
+
+  // ✅ Detect type and set headers
+  if (currentType === "contact") {
+    headers = ["Name", "Email", "Phone", "Subject", "Message", "Date", "Action"];
+  }
+
+  if (currentType === "counseling") {
+    headers = ["Name", "Email", "Phone", "Country", "Type", "Preferred Contact", "Message", "Date", "Action"];
+  }
+
+  if (currentType === "volunteer") {
+    headers = ["Name", "Email", "Phone", "Country", "Interest", "Availability", "Message", "Date", "Action"];
+  }
+
+  // ✅ Render headers
+  headers.forEach(h => {
+    thead.innerHTML += `<th>${h}</th>`;
+  });
+
+  // ✅ Render rows
   data.forEach(item => {
+
+    let row = "";
+
+    if (currentType === "contact") {
+      row = `
+        <td>${item.name}</td>
+        <td>${item.email}</td>
+        <td>${item.phone}</td>
+        <td>${item.subject}</td>
+        <td>${item.message}</td>
+        <td>${new Date(item.createdAt).toLocaleDateString()}</td>
+      `;
+    }
+
+    if (currentType === "counseling") {
+      row = `
+        <td>${item.name}</td>
+        <td>${item.email}</td>
+        <td>${item.phone}</td>
+        <td>${item.country}</td>
+        <td>${item.counsellingType}</td>
+        <td>${item.preferredContact}</td>
+        <td>${item.message}</td>
+        <td>${new Date(item.createdAt).toLocaleDateString()}</td>
+      `;
+    }
+
+    if (currentType === "volunteer") {
+      row = `
+        <td>${item.name}</td>
+        <td>${item.email}</td>
+        <td>${item.phone}</td>
+        <td>${item.country}</td>
+        <td>${item.areaOfInterest}</td>
+        <td>${item.availability}</td>
+        <td>${item.message || ""}</td>
+        <td>${new Date(item.createdAt).toLocaleDateString()}</td>
+      `;
+    }
+
     table.innerHTML += `
       <tr>
-        <td>${item.name || ""}</td>
-        <td>${item.email || ""}</td>
-        <td>${item.message || item.reason || item.skills || ""}</td>
+        ${row}
         <td>
           <button onclick="deleteItem('${item._id}')">Delete</button>
         </td>
