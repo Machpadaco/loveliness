@@ -1,104 +1,117 @@
-const API = "http://localhost:5000/api/admin"
+const API = "http://localhost:5000/api/admin";
 
-const token = localStorage.getItem("adminToken")
+// ✅ FIXED token key
+const token = localStorage.getItem("token");
 
-
-async function loadContacts(){
-
-const res = await fetch(`${API}/contacts`,{
-
-headers:{
-Authorization: token
+// ✅ Protect page
+if (!token) {
+  window.location.href = "login.html";
 }
 
-})
+// Keep track of current data type
+let currentType = "";
 
-const data = await res.json()
+/* ================= LOAD FUNCTIONS ================= */
 
-renderTable(data)
-
+async function loadContact() {
+  currentType = "contact";
+  fetchData("contact");
 }
 
-
-async function loadCounselling(){
-
-const res = await fetch(`${API}/counselling`,{
-
-headers:{
-Authorization: token
+async function loadCounseling() {
+  currentType = "counseling";
+  fetchData("counseling");
 }
 
-})
-
-const data = await res.json()
-
-renderTable(data)
-
+async function loadVolunteer() {
+  currentType = "volunteer";
+  fetchData("volunteer");
 }
 
+/* ================= FETCH DATA ================= */
 
-async function loadVolunteers(){
+async function fetchData(type) {
+  try {
+    const res = await fetch(`${API}/${type}`, {
+      headers: {
+        Authorization: `Bearer ${token}` // ✅ FIXED format
+      }
+    });
 
-const res = await fetch(`${API}/volunteers`,{
+    const data = await res.json();
 
-headers:{
-Authorization: token
+    if (!res.ok) {
+      alert(data.message || "Error loading data");
+      return;
+    }
+
+    renderTable(data);
+
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
 }
 
-})
+/* ================= RENDER TABLE ================= */
 
-const data = await res.json()
+function renderTable(data) {
+  const table = document.getElementById("tableBody");
+  table.innerHTML = "";
 
-renderTable(data)
+  if (data.length === 0) {
+    table.innerHTML = `<tr><td colspan="4">No data found</td></tr>`;
+    return;
+  }
 
+  data.forEach(item => {
+    table.innerHTML += `
+      <tr>
+        <td>${item.name || ""}</td>
+        <td>${item.email || ""}</td>
+        <td>${item.message || item.reason || item.skills || ""}</td>
+        <td>
+          <button onclick="deleteItem('${item._id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
 }
 
+/* ================= DELETE ================= */
 
-function renderTable(data){
+async function deleteItem(id) {
+  if (!confirm("Are you sure you want to delete this?")) return;
 
-const table = document.getElementById("tableBody")
+  try {
+    const res = await fetch(`${API}/${currentType}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
 
-table.innerHTML=""
+    const data = await res.json();
 
-data.forEach(item => {
+    if (!res.ok) {
+      alert(data.message || "Delete failed");
+      return;
+    }
 
-table.innerHTML += `
+    alert("Deleted successfully");
 
-<tr>
+    // reload current table
+    fetchData(currentType);
 
-<td>${item.name}</td>
-<td>${item.email}</td>
-<td>${item.message || item.reason || ""}</td>
-
-<td>
-
-<button onclick="deleteItem('${item._id}')">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`
-
-})
-
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
 }
 
+/* ================= LOGOUT ================= */
 
-async function deleteItem(id){
-
-await fetch(`${API}/contact/${id}`,{
-
-method:"DELETE",
-
-headers:{
-Authorization: token
-}
-
-})
-
-alert("Deleted")
-
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
 }
