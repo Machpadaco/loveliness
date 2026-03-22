@@ -2190,6 +2190,77 @@ main {
   margin-top: 5px;
 }
 
+/* ===== Program Gallery ===== */
+.ll-program-gallery {
+  padding: 60px 20px;
+  background: #ffffff;
+}
+
+.ll-gallery-title {
+  text-align: center;
+  color: #c62828;
+  margin-bottom: 30px;
+}
+
+/* GRID */
+.ll-gallery-grid {
+  display: grid;
+  gap: 20px;
+}
+
+/* LANDSCAPE GRID */
+.ll-gallery-grid.landscape {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* PORTRAIT GRID */
+.ll-gallery-grid.portrait {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* CARD */
+.ll-gallery-card {
+  background: #fff;
+  border: 2px solid #c62828;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.ll-gallery-card:hover {
+  transform: translateY(-5px);
+}
+
+/* IMAGES */
+.ll-gallery-grid.landscape img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.ll-gallery-grid.portrait img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* TEXT */
+.ll-gallery-card p {
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .ll-gallery-grid.landscape img {
+    height: 160px;
+  }
+
+  .ll-gallery-grid.portrait img {
+    height: 220px;
+  }
+}
 
 /* ===== CTA SECTION ===== */
 #program-cta {
