@@ -35,11 +35,17 @@ body {
   padding: 10px 15px;
   margin-right: 10px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.actions button:hover {
+  background: darkred;
 }
 
 /* Table */
 .table-container {
   overflow-x: auto;
+  margin-top: 20px;
 }
 
 table {
@@ -49,11 +55,28 @@ table {
 }
 
 th, td {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
+  text-align: left;
 }
 
 th {
   background: red;
   color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* Delete Button styling */
+.btn-delete {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btn-delete:hover {
+    background: black;
 }

@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Lovelines Admin Dashboard</title>
-
-<link rel="stylesheet" href="admin.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovelines Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
 
 <div class="admin-container">
 
-  <!-- Header -->
   <header class="admin-header">
     <h1>Lovelines Admin Dashboard</h1>
     <button onclick="logout()" class="logout-btn">Logout</button>
   </header>
 
-  <!-- Actions -->
   <div class="actions">
     <button onclick="loadContact()">📩 Contact</button>
-    <button onclick="loadCounselling()">🧠 Counsleling</button>
+    <button onclick="loadCounselling()">🧠 Counselling</button>
     <button onclick="loadVolunteer()">🙌 Volunteer</button>
   </div>
 
   <hr>
 
-  <!-- Table -->
   <div class="table-container">
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Message</th>
-          <th>Action</th>
-        </tr>
+          </tr>
       </thead>
-
-      <tbody id="tableBody"></tbody>
+      <tbody id="tableBody">
+          <tr>
+              <td colspan="10" style="text-align:center; padding: 20px;">
+                  Select a category above to load data.
+              </td>
+          </tr>
+      </tbody>
     </table>
   </div>
 
