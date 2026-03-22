@@ -1,41 +1,50 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-// Import your Admin model - check this path carefully!
-const Admin = require('./models/Admin'); 
+const dotenv = require('dotenv');
+const Admin = require('./models/Admin'); // ✅ Ensure this path to your Admin model is correct
 
-const mongoUri = "mongodb://localhost:27017/lovelines"; // Update if your DB name is different
+dotenv.config(); 
 
-async function forceCreateAdmin() {
+async function createAtlasAdmin() {
     try {
+        const mongoUri = process.env.MONGO_URI;
+
+        if (!mongoUri) {
+            console.error("❌ Error: MONGO_URI not found in your .env file!");
+            process.exit(1);
+        }
+
+        console.log("Connecting to MongoDB Atlas...");
         await mongoose.connect(mongoUri);
-        console.log("Connected to MongoDB...");
+        console.log("✅ Connected successfully to Atlas.");
 
-        const testEmail = "admin@test.com";
-        const testPassword = "password123";
+        // We hardcode these for this ONE run to guarantee success
+        const email = "admin@test.com";
+        const password = "password123";
 
-        // Delete any existing admin with this email to start fresh
-        await Admin.deleteOne({ email: testEmail });
+        // Remove old attempts for this specific email
+        await Admin.deleteOne({ email });
 
-        const hashedPassword = await bcrypt.hash(testPassword, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         
         const newAdmin = new Admin({
-            email: testEmail,
+            email,
             password: hashedPassword
         });
 
         await newAdmin.save();
         
         console.log("-----------------------------------------");
-        console.log("✅ ADMIN CREATED SUCCESSFULLY!");
-        console.log(`Email: ${testEmail}`);
-        console.log(`Password: ${testPassword}`);
+        console.log("🚀 ADMIN ACCOUNT CREATED IN ATLAS!");
+        console.log(`Email: ${email}`);
+        console.log(`Password: ${password}`);
         console.log("-----------------------------------------");
         
         process.exit();
     } catch (err) {
-        console.error("❌ Error:", err);
+        console.error("❌ Atlas Connection Error:", err.message);
         process.exit(1);
     }
 }
 
-forceCreateAdmin();
+createAtlasAdmin();
