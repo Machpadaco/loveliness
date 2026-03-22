@@ -2373,13 +2373,14 @@ main {
   transform: translateY(-5px);
 }
 
-/* PORTRAIT VIDEO STYLE */
+/* PORTRAIT VIDEO - NO CROPPING */
 .ll-video-card video {
   width: 100%;
-  height: 420px; /* Taller for portrait */
-  object-fit: cover;
+  height: auto; /* let video keep full height */
+  aspect-ratio: 9 / 16; /* keeps portrait shape */
+  object-fit: contain; /* shows full video (no head cut) */
+  background: #000; /* fills empty sides */
   display: block;
-  background: #000;
 }
 
 /* TEXT */
