@@ -2353,29 +2353,17 @@ main {
 
 }
 
-/* ===== Video Section ===== */
-.ll-video-section {
-  padding: 60px 20px;
-  background: #ffffff;
-}
-
-.ll-video-title {
-  text-align: center;
-  color: #c62828;
-  margin-bottom: 30px;
-}
-
-/* GRID */
+/* GRID - 2 PER ROW */
 .ll-video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
 }
 
-/* CARD */
+/* VIDEO CARD */
 .ll-video-card {
   border: 2px solid #c62828;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background: #fff;
   transition: transform 0.3s ease;
@@ -2385,12 +2373,13 @@ main {
   transform: translateY(-5px);
 }
 
-/* VIDEO */
+/* PORTRAIT VIDEO STYLE */
 .ll-video-card video {
   width: 100%;
-  height: 200px;
+  height: 420px; /* Taller for portrait */
   object-fit: cover;
   display: block;
+  background: #000;
 }
 
 /* TEXT */
@@ -2401,8 +2390,18 @@ main {
 }
 
 /* RESPONSIVE */
-@media (max-width: 600px) {
+@media (max-width: 992px) {
   .ll-video-card video {
-    height: 180px;
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ll-video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ll-video-card video {
+    height: 420px; /* keep tall on mobile */
   }
 }
