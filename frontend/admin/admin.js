@@ -1,17 +1,6 @@
-// SEND CONTACT DATA TO BACKEND
-async function sendContact(data) {
-  return fetch("http://localhost:5000/api/contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }).then(res => res.json());
-}
-
 const API = "http://localhost:5000/api/admin";
 
-// ✅ Protect page
+// ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "login.html";
@@ -21,20 +10,20 @@ let currentType = "";
 
 /* ================= LOAD FUNCTIONS ================= */
 
-// These match your backend controller/route naming
+// ✅ FIXED: match backend routes (plural)
 async function loadContact() {
-  currentType = "contact";
-  fetchData("contact");
+  currentType = "contacts";
+  fetchData("contacts");
 }
 
 async function loadCounselling() {
-  currentType = "counselling"; // ✅ Uses double "ll" to match your backend
+  currentType = "counselling";
   fetchData("counselling");
 }
 
 async function loadVolunteer() {
-  currentType = "volunteer";
-  fetchData("volunteer");
+  currentType = "volunteers";
+  fetchData("volunteers");
 }
 
 /* ================= FETCH DATA ================= */
@@ -47,6 +36,8 @@ async function fetchData(type) {
       }
     });
 
+    console.log("Response status:", res.status);
+
     const data = await res.json();
 
     if (!res.ok) {
@@ -55,8 +46,9 @@ async function fetchData(type) {
     }
 
     renderTable(data);
+
   } catch (error) {
-    console.error(error);
+    console.error("FETCH ERROR:", error);
     alert("Server error connecting to API");
   }
 }
@@ -77,28 +69,34 @@ function renderTable(data) {
     return;
   }
 
-  // ✅ Set Headers based on type
   let headers = [];
-  if (currentType === "contact") {
+
+  if (currentType === "contacts") {
     headers = ["Name", "Email", "Phone", "Subject", "Message", "Date", "Action"];
-  } else if (currentType === "counselling") { // ✅ Matches backend spelling
+  } 
+  else if (currentType === "counselling") {
     headers = ["Name", "Email", "Phone", "Country", "Type", "Preferred Contact", "Message", "Date", "Action"];
-  } else if (currentType === "volunteer") {
+  } 
+  else if (currentType === "volunteers") {
     headers = ["Name", "Email", "Phone", "Country", "Interest", "Availability", "Message", "Date", "Action"];
   }
 
+  // Create table headers
   headers.forEach(h => {
     const th = document.createElement("th");
     th.textContent = h;
     theadRow.appendChild(th);
   });
 
-  // ✅ Render Rows
+  // Populate rows
   data.forEach(item => {
     let rowContent = "";
-    const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "N/A";
 
-    if (currentType === "contact") {
+    const dateStr = item.createdAt
+      ? new Date(item.createdAt).toLocaleDateString()
+      : "N/A";
+
+    if (currentType === "contacts") {
       rowContent = `
         <td>${item.name || ''}</td>
         <td>${item.email || ''}</td>
@@ -107,7 +105,8 @@ function renderTable(data) {
         <td>${item.message || ''}</td>
         <td>${dateStr}</td>
       `;
-    } else if (currentType === "counselling") { // ✅ Matches backend spelling
+    } 
+    else if (currentType === "counselling") {
       rowContent = `
         <td>${item.name || ''}</td>
         <td>${item.email || ''}</td>
@@ -118,7 +117,8 @@ function renderTable(data) {
         <td>${item.message || ''}</td>
         <td>${dateStr}</td>
       `;
-    } else if (currentType === "volunteer") {
+    } 
+    else if (currentType === "volunteers") {
       rowContent = `
         <td>${item.name || ''}</td>
         <td>${item.email || ''}</td>
@@ -138,17 +138,24 @@ function renderTable(data) {
         <button class="btn-delete" onclick="deleteItem('${item._id}')">Delete</button>
       </td>
     `;
+
     tableBody.appendChild(tr);
   });
 }
 
-/* ================= DELETE ================= */
+/* ================= DELETE FUNCTION ================= */
 
 window.deleteItem = async function(id) {
   if (!confirm("Are you sure you want to delete this record?")) return;
 
   try {
-    const res = await fetch(`${API}/${currentType}/${id}`, {
+    // ✅ FIX: plural → singular mapping
+    let deletePath = currentType;
+
+    if (currentType === "contacts") deletePath = "contact";
+    if (currentType === "volunteers") deletePath = "volunteer";
+
+    const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`
@@ -162,9 +169,10 @@ window.deleteItem = async function(id) {
     }
 
     alert("Deleted successfully");
-    fetchData(currentType); 
+    fetchData(currentType);
+
   } catch (error) {
-    console.error(error);
+    console.error("DELETE ERROR:", error);
     alert("Server error during deletion");
   }
 };
