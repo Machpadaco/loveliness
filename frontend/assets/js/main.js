@@ -1,6 +1,7 @@
-const API = "http://localhost:5000/api/admin";
+// ✅ Use 127.0.0.1 for better compatibility with local development
+const API = "http://127.0.0.1:5000/api/admin";
 
-// ✅ Protect page
+// ✅ Protect page: Redirect if no token is found
 const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "login.html";
@@ -10,58 +11,63 @@ let currentType = "";
 
 /* ================= LOAD FUNCTIONS ================= */
 
-async function loadContact() {
+window.loadContact = async function() {
   currentType = "contacts";
   fetchData("contacts");
-}
+};
 
-async function loadCounselling() {
+window.loadCounselling = async function() {
   currentType = "counselling";
   fetchData("counselling");
-}
+};
 
-async function loadVolunteer() {
+window.loadVolunteer = async function() {
   currentType = "volunteers";
   fetchData("volunteers");
-}
+};
 
 /* ================= FETCH DATA ================= */
 
 async function fetchData(type) {
   try {
     const res = await fetch(`${API}/${type}`, {
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       }
     });
 
-    console.log("Response status:", res.status);
+    console.log(`Fetching ${type} - Status:`, res.status);
 
     const data = await res.json();
-
-    // 🔥 ADD THIS LINE TO SEE WHAT BACKEND RETURNS
     console.log("API Response:", data);
 
     if (!res.ok) {
-      alert(data.message || "Error loading data");
+      // If the token is expired or invalid, redirect to login
+      if (res.status === 401 || res.status === 403) {
+        alert("Session expired. Please login again.");
+        window.location.href = "login.html";
+        return;
+      }
+      alert(data.message || `Error ${res.status}: loading data`);
       return;
     }
 
-    // ✅ FIX: Handle response format properly
-    if (Array.isArray(data)) {
-      renderTable(data);
-    } 
-    else if (Array.isArray(data.data)) {
-      renderTable(data.data);
-    } 
-    else {
+    // ✅ Flexible Data Handling
+    const actualData = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : null);
+
+    if (actualData) {
+      renderTable(actualData);
+    } else {
       console.error("Unexpected response format:", data);
-      alert(data.message || "Invalid data format from server");
+      alert("Invalid data format received from server.");
     }
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
-    alert("Server error connecting to API");
+    // This alert now tells you if the server is actually reachable
+    alert("Connection Error: Check if your Node.js server is running on port 5000.");
   }
 }
 
@@ -76,20 +82,18 @@ function renderTable(data) {
   tableBody.innerHTML = "";
   theadRow.innerHTML = "";
 
-  if (!Array.isArray(data) || data.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center;">No data found</td></tr>`;
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 20px;">No records found in database.</td></tr>`;
     return;
   }
 
+  // Define Headers based on the active tab
   let headers = [];
-
   if (currentType === "contacts") {
     headers = ["Name", "Email", "Phone", "Subject", "Message", "Date", "Action"];
-  } 
-  else if (currentType === "counselling") {
-    headers = ["Name", "Email", "Phone", "Country", "Type", "Preferred Contact", "Message", "Date", "Action"];
-  } 
-  else if (currentType === "volunteers") {
+  } else if (currentType === "counselling") {
+    headers = ["Name", "Email", "Phone", "Country", "Type", "Contact Pref.", "Message", "Date", "Action"];
+  } else if (currentType === "volunteers") {
     headers = ["Name", "Email", "Phone", "Country", "Interest", "Availability", "Message", "Date", "Action"];
   }
 
@@ -100,11 +104,8 @@ function renderTable(data) {
   });
 
   data.forEach(item => {
+    const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "N/A";
     let rowContent = "";
-
-    const dateStr = item.createdAt
-      ? new Date(item.createdAt).toLocaleDateString()
-      : "N/A";
 
     if (currentType === "contacts") {
       rowContent = `
@@ -113,10 +114,8 @@ function renderTable(data) {
         <td>${item.phone || ''}</td>
         <td>${item.subject || ''}</td>
         <td>${item.message || ''}</td>
-        <td>${dateStr}</td>
-      `;
-    } 
-    else if (currentType === "counselling") {
+        <td>${dateStr}</td>`;
+    } else if (currentType === "counselling") {
       rowContent = `
         <td>${item.name || ''}</td>
         <td>${item.email || ''}</td>
@@ -125,10 +124,8 @@ function renderTable(data) {
         <td>${item.counsellingType || ''}</td>
         <td>${item.preferredContact || ''}</td>
         <td>${item.message || ''}</td>
-        <td>${dateStr}</td>
-      `;
-    } 
-    else if (currentType === "volunteers") {
+        <td>${dateStr}</td>`;
+    } else if (currentType === "volunteers") {
       rowContent = `
         <td>${item.name || ''}</td>
         <td>${item.email || ''}</td>
@@ -137,18 +134,15 @@ function renderTable(data) {
         <td>${item.areaOfInterest || ''}</td>
         <td>${item.availability || ''}</td>
         <td>${item.message || ""}</td>
-        <td>${dateStr}</td>
-      `;
+        <td>${dateStr}</td>`;
     }
 
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      ${rowContent}
+    tr.innerHTML = `${rowContent}
       <td>
-        <button class="btn-delete" onclick="deleteItem('${item._id}')">Delete</button>
-      </td>
-    `;
-
+        <button class="btn-delete" style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;" 
+        onclick="deleteItem('${item._id}')">Delete</button>
+      </td>`;
     tableBody.appendChild(tr);
   });
 }
@@ -159,15 +153,14 @@ window.deleteItem = async function(id) {
   if (!confirm("Are you sure you want to delete this record?")) return;
 
   try {
-    let deletePath = currentType;
-
-    if (currentType === "contacts") deletePath = "contact";
-    if (currentType === "volunteers") deletePath = "volunteer";
-
+    // Ensure the delete path matches your backend (Change to plural if needed)
+    let deletePath = currentType; 
+    
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       }
     });
 
@@ -178,11 +171,11 @@ window.deleteItem = async function(id) {
     }
 
     alert("Deleted successfully");
-    fetchData(currentType);
+    fetchData(currentType); // Refresh current list
 
   } catch (error) {
     console.error("DELETE ERROR:", error);
-    alert("Server error during deletion");
+    alert("Network error during deletion.");
   }
 };
 
@@ -192,3 +185,8 @@ window.logout = function() {
   localStorage.removeItem("token");
   window.location.href = "login.html";
 };
+
+// Auto-load contacts on first visit
+document.addEventListener("DOMContentLoaded", () => {
+    loadContact();
+});
