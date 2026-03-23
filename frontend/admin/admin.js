@@ -1,3 +1,14 @@
+// SEND CONTACT DATA TO BACKEND
+async function sendContact(data) {
+  return fetch("http://localhost:5000/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+}
+
 const API = "http://localhost:5000/api/admin";
 
 // ✅ Protect page
