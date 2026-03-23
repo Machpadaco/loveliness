@@ -1,203 +1,194 @@
-// SEND COUNSELLING DATA TO BACKEND
-async function sendCounselling(data) {
-  return fetch("http://localhost:5000/api/counselling", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }).then(res => res.json());
+const API = "http://localhost:5000/api/admin";
+
+// ✅ Protect page
+const token = localStorage.getItem("token");
+if (!token) {
+  window.location.href = "login.html";
 }
 
-// SEND VOLUNTEER DATA TO BACKEND
-async function sendVolunteer(data) {
-  return fetch("http://localhost:5000/api/volunteer", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }).then(res => res.json());
+let currentType = "";
+
+/* ================= LOAD FUNCTIONS ================= */
+
+async function loadContact() {
+  currentType = "contacts";
+  fetchData("contacts");
 }
 
+async function loadCounselling() {
+  currentType = "counselling";
+  fetchData("counselling");
+}
 
-// CONTACT FORM
-const contactForm = document.getElementById("contactForm");
+async function loadVolunteer() {
+  currentType = "volunteers";
+  fetchData("volunteers");
+}
 
-if(contactForm){
+/* ================= FETCH DATA ================= */
 
-  contactForm.addEventListener("submit", async function(e){
+async function fetchData(type) {
+  try {
+    const res = await fetch(`${API}/${type}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
 
-    e.preventDefault();
+    console.log("Response status:", res.status);
 
-    const data = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      message: document.getElementById("message").value
-    };
+    const data = await res.json();
 
-    const response = await sendContact(data);
+    // 🔥 ADD THIS LINE TO SEE WHAT BACKEND RETURNS
+    console.log("API Response:", data);
 
-    alert(response.message);
+    if (!res.ok) {
+      alert(data.message || "Error loading data");
+      return;
+    }
 
-    contactForm.reset();
+    // ✅ FIX: Handle response format properly
+    if (Array.isArray(data)) {
+      renderTable(data);
+    } 
+    else if (Array.isArray(data.data)) {
+      renderTable(data.data);
+    } 
+    else {
+      console.error("Unexpected response format:", data);
+      alert(data.message || "Invalid data format from server");
+    }
 
+  } catch (error) {
+    console.error("FETCH ERROR:", error);
+    alert("Server error connecting to API");
+  }
+}
+
+/* ================= RENDER TABLE ================= */
+
+function renderTable(data) {
+  const tableBody = document.getElementById("tableBody");
+  const theadRow = document.querySelector("thead tr");
+
+  if (!tableBody || !theadRow) return;
+
+  tableBody.innerHTML = "";
+  theadRow.innerHTML = "";
+
+  if (!Array.isArray(data) || data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center;">No data found</td></tr>`;
+    return;
+  }
+
+  let headers = [];
+
+  if (currentType === "contacts") {
+    headers = ["Name", "Email", "Phone", "Subject", "Message", "Date", "Action"];
+  } 
+  else if (currentType === "counselling") {
+    headers = ["Name", "Email", "Phone", "Country", "Type", "Preferred Contact", "Message", "Date", "Action"];
+  } 
+  else if (currentType === "volunteers") {
+    headers = ["Name", "Email", "Phone", "Country", "Interest", "Availability", "Message", "Date", "Action"];
+  }
+
+  headers.forEach(h => {
+    const th = document.createElement("th");
+    th.textContent = h;
+    theadRow.appendChild(th);
   });
 
-}
+  data.forEach(item => {
+    let rowContent = "";
 
+    const dateStr = item.createdAt
+      ? new Date(item.createdAt).toLocaleDateString()
+      : "N/A";
 
-// COUNSELLING FORM
-const counsellingForm = document.getElementById("counsellingForm");
-
-if(counsellingForm){
-
-  const statusMsg = document.getElementById("statusMsg");
-  const submitBtn = document.getElementById("submit-btn");
-
-  counsellingForm.addEventListener("submit", async function(e){
-
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    statusMsg.innerText = "Submitting...";
-
-    const data = {
-      name: document.getElementById("userName").value,
-      email: document.getElementById("userEmail").value,
-      phone: document.getElementById("userPhone").value,
-      country: document.getElementById("userCountry").value,
-      counsellingType: document.getElementById("counsellingType").value,
-      preferredContact: document.getElementById("preferredContact").value,
-      message: document.getElementById("userMessage").value
-    };
-
-    try {
-      const response = await sendCounselling(data);
-      statusMsg.innerText = response.message;
-      counsellingForm.reset();
-    } catch (error) {
-      console.error(error);
-      statusMsg.innerText = "Error submitting form";
+    if (currentType === "contacts") {
+      rowContent = `
+        <td>${item.name || ''}</td>
+        <td>${item.email || ''}</td>
+        <td>${item.phone || ''}</td>
+        <td>${item.subject || ''}</td>
+        <td>${item.message || ''}</td>
+        <td>${dateStr}</td>
+      `;
+    } 
+    else if (currentType === "counselling") {
+      rowContent = `
+        <td>${item.name || ''}</td>
+        <td>${item.email || ''}</td>
+        <td>${item.phone || ''}</td>
+        <td>${item.country || ''}</td>
+        <td>${item.counsellingType || ''}</td>
+        <td>${item.preferredContact || ''}</td>
+        <td>${item.message || ''}</td>
+        <td>${dateStr}</td>
+      `;
+    } 
+    else if (currentType === "volunteers") {
+      rowContent = `
+        <td>${item.name || ''}</td>
+        <td>${item.email || ''}</td>
+        <td>${item.phone || ''}</td>
+        <td>${item.country || ''}</td>
+        <td>${item.areaOfInterest || ''}</td>
+        <td>${item.availability || ''}</td>
+        <td>${item.message || ""}</td>
+        <td>${dateStr}</td>
+      `;
     }
 
-    submitBtn.disabled = false;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      ${rowContent}
+      <td>
+        <button class="btn-delete" onclick="deleteItem('${item._id}')">Delete</button>
+      </td>
+    `;
 
+    tableBody.appendChild(tr);
   });
-
 }
 
+/* ================= DELETE ================= */
 
-// VOLUNTEER FORM
-const volunteerForm = document.getElementById("volunteerForm");
+window.deleteItem = async function(id) {
+  if (!confirm("Are you sure you want to delete this record?")) return;
 
-if(volunteerForm){
+  try {
+    let deletePath = currentType;
 
-  const volStatusMsg = document.getElementById("volStatusMsg");
-  const volSubmitBtn = document.getElementById("vol-submit-btn");
+    if (currentType === "contacts") deletePath = "contact";
+    if (currentType === "volunteers") deletePath = "volunteer";
 
-  volunteerForm.addEventListener("submit", async function(e){
+    const res = await fetch(`${API}/${deletePath}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
 
-    e.preventDefault();
-
-    volSubmitBtn.disabled = true;
-    volStatusMsg.innerText = "Submitting...";
-
-    const data = {
-      name: document.getElementById("volName").value,
-      email: document.getElementById("volEmail").value,
-      phone: document.getElementById("volPhone").value,
-      country: document.getElementById("volCountry").value,
-      areaOfInterest: document.getElementById("volInterest").value,
-      availability: document.getElementById("volAvailability").value,
-      message: document.getElementById("volMessage").value
-    };
-
-    try {
-
-      const response = await sendVolunteer(data);
-
-      volStatusMsg.innerText = response.message;
-      volunteerForm.reset();
-
-    } catch (error) {
-
-      console.error(error);
-      volStatusMsg.innerText = "Error submitting application";
-
+    if (!res.ok) {
+      const data = await res.json();
+      alert(data.message || "Delete failed");
+      return;
     }
 
-    volSubmitBtn.disabled = false;
+    alert("Deleted successfully");
+    fetchData(currentType);
 
-  });
+  } catch (error) {
+    console.error("DELETE ERROR:", error);
+    alert("Server error during deletion");
+  }
+};
 
-}
+/* ================= LOGOUT ================= */
 
-
-/**
- * Automatically detects path depth and loads HTML components (Header/Footer)
- */
-function getBasePath() {
-    const path = window.location.pathname;
-    if (path.includes("/admin/")) {
-        return "../";
-    }
-    return "";
-}
-
-function loadComponent(elementId, fileName) {
-    const base = getBasePath();
-    const filePath = `${base}components/${fileName}`;
-
-    fetch(filePath)
-        .then(response => {
-            if (!response.ok) throw new Error(`Could not load ${fileName}`);
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById(elementId).innerHTML = data;
-            if (fileName === 'header.html') {
-                initMobileMenu();
-            }
-        })
-        .catch(err => console.error("Component Error:", err));
-}
-
-function initMobileMenu() {
-    const menuBtn = document.querySelector('#mobile-menu');
-    const navList = document.querySelector('#nav-list');
-
-    if (menuBtn && navList) {
-        menuBtn.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            menuBtn.classList.toggle('is-active');
-        });
-    }
-}
-
-// Start loading components when the page is ready
-document.addEventListener("DOMContentLoaded", () => {
-    loadComponent("header-placeholder", "header.html");
-    loadComponent("footer-placeholder", "footer.html");
-});
-
-/* --- Profile Bio Toggle Logic --- */
-document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.read-more-btn');
-
-    if (buttons.length > 0) {
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const infoContainer = this.closest('.profile-info');
-                const fullBio = infoContainer.querySelector('.full-bio-content');
-                fullBio.classList.toggle('show-content');
-                if (fullBio.classList.contains('show-content')) {
-                    this.textContent = 'Read Less';
-                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                } else {
-                    this.textContent = 'Read More';
-                }
-            });
-        });
-    }
-});
+window.logout = function() {
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+};
