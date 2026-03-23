@@ -44,7 +44,6 @@ async function fetchData(type) {
     console.log("API Response:", data);
 
     if (!res.ok) {
-      // If the token is expired or invalid, redirect to login
       if (res.status === 401 || res.status === 403) {
         alert("Session expired. Please login again.");
         window.location.href = "login.html";
@@ -54,7 +53,6 @@ async function fetchData(type) {
       return;
     }
 
-    // ✅ Flexible Data Handling
     const actualData = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : null);
 
     if (actualData) {
@@ -66,7 +64,6 @@ async function fetchData(type) {
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
-    // This alert now tells you if the server is actually reachable
     alert("Connection Error: Check if your Node.js server is running on port 5000.");
   }
 }
@@ -87,7 +84,6 @@ function renderTable(data) {
     return;
   }
 
-  // Define Headers based on the active tab
   let headers = [];
   if (currentType === "contacts") {
     headers = ["Name", "Email", "Phone", "Subject", "Message", "Date", "Action"];
@@ -153,9 +149,11 @@ window.deleteItem = async function(id) {
   if (!confirm("Are you sure you want to delete this record?")) return;
 
   try {
-    // Ensure the delete path matches your backend (Change to plural if needed)
-    let deletePath = currentType; 
-    
+    let deletePath = currentType;
+
+    if (currentType === "contacts") deletePath = "contact";
+    if (currentType === "volunteers") deletePath = "volunteer";
+
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
       headers: {
@@ -171,7 +169,7 @@ window.deleteItem = async function(id) {
     }
 
     alert("Deleted successfully");
-    fetchData(currentType); // Refresh current list
+    fetchData(currentType);
 
   } catch (error) {
     console.error("DELETE ERROR:", error);
@@ -186,7 +184,50 @@ window.logout = function() {
   window.location.href = "login.html";
 };
 
-// Auto-load contacts on first visit
+/* ================= HEADER & FOOTER FIX ================= */
+
+// ✅ Smart path detection
+function getBasePath() {
+  const path = window.location.pathname;
+
+  // If inside admin folder
+  if (path.includes("/admin/")) {
+    return "../";
+  }
+
+  // If inside frontend root
+  if (path.includes("/frontend/")) {
+    return "./";
+  }
+
+  return "./";
+}
+
+// ✅ Load components
+function loadComponent(elementId, fileName) {
+  const base = getBasePath();
+  const filePath = `${base}components/${fileName}`;
+
+  console.log("Loading component:", filePath); // Debug
+
+  fetch(filePath)
+    .then(response => {
+      if (!response.ok) throw new Error(`Could not load ${fileName}`);
+      return response.text();
+    })
+    .then(data => {
+      const el = document.getElementById(elementId);
+      if (el) el.innerHTML = data;
+    })
+    .catch(err => console.error("Component Error:", err));
+}
+
+/* ================= INIT ================= */
+
 document.addEventListener("DOMContentLoaded", () => {
-    loadContact();
+  loadContact();
+
+  // ✅ Load header & footer
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
 });
