@@ -17,12 +17,22 @@ const app = express();
 /* =======================
    MIDDLEWARE
 ======================= */
-app.use(cors());
+
+// ✅ FIXED CORS (VERY IMPORTANT)
+app.use(cors({
+  origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 /* =======================
    ROUTES
 ======================= */
+
+// Public Routes
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/counselling', require('./routes/counsellingRoutes'));
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
@@ -34,6 +44,7 @@ app.use('/api/admin', require('./routes/adminAuthRoutes'));
 /* =======================
    TEST ROUTES
 ======================= */
+
 app.get('/', (req, res) => {
   res.send('Lovelines Backend Running ✅');
 });
@@ -45,6 +56,7 @@ app.get('/api/test', (req, res) => {
 /* =======================
    SERVER START
 ======================= */
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
