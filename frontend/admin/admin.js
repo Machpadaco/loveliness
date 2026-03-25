@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api/admin";
+const API = "http://127.0.0.1:5000/api/admin";
 
 // ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
@@ -10,7 +10,6 @@ let currentType = "";
 
 /* ================= LOAD FUNCTIONS ================= */
 
-// ✅ FIXED: match backend routes (plural)
 async function loadContact() {
   currentType = "contacts";
   fetchData("contacts");
@@ -39,13 +38,21 @@ async function fetchData(type) {
     console.log("Response status:", res.status);
 
     const data = await res.json();
+    console.log("Raw API Response:", data);
 
     if (!res.ok) {
       alert(data.message || "Error loading data");
       return;
     }
 
-    renderTable(data);
+    // ✅ FIX: Extract actual array
+    const actualData = Array.isArray(data)
+      ? data
+      : (data.data && Array.isArray(data.data) ? data.data : []);
+
+    console.log("Processed Data:", actualData);
+
+    renderTable(actualData);
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
@@ -149,7 +156,6 @@ window.deleteItem = async function(id) {
   if (!confirm("Are you sure you want to delete this record?")) return;
 
   try {
-    // ✅ FIX: plural → singular mapping
     let deletePath = currentType;
 
     if (currentType === "contacts") deletePath = "contact";
