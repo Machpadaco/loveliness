@@ -189,3 +189,59 @@ window.logout = function() {
   localStorage.removeItem("token");
   window.location.href = "login.html";
 };
+
+/* ================= HEADER & FOOTER LOADER ================= */
+
+// Detect correct path
+function getBasePath() {
+  const path = window.location.pathname;
+
+  // If inside /admin folder → go back one level
+  if (path.includes("/admin/")) {
+    return "../";
+  }
+
+  return "";
+}
+
+// Load components
+function loadComponent(elementId, fileName) {
+  const base = getBasePath();
+  const filePath = `${base}components/${fileName}`;
+
+  console.log("Loading:", filePath);
+
+  fetch(filePath)
+    .then(res => {
+      if (!res.ok) throw new Error(`Failed to load ${fileName}`);
+      return res.text();
+    })
+    .then(data => {
+      document.getElementById(elementId).innerHTML = data;
+
+      // Optional: re-init mobile menu if header
+      if (fileName === "header.html") {
+        initMobileMenu();
+      }
+    })
+    .catch(err => console.error("Component Error:", err));
+}
+
+// Mobile menu toggle
+function initMobileMenu() {
+  const menuBtn = document.querySelector('#mobile-menu');
+  const navList = document.querySelector('#nav-list');
+
+  if (menuBtn && navList) {
+    menuBtn.addEventListener('click', () => {
+      navList.classList.toggle('active');
+      menuBtn.classList.toggle('is-active');
+    });
+  }
+}
+
+// Load on page ready
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+});
