@@ -103,3 +103,90 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* ================= COUNSELLING ================= */
+const counsellingForm = document.getElementById("counsellingForm");
+
+if (counsellingForm) {
+    const status = document.getElementById("statusMsg");
+    const btn = document.getElementById("submit-btn");
+
+    counsellingForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("Counselling submitted");
+
+        const data = {
+            name: document.getElementById("userName").value.trim(),
+            email: document.getElementById("userEmail").value.trim(),
+            phone: document.getElementById("userPhone").value.trim(),
+            country: document.getElementById("userCountry").value.trim(),
+            counsellingType: document.getElementById("counsellingType").value,
+            preferredContact: document.getElementById("preferredContact").value,
+            message: document.getElementById("userMessage").value.trim()
+        };
+
+        try {
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+            status.textContent = "";
+
+            const res = await sendCounselling(data);
+
+            status.textContent = res.message || "Request submitted!";
+            status.style.color = "green";
+
+            counsellingForm.reset();
+
+        } catch (err) {
+            status.textContent = err.message;
+            status.style.color = "red";
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "SUBMIT REQUEST";
+        }
+    });
+}
+
+/* ================= VOLUNTEER ================= */
+const volunteerForm = document.getElementById("volunteerForm");
+
+if (volunteerForm) {
+    const status = document.getElementById("volStatusMsg");
+    const btn = document.getElementById("vol-submit-btn");
+
+    volunteerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("Volunteer submitted");
+
+        const data = {
+            name: document.getElementById("volName").value.trim(),
+            email: document.getElementById("volEmail").value.trim(),
+            phone: document.getElementById("volPhone").value.trim(),
+            country: document.getElementById("volCountry").value.trim(),
+            areaOfInterest: document.getElementById("volInterest").value,
+            availability: document.getElementById("volAvailability").value,
+            message: document.getElementById("volMessage").value.trim()
+        };
+
+        try {
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+            status.textContent = "";
+
+            const res = await sendVolunteer(data);
+
+            status.textContent = res.message || "Application submitted!";
+            status.style.color = "green";
+
+            volunteerForm.reset();
+
+        } catch (err) {
+            status.textContent = err.message;
+            status.style.color = "red";
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Submit Application";
+        }
+    });
+}
+
