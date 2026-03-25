@@ -153,6 +153,7 @@ window.deleteItem = async function(id) {
 
     if (currentType === "contacts") deletePath = "contact";
     if (currentType === "volunteers") deletePath = "volunteer";
+    if (currentType === "counseling") deletePath = "counseling";
 
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
