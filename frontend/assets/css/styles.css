@@ -1190,12 +1190,26 @@ grid-template-columns:1fr;
     }
 }
 
-<div class="team-container">
-  <img src="assets/img/members.jpg" alt="Team Members" class="team-image">
-  <p class="team-caption">
-    A group of distinguished individuals gathered together, showcasing unity, professionalism, and cultural diversity.
-  </p>
-</div>
+.team-container {
+  max-width: 900px;
+  margin: 30px auto;
+  text-align: center;
+  padding: 15px;
+}
+
+.team-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.team-caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
 
 /* --- Compliance Section Styles --- */
 .compliance-section {
