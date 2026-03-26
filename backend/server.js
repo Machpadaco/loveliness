@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path'); // ✅ ADDED
 const connectDB = require('./config/db');
 
 // Load environment variables
@@ -31,6 +32,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* =======================
+   STATIC FRONTEND FILES ✅ ADDED
+======================= */
+
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+/* =======================
     ROUTES
 ======================= */
 
@@ -39,8 +46,7 @@ app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/counselling', require('./routes/counsellingRoutes'));
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
 
-// Admin Routes (Consolidated)
-// Ensure these route files don't have conflicting paths like both having '/'
+// Admin Routes
 app.use('/api/admin', require('./routes/adminAuthRoutes')); 
 app.use('/api/admin', require('./routes/adminRoutes'));
 
@@ -52,12 +58,11 @@ app.get('/', (req, res) => {
   res.send('Lovelines Backend Running ✅');
 });
 
-// Test route to check if API is reachable from browser
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀', status: "Connected" });
 });
 
-// ✅ GLOBAL ERROR HANDLER (Prevents server from crashing on bad data)
+// Error handler
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err.stack);
   res.status(500).json({
