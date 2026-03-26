@@ -1190,6 +1190,13 @@ grid-template-columns:1fr;
     }
 }
 
+<div class="team-container">
+  <img src="assets/img/members.jpg" alt="Team Members" class="team-image">
+  <p class="team-caption">
+    A group of distinguished individuals gathered together, showcasing unity, professionalism, and cultural diversity.
+  </p>
+</div>
+
 /* --- Compliance Section Styles --- */
 .compliance-section {
     padding: 80px 20px;
