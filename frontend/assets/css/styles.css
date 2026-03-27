@@ -541,23 +541,56 @@ background:#a30000;
   text-decoration: none;
 }
 
-/* GALLERY */
-
-.gallery{
-padding:80px 0;
+/* 1. The Grid Container - This controls the layout */
+.gallery-grid {
+  display: grid;
+  /* This line creates columns that auto-fit. 
+     It says: "Make columns at least 300px wide, but grow to fill the space" */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px; /* Space between the image cards */
+  padding: 20px 0;
 }
 
-.gallery-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
+/* 2. The Wrapper for Image + Text */
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff; /* Optional: adds a card feel */
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-.gallery-grid img{
-width:100%;
-height:220px;
-object-fit:cover;
-border-radius:5px;
+/* 3. Image Responsiveness */
+.gallery-item img {
+  width: 100%;
+  height: 250px;    /* Fixed height for uniformity */
+  object-fit: cover; /* Crops image to fit the box without stretching */
+  display: block;
+}
+
+/* 4. The Caption Class */
+.gallery-caption {
+  padding: 15px 10px;
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* 5. Mobile Adjustments (Screen smaller than 480px) */
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr; /* Force one image per row on small phones */
+    gap: 20px;
+  }
+  
+  .gallery-item img {
+    height: 200px; /* Slightly shorter images on mobile */
+  }
 }
 
 /* VIDEO */
