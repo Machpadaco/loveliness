@@ -15,6 +15,7 @@
             background: #f4f4f4;
         }
 
+        /* ✅ Centers the card between header and footer */
         .login-card { 
             background: white; 
             padding: 30px; 
@@ -24,7 +25,7 @@
             max-width: 350px; 
             text-align: center;
 
-            margin: auto; /* 🔥 centers perfectly between header & footer */
+            margin: auto; /* 🔥 KEY LINE */
         }
 
         h2 { 
@@ -76,10 +77,52 @@
         <div id="message"></div>
         <input id="email" type="email" placeholder="Admin Email">
         <input id="password" type="password" placeholder="Password">
-        <button id="loginBtn">Login</button>
+        <button id="loginBtn" onclick="login()">Login</button>
     </div>
 
     <div id="footer-placeholder"></div>
+
+    <script>
+    async function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const messageDiv = document.getElementById("message");
+        const loginBtn = document.getElementById("loginBtn");
+
+        if (!email || !password) {
+            messageDiv.innerText = "Please fill in all fields";
+            return;
+        }
+
+        try {
+            loginBtn.innerText = "Logging in...";
+            loginBtn.disabled = true;
+
+            const res = await fetch("http://localhost:5000/api/admin/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem("token", data.token);
+                window.location.href = "admin.html";
+            } else {
+                messageDiv.innerText = data.message || "Invalid credentials";
+                loginBtn.innerText = "Login";
+                loginBtn.disabled = false;
+            }
+
+        } catch (error) {
+            console.error(error);
+            messageDiv.innerText = "Server error. Is the backend running?";
+            loginBtn.innerText = "Login";
+            loginBtn.disabled = false;
+        }
+    }
+    </script>
 
     <script src="admin.js"></script>
 
