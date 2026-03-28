@@ -89,7 +89,9 @@ th {
              width: 100%; 
              max-width: 350px; 
              text-align: center;
-             justify-content:center;
+             
+             left:50%;
+            
             
             }
         h2 { 
