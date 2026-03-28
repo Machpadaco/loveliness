@@ -90,6 +90,7 @@ th {
              max-width: 350px; 
              text-align: center;
              justify-content:center;
+             display: flex;
             }
         h2 { 
             color: #333; 
