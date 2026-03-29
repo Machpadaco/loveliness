@@ -1,9 +1,11 @@
+// backend/createAdmin.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
-const Admin = require('./models/Admin'); // ✅ Ensure this path to your Admin model is correct
+const Admin = require('./models/Admin'); // ✅ Path must be correct
 
-dotenv.config(); 
+// Load environment variables
+dotenv.config();
 
 async function createAtlasAdmin() {
     try {
@@ -18,26 +20,37 @@ async function createAtlasAdmin() {
         await mongoose.connect(mongoUri);
         console.log("✅ Connected successfully to Atlas.");
 
-        // We hardcode these for this ONE run to guarantee success
-        const email = "admin@test.com";
-        const password = "password123";
+        // ✅ Securely load from environment variables
+        const email = process.env.ADMIN_EMAIL;
+        const password = process.env.ADMIN_PASSWORD;
 
-        // Remove old attempts for this specific email
+        // Verify the variables are set
+        if (!email || !password) {
+            console.error("❌ Error: ADMIN_EMAIL or ADMIN_PASSWORD missing in .env!");
+            process.exit(1);
+        }
+
+        // Optional: Remove old attempts for this specific email (comment this out for reuse)
         await Admin.deleteOne({ email });
 
+        // Hash the new password
         const hashedPassword = await bcrypt.hash(password, 10);
         
+        // Create the admin model instance
         const newAdmin = new Admin({
             email,
             password: hashedPassword
         });
 
+        // Save to the database
         await newAdmin.save();
         
         console.log("-----------------------------------------");
         console.log("🚀 ADMIN ACCOUNT CREATED IN ATLAS!");
+        // We log the variables loaded, so we know what was used
         console.log(`Email: ${email}`);
-        console.log(`Password: ${password}`);
+        // Be cautious logging passwords, but it's loaded securely from .env
+        console.log(`Password: ${password}`); 
         console.log("-----------------------------------------");
         
         process.exit();
