@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovelines Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+<div class="admin-container">
+
+  <header class="admin-header">
+    <h1>Lovelines Admin Dashboard</h1>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </header>
+
+  <div class="actions">
+    <button onclick="loadContact()">📩 Contact</button>
+    <button onclick="loadCounselling()">🧠 Counselling</button>
+    <button onclick="loadVolunteer()">🙌 Volunteer</button>
+  </div>
+
+  <hr>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          </tr>
+      </thead>
+      <tbody id="tableBody">
+          <tr>
+              <td colspan="10" style="text-align:center; padding: 20px;">
+                  Select a category above to load data.
+              </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Node modules (Matches any node_modules folder in any subfolder)
+**/node_modules/
+
+# Environment variables (Matches any .env file anywhere in the project)
+**/.env
+.env.local
+.env.*.local
+
+# Build folders (Usually you don't want to push compiled code)
+frontend/dist/
+frontend/build/
+
+# Logs and OS files
+logs/
+*.log
+.DS_Store
+Thumbs.db
+
+frontend/assets/video/
+*.mp4
+*.mov
+*.avi
