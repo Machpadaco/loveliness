@@ -1,10 +1,15 @@
-// ✅ Use 127.0.0.1 for better compatibility with local development
+// ✅ Use 127.0.0.1 for local development (you will switch later in api.js)
 const API = "http://127.0.0.1:5000/api/admin";
 
-// ✅ Protect page: Redirect if no token is found
+// ✅ Get token
 const token = localStorage.getItem("token");
-if (!token) {
-  window.location.href = "login.html";
+const path = window.location.pathname;
+
+// ✅ Protect ONLY admin pages (exclude login page)
+if (path.includes("/admin/") && !path.includes("login.html")) {
+  if (!token) {
+    window.location.href = "/"; // redirect to homepage
+  }
 }
 
 let currentType = "";
@@ -46,14 +51,16 @@ async function fetchData(type) {
     if (!res.ok) {
       if (res.status === 401 || res.status === 403) {
         alert("Session expired. Please login again.");
-        window.location.href = "login.html";
+        window.location.href = "/admin/login.html";
         return;
       }
       alert(data.message || `Error ${res.status}: loading data`);
       return;
     }
 
-    const actualData = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : null);
+    const actualData = Array.isArray(data)
+      ? data
+      : (data.data && Array.isArray(data.data) ? data.data : null);
 
     if (actualData) {
       renderTable(actualData);
@@ -64,7 +71,7 @@ async function fetchData(type) {
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
-    alert("Connection Error: Check if your Node.js server is running on port 5000.");
+    alert("Connection Error: Check if your backend server is running.");
   }
 }
 
@@ -100,7 +107,10 @@ function renderTable(data) {
   });
 
   data.forEach(item => {
-    const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "N/A";
+    const dateStr = item.createdAt
+      ? new Date(item.createdAt).toLocaleDateString()
+      : "N/A";
+
     let rowContent = "";
 
     if (currentType === "contacts") {
@@ -153,7 +163,7 @@ window.deleteItem = async function(id) {
 
     if (currentType === "contacts") deletePath = "contact";
     if (currentType === "volunteers") deletePath = "volunteer";
-    if (currentType === "counseling") deletePath = "counseling";
+    if (currentType === "counselling") deletePath = "counselling";
 
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
@@ -182,7 +192,7 @@ window.deleteItem = async function(id) {
 
 window.logout = function() {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  window.location.href = "/"; // go to homepage after logout
 };
 
 /* ================= HEADER & FOOTER FIX ================= */
@@ -191,14 +201,8 @@ window.logout = function() {
 function getBasePath() {
   const path = window.location.pathname;
 
-  // If inside admin folder
   if (path.includes("/admin/")) {
     return "../";
-  }
-
-  // If inside frontend root
-  if (path.includes("/frontend/")) {
-    return "./";
   }
 
   return "./";
@@ -209,7 +213,7 @@ function loadComponent(elementId, fileName) {
   const base = getBasePath();
   const filePath = `${base}components/${fileName}`;
 
-  console.log("Loading component:", filePath); // Debug
+  console.log("Loading component:", filePath);
 
   fetch(filePath)
     .then(response => {
@@ -228,7 +232,7 @@ function loadComponent(elementId, fileName) {
 document.addEventListener("DOMContentLoaded", () => {
   loadContact();
 
-  // ✅ Load header & footer
+  // Load header & footer
   loadComponent("header-placeholder", "header.html");
   loadComponent("footer-placeholder", "footer.html");
 });
