@@ -1,10 +1,17 @@
-// ✅ Use 127.0.0.1 for better compatibility with local development
+// ✅ Use 127.0.0.1 for local, but ensure your backend is deployed for Vercel to work
 const API = "http://127.0.0.1:5000/api/admin";
 
-// ✅ Protect page: Redirect if no token is found
+/* ================= AUTH PROTECTION ================= */
 const token = localStorage.getItem("token");
-if (!token) {
-  window.location.href = "login.html";
+const isRootPage = window.location.pathname === "/" || window.location.pathname.endsWith("index.html");
+const isAdminPage = window.location.pathname.includes("admin.html");
+
+// 💡 FIX: Only redirect if the user is trying to access admin.html without a token
+if (isAdminPage && !token) {
+    // If we are inside the admin folder, login is in the same folder
+    // If we are at the root, login is in admin/login.html
+    const loginPath = window.location.pathname.includes("/admin/") ? "login.html" : "admin/login.html";
+    window.location.href = loginPath;
 }
 
 let currentType = "";
@@ -64,7 +71,10 @@ async function fetchData(type) {
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
-    alert("Connection Error: Check if your Node.js server is running on port 5000.");
+    // Only alert on admin pages to avoid annoying users on the homepage
+    if (isAdminPage) {
+      alert("Connection Error: Check if your Node.js server is running.");
+    }
   }
 }
 
@@ -80,7 +90,7 @@ function renderTable(data) {
   theadRow.innerHTML = "";
 
   if (data.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 20px;">No records found in database.</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 20px;">No records found.</td></tr>`;
     return;
   }
 
@@ -104,41 +114,15 @@ function renderTable(data) {
     let rowContent = "";
 
     if (currentType === "contacts") {
-      rowContent = `
-        <td>${item.name || ''}</td>
-        <td>${item.email || ''}</td>
-        <td>${item.phone || ''}</td>
-        <td>${item.subject || ''}</td>
-        <td>${item.message || ''}</td>
-        <td>${dateStr}</td>`;
+      rowContent = `<td>${item.name || ''}</td><td>${item.email || ''}</td><td>${item.phone || ''}</td><td>${item.subject || ''}</td><td>${item.message || ''}</td><td>${dateStr}</td>`;
     } else if (currentType === "counselling") {
-      rowContent = `
-        <td>${item.name || ''}</td>
-        <td>${item.email || ''}</td>
-        <td>${item.phone || ''}</td>
-        <td>${item.country || ''}</td>
-        <td>${item.counsellingType || ''}</td>
-        <td>${item.preferredContact || ''}</td>
-        <td>${item.message || ''}</td>
-        <td>${dateStr}</td>`;
+      rowContent = `<td>${item.name || ''}</td><td>${item.email || ''}</td><td>${item.phone || ''}</td><td>${item.country || ''}</td><td>${item.counsellingType || ''}</td><td>${item.preferredContact || ''}</td><td>${item.message || ''}</td><td>${dateStr}</td>`;
     } else if (currentType === "volunteers") {
-      rowContent = `
-        <td>${item.name || ''}</td>
-        <td>${item.email || ''}</td>
-        <td>${item.phone || ''}</td>
-        <td>${item.country || ''}</td>
-        <td>${item.areaOfInterest || ''}</td>
-        <td>${item.availability || ''}</td>
-        <td>${item.message || ""}</td>
-        <td>${dateStr}</td>`;
+      rowContent = `<td>${item.name || ''}</td><td>${item.email || ''}</td><td>${item.phone || ''}</td><td>${item.country || ''}</td><td>${item.areaOfInterest || ''}</td><td>${item.availability || ''}</td><td>${item.message || ""}</td><td>${dateStr}</td>`;
     }
 
     const tr = document.createElement("tr");
-    tr.innerHTML = `${rowContent}
-      <td>
-        <button class="btn-delete" style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;" 
-        onclick="deleteItem('${item._id}')">Delete</button>
-      </td>`;
+    tr.innerHTML = `${rowContent}<td><button class="btn-delete" style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;" onclick="deleteItem('${item._id}')">Delete</button></td>`;
     tableBody.appendChild(tr);
   });
 }
@@ -150,10 +134,9 @@ window.deleteItem = async function(id) {
 
   try {
     let deletePath = currentType;
-
     if (currentType === "contacts") deletePath = "contact";
     if (currentType === "volunteers") deletePath = "volunteer";
-    if (currentType === "counseling") deletePath = "counseling";
+    if (currentType === "counselling") deletePath = "counselling";
 
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
@@ -171,10 +154,8 @@ window.deleteItem = async function(id) {
 
     alert("Deleted successfully");
     fetchData(currentType);
-
   } catch (error) {
     console.error("DELETE ERROR:", error);
-    alert("Network error during deletion.");
   }
 };
 
@@ -185,31 +166,18 @@ window.logout = function() {
   window.location.href = "login.html";
 };
 
-/* ================= HEADER & FOOTER FIX ================= */
+/* ================= HEADER & FOOTER LOADERS ================= */
 
-// ✅ Smart path detection
 function getBasePath() {
   const path = window.location.pathname;
-
-  // If inside admin folder
-  if (path.includes("/admin/")) {
-    return "../";
-  }
-
-  // If inside frontend root
-  if (path.includes("/frontend/")) {
-    return "./";
-  }
-
+  // If we are deep inside the admin folder, components are one level up
+  if (path.includes("/admin/")) return "../";
   return "./";
 }
 
-// ✅ Load components
 function loadComponent(elementId, fileName) {
   const base = getBasePath();
   const filePath = `${base}components/${fileName}`;
-
-  console.log("Loading component:", filePath); // Debug
 
   fetch(filePath)
     .then(response => {
@@ -226,9 +194,12 @@ function loadComponent(elementId, fileName) {
 /* ================= INIT ================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadContact();
+  // Only auto-load data if we are on the admin page
+  if (isAdminPage && document.getElementById("tableBody")) {
+      loadContact();
+  }
 
-  // ✅ Load header & footer
+  // Load shared layout components
   loadComponent("header-placeholder", "header.html");
   loadComponent("footer-placeholder", "footer.html");
 });
