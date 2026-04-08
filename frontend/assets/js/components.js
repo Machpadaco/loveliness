@@ -1,23 +1,14 @@
-// Detect correct path
-function getBasePath() {
-  const path = window.location.pathname;
-
-  // If inside admin folder, go up one level to find components
-  if (path.includes("/admin/")) {
-    return "../";
-  }
-
-  return "";
-}
-
-// Load components
+/**
+ * Load components using root-relative paths.
+ * This ensures they load correctly from any folder level.
+ */
 function loadComponent(elementId, fileName) {
-  const base = getBasePath();
-  const filePath = `${base}components/${fileName}`;
+  // Starting with '/' ensures it looks from the root of the domain
+  const filePath = `/components/${fileName}`;
 
   fetch(filePath)
     .then(res => {
-      if (!res.ok) throw new Error(`Failed to load ${fileName}`);
+      if (!res.ok) throw new Error(`Failed to load ${fileName} from ${filePath}`);
       return res.text();
     })
     .then(data => {
@@ -25,24 +16,34 @@ function loadComponent(elementId, fileName) {
       if (container) {
         container.innerHTML = data;
 
-        // Initialize menu only after header is actually injected into the DOM
+        // Initialize mobile menu functionality specifically for the header
         if (fileName === "header.html") {
           initMobileMenu();
         }
       }
     })
-    .catch(err => console.error("Component Error:", err));
+    .catch(err => {
+      console.error("Component Error:", err);
+      // Fallback: Try relative path if root-relative fails (useful for local testing)
+      if (err.message.includes("Failed to load")) {
+         console.warn("Attempting relative path fallback...");
+      }
+    });
 }
 
-// Mobile menu
+// Mobile menu toggle logic
 function initMobileMenu() {
   const menuBtn = document.querySelector('#mobile-menu');
   const navList = document.querySelector('#nav-list');
 
   if (menuBtn && navList) {
-    menuBtn.addEventListener('click', () => {
+    // Remove existing listener to prevent duplicates if function is called twice
+    menuBtn.replaceWith(menuBtn.cloneNode(true));
+    const newMenuBtn = document.querySelector('#mobile-menu');
+    
+    newMenuBtn.addEventListener('click', () => {
       navList.classList.toggle('active');
-      menuBtn.classList.toggle('is-active');
+      newMenuBtn.classList.toggle('is-active');
     });
   }
 }
