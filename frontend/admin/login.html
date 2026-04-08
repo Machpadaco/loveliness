@@ -98,7 +98,7 @@
             loginBtn.innerText = "Logging in...";
             loginBtn.disabled = true;
 
-            const res = await fetch("http://localhost:5000/api/admin/login", {
+            const res = await fetch("https://loveliness-backend.onrender.com/api/admin/login",  {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -108,7 +108,7 @@
 
             if (res.ok) {
                 localStorage.setItem("token", data.token);
-                window.location.href = "admin.html";
+                window.location.href = `${window.location.origin}/admin/admin.html`;
             } else {
                 messageDiv.innerText = data.message || "Invalid credentials";
                 loginBtn.innerText = "Login";
@@ -124,7 +124,7 @@
     }
     </script>
 
-    <script src="admin.js"></script>
+   <script src="../assets/js/components.js"></script>
 
 </body>
 </html>

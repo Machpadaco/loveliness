@@ -1,5 +1,5 @@
-// ✅ Use 127.0.0.1 for better compatibility with local development
-const API = "http://127.0.0.1:5000/api/admin";
+// ✅ Updated for Live Production (Render)
+const API = "https://loveliness-backend.onrender.com/api/admin";
 
 // ✅ Protect page: Redirect if no token is found
 const token = localStorage.getItem("token");
@@ -64,7 +64,7 @@ async function fetchData(type) {
 
   } catch (error) {
     console.error("FETCH ERROR:", error);
-    alert("Connection Error: Check if your Node.js server is running on port 5000.");
+    alert("Connection Error: Check your internet or if the Render backend is awake.");
   }
 }
 
@@ -153,7 +153,8 @@ window.deleteItem = async function(id) {
 
     if (currentType === "contacts") deletePath = "contact";
     if (currentType === "volunteers") deletePath = "volunteer";
-    if (currentType === "counseling") deletePath = "counseling";
+    // ✅ Maintained 'counselling' spelling (double L)
+    if (currentType === "counselling") deletePath = "counselling"; 
 
     const res = await fetch(`${API}/${deletePath}/${id}`, {
       method: "DELETE",
@@ -185,50 +186,9 @@ window.logout = function() {
   window.location.href = "login.html";
 };
 
-/* ================= HEADER & FOOTER FIX ================= */
-
-// ✅ Smart path detection
-function getBasePath() {
-  const path = window.location.pathname;
-
-  // If inside admin folder
-  if (path.includes("/admin/")) {
-    return "../";
-  }
-
-  // If inside frontend root
-  if (path.includes("/frontend/")) {
-    return "./";
-  }
-
-  return "./";
-}
-
-// ✅ Load components
-function loadComponent(elementId, fileName) {
-  const base = getBasePath();
-  const filePath = `${base}components/${fileName}`;
-
-  console.log("Loading component:", filePath); // Debug
-
-  fetch(filePath)
-    .then(response => {
-      if (!response.ok) throw new Error(`Could not load ${fileName}`);
-      return response.text();
-    })
-    .then(data => {
-      const el = document.getElementById(elementId);
-      if (el) el.innerHTML = data;
-    })
-    .catch(err => console.error("Component Error:", err));
-}
-
 /* ================= INIT ================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Only handle data loading; components.js handles header/footer
   loadContact();
-
-  // ✅ Load header & footer
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
 });

@@ -18,9 +18,13 @@ const app = express();
     MIDDLEWARE
 ======================= */
 
-// ✅ CORS MUST come before routes
+// ✅ Updated CORS to include Render frontend
 app.use(cors({
-  origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+  origin: [
+    "http://127.0.0.1:5500", 
+    "http://localhost:5500",
+    "https://loveliness-frontend.onrender.com" // Your live frontend
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -40,7 +44,6 @@ app.use('/api/counselling', require('./routes/counsellingRoutes'));
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
 
 // Admin Routes (Consolidated)
-// Ensure these route files don't have conflicting paths like both having '/'
 app.use('/api/admin', require('./routes/adminAuthRoutes')); 
 app.use('/api/admin', require('./routes/adminRoutes'));
 
@@ -57,7 +60,7 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀', status: "Connected" });
 });
 
-// ✅ GLOBAL ERROR HANDLER (Prevents server from crashing on bad data)
+// ✅ GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err.stack);
   res.status(500).json({
@@ -74,5 +77,10 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🔗 Local Link: http://127.0.0.1:${PORT}`);
+  // Helpful for logs in Render dashboard
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`🔗 Production URL: https://loveliness-backend.onrender.com`);
+  } else {
+    console.log(`🔗 Local Link: http://localhost:${PORT}`);
+  }
 });

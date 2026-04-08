@@ -1,10 +1,7 @@
 console.log("API JS LOADED");
 
-// ✅ Updated for Live Production (Render)
+// ✅ Production API URL
 const API_BASE = "https://loveliness-backend.onrender.com/api";
-
-// ❌ Commented out old Local Development URL (for reference)
-// const API_BASE = "http://127.0.0.1:5000/api";
 
 // =======================
 // GENERIC REQUEST HANDLER
@@ -56,34 +53,31 @@ window.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.getElementById("contactForm");
 
     if (contactForm) {
-
         const status = document.createElement("p");
         status.style.marginTop = "10px";
         contactForm.appendChild(status);
 
         contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            console.log("Form submitted"); // DEBUG
+            console.log("Contact Form submitted");
 
             const submitBtn = contactForm.querySelector("button");
 
             const data = {
                 name: document.getElementById("name").value.trim(),
                 email: document.getElementById("email").value.trim(),
-                phone: document.getElementById("phone").value.trim(),  // new
+                phone: document.getElementById("phone").value.trim(),
                 subject: document.getElementById("subject").value.trim(),
                 message: document.getElementById("message").value.trim()
             };
 
-            // Simple validation
             if (!data.name || !data.email || !data.subject || !data.message) {
-                status.textContent = "Please fill all fields.";
+                status.textContent = "Please fill all required fields.";
                 status.style.color = "red";
                 return;
             }
 
             try {
-                // UI Feedback
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Sending...";
                 status.textContent = "";
@@ -92,20 +86,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 status.textContent = response.message || "Message sent successfully!";
                 status.style.color = "green";
-
                 contactForm.reset();
 
             } catch (error) {
                 status.textContent = error.message || "Something went wrong.";
                 status.style.color = "red";
-
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = "SUBMIT MESSAGE";
             }
         });
     }
-
 });
 
 /* ================= COUNSELLING ================= */
@@ -117,8 +108,7 @@ if (counsellingForm) {
 
     counsellingForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        console.log("Counselling submitted");
-
+        
         const data = {
             name: document.getElementById("userName").value.trim(),
             email: document.getElementById("userEmail").value.trim(),
@@ -138,7 +128,6 @@ if (counsellingForm) {
 
             status.textContent = res.message || "Request submitted!";
             status.style.color = "green";
-
             counsellingForm.reset();
 
         } catch (err) {
@@ -160,7 +149,6 @@ if (volunteerForm) {
 
     volunteerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        console.log("Volunteer submitted");
 
         const data = {
             name: document.getElementById("volName").value.trim(),
@@ -181,7 +169,6 @@ if (volunteerForm) {
 
             status.textContent = res.message || "Application submitted!";
             status.style.color = "green";
-
             volunteerForm.reset();
 
         } catch (err) {
