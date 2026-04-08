@@ -3,7 +3,7 @@ const API = "https://loveliness-backend.onrender.com/api/admin";
 // ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
 if (!token) {
-  window.location.href = "login.html";
+  window.location.href = "/admin/login.html";
 }
 
 let currentType = "";
@@ -187,7 +187,7 @@ window.deleteItem = async function(id) {
 
 window.logout = function() {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  window.location.href = "/admin/login.html";
 };
 
 /* ================= HEADER & FOOTER LOADER ================= */
