@@ -9,7 +9,7 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
-// Initialize email transporter (verifies connection)
+// Initialize email transporter
 require('./config/emailConfig');
 
 const app = express();
@@ -18,19 +18,17 @@ const app = express();
     MIDDLEWARE
 ======================= */
 
-// ✅ Updated CORS to include Render frontend
 app.use(cors({
   origin: [
-    "http://127.0.0.1:5500", 
+    "https://loveliness-frontend.onrender.com", 
     "http://localhost:5500",
-    "https://loveliness-frontend.onrender.com" // Your live frontend
+    "http://127.0.0.1:5500"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
-// Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,29 +36,29 @@ app.use(express.urlencoded({ extended: true }));
     ROUTES
 ======================= */
 
-// Public Routes
+// Public Endpoints
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/counselling', require('./routes/counsellingRoutes'));
 app.use('/api/volunteer', require('./routes/volunteerRoutes'));
 
-// Admin Routes (Consolidated)
+// Admin Endpoints
 app.use('/api/admin', require('./routes/adminAuthRoutes')); 
 app.use('/api/admin', require('./routes/adminRoutes'));
 
 /* =======================
-    TEST & ERROR HANDLING
+    DIAGNOSTICS & ERRORS
 ======================= */
 
 app.get('/', (req, res) => {
   res.send('Lovelines Backend Running ✅');
 });
 
-// Test route to check if API is reachable from browser
+// Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀', status: "Connected" });
 });
 
-// ✅ GLOBAL ERROR HANDLER
+// Global Error Handler
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err.stack);
   res.status(500).json({
@@ -77,10 +75,4 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  // Helpful for logs in Render dashboard
-  if (process.env.NODE_ENV === 'production') {
-    console.log(`🔗 Production URL: https://loveliness-backend.onrender.com`);
-  } else {
-    console.log(`🔗 Local Link: http://localhost:${PORT}`);
-  }
 });
