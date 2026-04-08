@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:5000/api/admin";
+const API = "https://loveliness-backend.onrender.com/api/admin";
 
 // ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
