@@ -1,6 +1,6 @@
 console.log("API JS LOADED");
 
-// ✅ Production API URL
+// ✅ Ensure this URL exactly matches your Render Backend Service URL
 const API_BASE = "https://loveliness-backend.onrender.com/api";
 
 // =======================
@@ -8,6 +8,8 @@ const API_BASE = "https://loveliness-backend.onrender.com/api";
 // =======================
 async function postData(endpoint, data) {
     try {
+        console.log(`Attempting to send data to: ${API_BASE}/${endpoint}`);
+        
         const res = await fetch(`${API_BASE}/${endpoint}`, {
             method: "POST",
             headers: {
@@ -16,16 +18,23 @@ async function postData(endpoint, data) {
             body: JSON.stringify(data)
         });
 
+        // Check if the response is actually JSON
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Server did not return JSON. Check if backend is running.");
+        }
+
         const result = await res.json();
 
         if (!res.ok) {
-            throw new Error(result.message || "Request failed");
+            throw new Error(result.message || `Server Error: ${res.status}`);
         }
 
+        console.log("API Success:", result);
         return result;
 
     } catch (error) {
-        console.error("API Error:", error);
+        console.error("Detailed API Error:", error);
         throw error;
     }
 }
@@ -49,18 +58,20 @@ function sendVolunteer(data) {
 // CONNECT CONTACT FORM
 // =======================
 window.addEventListener("DOMContentLoaded", () => {
-
     const contactForm = document.getElementById("contactForm");
 
     if (contactForm) {
-        const status = document.createElement("p");
-        status.style.marginTop = "10px";
-        contactForm.appendChild(status);
+        // Find or create status message area
+        let status = document.getElementById("contactStatus");
+        if (!status) {
+            status = document.createElement("p");
+            status.id = "contactStatus";
+            status.style.marginTop = "10px";
+            contactForm.appendChild(status);
+        }
 
         contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            console.log("Contact Form submitted");
-
             const submitBtn = contactForm.querySelector("button");
 
             const data = {
@@ -80,7 +91,8 @@ window.addEventListener("DOMContentLoaded", () => {
             try {
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Sending...";
-                status.textContent = "";
+                status.textContent = "Connecting to server...";
+                status.style.color = "blue";
                 
                 const response = await sendContact(data);
 
@@ -89,7 +101,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 contactForm.reset();
 
             } catch (error) {
-                status.textContent = error.message || "Something went wrong.";
+                status.textContent = "Error: " + (error.message || "Connection failed");
                 status.style.color = "red";
             } finally {
                 submitBtn.disabled = false;
@@ -101,14 +113,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
 /* ================= COUNSELLING ================= */
 const counsellingForm = document.getElementById("counsellingForm");
-
 if (counsellingForm) {
     const status = document.getElementById("statusMsg");
     const btn = document.getElementById("submit-btn");
 
     counsellingForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
         const data = {
             name: document.getElementById("userName").value.trim(),
             email: document.getElementById("userEmail").value.trim(),
@@ -122,14 +132,13 @@ if (counsellingForm) {
         try {
             btn.disabled = true;
             btn.textContent = "Sending...";
-            status.textContent = "";
+            status.textContent = "Processing request...";
+            status.style.color = "blue";
 
             const res = await sendCounselling(data);
-
-            status.textContent = res.message || "Request submitted!";
+            status.textContent = res.message || "Request submitted successfully!";
             status.style.color = "green";
             counsellingForm.reset();
-
         } catch (err) {
             status.textContent = err.message;
             status.style.color = "red";
@@ -142,14 +151,12 @@ if (counsellingForm) {
 
 /* ================= VOLUNTEER ================= */
 const volunteerForm = document.getElementById("volunteerForm");
-
 if (volunteerForm) {
     const status = document.getElementById("volStatusMsg");
     const btn = document.getElementById("vol-submit-btn");
 
     volunteerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const data = {
             name: document.getElementById("volName").value.trim(),
             email: document.getElementById("volEmail").value.trim(),
@@ -163,14 +170,13 @@ if (volunteerForm) {
         try {
             btn.disabled = true;
             btn.textContent = "Sending...";
-            status.textContent = "";
+            status.textContent = "Submitting application...";
+            status.style.color = "blue";
 
             const res = await sendVolunteer(data);
-
             status.textContent = res.message || "Application submitted!";
             status.style.color = "green";
             volunteerForm.reset();
-
         } catch (err) {
             status.textContent = err.message;
             status.style.color = "red";
