@@ -13,7 +13,7 @@ exports.submitVolunteer = async (req, res) => {
       message
     } = req.body;
 
-    // Basic validation
+    // ✅ Basic validation
     if (!name || !email || !phone || !areaOfInterest) {
       return res.status(400).json({
         success: false,
@@ -21,7 +21,7 @@ exports.submitVolunteer = async (req, res) => {
       });
     }
 
-    // Save to MongoDB
+    // ✅ Save to MongoDB
     const volunteer = await Volunteer.create({
       name,
       email,
@@ -32,8 +32,12 @@ exports.submitVolunteer = async (req, res) => {
       message
     });
 
-    // Send email notifications
+    console.log("✅ Volunteer application saved to MongoDB");
+
+    // ✅ Send email notification via Resend API
     await emailService.sendVolunteerEmails(volunteer);
+    
+    console.log("✅ Volunteer email processed via Resend");
 
     // Success response
     res.status(200).json({
@@ -42,11 +46,15 @@ exports.submitVolunteer = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Volunteer Submission Error:", error);
+    console.error("❌ Volunteer Submission Error:", error.message);
+
+    const errorMessage = error.message.includes("Resend") 
+      ? "Application saved, but email notification failed." 
+      : "Server error. Please try again later.";
 
     res.status(500).json({
       success: false,
-      message: "Server error. Please try again later."
+      message: errorMessage
     });
   }
 };

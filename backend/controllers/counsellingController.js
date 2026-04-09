@@ -2,9 +2,7 @@ const Counselling = require("../models/Counselling");
 const emailService = require("../services/emailService");
 
 exports.submitCounselling = async (req, res) => {
-
   try {
-
     const { name, email, phone, country, counsellingType, preferredContact, message } = req.body;
 
     // ✅ Basic Validation
@@ -26,8 +24,12 @@ exports.submitCounselling = async (req, res) => {
       message
     });
 
-    // ✅ Send email notification
+    console.log("✅ Counselling request saved to MongoDB");
+
+    // ✅ Send email notification via Resend API (via emailService)
     await emailService.sendCounsellingEmails(counselling);
+    
+    console.log("✅ Counselling email processed via Resend");
 
     res.status(200).json({
       success: true,
@@ -35,14 +37,16 @@ exports.submitCounselling = async (req, res) => {
     });
 
   } catch (error) {
+    console.error("❌ Counselling Error:", error.message);
 
-    console.error("Counselling Error:", error);
+    // Provide a slightly more helpful error message if it's a specific email API issue
+    const errorMessage = error.message.includes("Resend") 
+      ? "Request saved, but email notification failed." 
+      : "Server error, please try again";
 
     res.status(500).json({
       success: false,
-      message: "Server error, please try again"
+      message: errorMessage
     });
-
   }
-
 };
