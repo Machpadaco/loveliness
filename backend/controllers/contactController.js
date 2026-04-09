@@ -1,17 +1,10 @@
-const { sendEmail } = require('../config/emailConfig'); // Updated import
+const { sendEmail } = require('../config/emailConfig');
 
 // Inside your create function:
-try {
-    const newContact = await Contact.create(req.body);
-    
-    // Updated Email call
-    await sendEmail({
-        to: process.env.EMAIL_USER, // Send it to yourself
-        subject: `New Contact: ${req.body.subject}`,
-        html: `<p>You have a new message from ${req.body.name}</p>`
-    });
-
-    res.status(201).json({ success: true, message: "Message sent!" });
-} catch (error) {
-    // ... error handling
-}
+await sendEmail({
+    to: process.env.EMAIL_USER,
+    subject: `New Contact: ${req.body.subject}`,
+    html: `<h3>New Contact Message</h3>
+           <p><strong>Name:</strong> ${req.body.name}</p>
+           <p><strong>Message:</strong> ${req.body.message}</p>`
+});

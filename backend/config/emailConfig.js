@@ -1,26 +1,19 @@
 const { Resend } = require('resend');
-
-// We initialize it here, but we will use a helper function to send
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async ({ to, subject, html }) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Loveliness NGO <onboarding@resend.dev>', // Keep this exactly as is for now
+      from: 'Loveliness NGO <onboarding@resend.dev>', // Resend free tier default
       to: [to],
       subject: subject,
       html: html,
     });
 
-    if (error) {
-      console.error("❌ Resend API Error:", error);
-      throw error;
-    }
-
-    console.log("✅ Email sent successfully via Resend API:", data.id);
+    if (error) throw error;
     return data;
   } catch (err) {
-    console.error("❌ Email failed:", err.message);
+    console.error("❌ Resend Error:", err.message);
     throw err;
   }
 };
