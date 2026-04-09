@@ -1,16 +1,21 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
+  // Using the direct IP-friendly host or forced IPv4
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // Use false for Port 587
+  secure: false, 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // Adding these specific timeout and TLS settings for Render
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
   tls: {
-    // This allows the connection to succeed even if the network has minor certificate mismatches
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
+    minVersion: 'TLSv1.2'
   }
 });
 
