@@ -32,6 +32,14 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Request Logger (Helps see incoming data in Render Logs)
+app.use((req, res, next) => {
+  if (req.method === "POST") {
+    console.log(`📥 Incoming POST to ${req.path}:`, req.body);
+  }
+  next();
+});
+
 /* =======================
     ROUTES
 ======================= */
@@ -58,12 +66,14 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀', status: "Connected" });
 });
 
-// Global Error Handler
+// ✅ UPDATED Global Error Handler (Sends real error to Frontend)
 app.use((err, req, res, next) => {
-  console.error("SERVER ERROR:", err.stack);
+  console.error("❌ DETAILED SERVER ERROR:", err.stack);
   res.status(500).json({
     success: false,
-    message: err.message || "Internal Server Error"
+    message: err.message || "Internal Server Error",
+    error_type: err.name,
+    // stack: err.stack // Uncomment this only if you need full technical details in F12
   });
 });
 
