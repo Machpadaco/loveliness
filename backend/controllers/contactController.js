@@ -1,25 +1,17 @@
-const emailService = require("../services/emailService");
-const Contact = require("../models/Contact");
+const { sendEmail } = require('../config/emailConfig'); // Updated import
 
-exports.submitContact = async (req, res) => {
-  try {
-    const { name, email, phone, subject, message } = req.body;
-
-    // Save to MongoDB
-    const contact = new Contact({ name, email, phone, subject, message });
-    const savedContact = await contact.save();
-    console.log("Saved to MongoDB:", savedContact);
-
-    // Send Emails
-    await emailService.sendContactEmails({ name, email, phone, subject, message });
-
-    res.status(200).json({
-      success: true,
-      message: "Message sent successfully"
+// Inside your create function:
+try {
+    const newContact = await Contact.create(req.body);
+    
+    // Updated Email call
+    await sendEmail({
+        to: process.env.EMAIL_USER, // Send it to yourself
+        subject: `New Contact: ${req.body.subject}`,
+        html: `<p>You have a new message from ${req.body.name}</p>`
     });
 
-  } catch (error) {
-    console.error("Contact submission error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-};
+    res.status(201).json({ success: true, message: "Message sent!" });
+} catch (error) {
+    // ... error handling
+}
