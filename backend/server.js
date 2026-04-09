@@ -9,8 +9,8 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
-// Initialize email transporter
-require('./config/emailConfig');
+// ❌ REMOVED: require('./config/emailConfig'); 
+// (We don't need this anymore because we are using Resend via the emailService)
 
 const app = express();
 
@@ -66,14 +66,13 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working 🚀', status: "Connected" });
 });
 
-// ✅ UPDATED Global Error Handler (Sends real error to Frontend)
+// ✅ UPDATED Global Error Handler
 app.use((err, req, res, next) => {
   console.error("❌ DETAILED SERVER ERROR:", err.stack);
   res.status(500).json({
     success: false,
     message: err.message || "Internal Server Error",
     error_type: err.name,
-    // stack: err.stack // Uncomment this only if you need full technical details in F12
   });
 });
 
