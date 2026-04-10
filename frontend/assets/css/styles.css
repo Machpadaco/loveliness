@@ -205,7 +205,7 @@ main {
     }
 
     .nav-cta-desktop {
-        display: none;
+        display: block;
     }
 
     .nav-links {
