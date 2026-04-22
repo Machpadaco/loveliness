@@ -1425,6 +1425,78 @@ grid-template-columns:1fr;
     }
 }
 
+/* Container Background & Spacing */
+.photo-speaks-container {
+    background-color: #ffffff; /* White background */
+    padding: 40px 20px;
+    font-family: sans-serif;
+}
+
+/* Title Styling */
+.section-title {
+    color: #d32f2f; /* Deep Red */
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    border-bottom: 3px solid #d32f2f;
+    display: inline-block;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+}
+
+/* Responsive Grid Layout */
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Space between photos */
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Photo Item Styling */
+.photo-item {
+    flex: 1 1 calc(33.333% - 20px); /* 3 images per row on desktop */
+    min-width: 300px; /* Prevents images from getting too small */
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 4px solid #f0f0f0;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Image behavior for Landscape */
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Hover Effect */
+.photo-item:hover {
+    transform: scale(1.02);
+    border-color: #d32f2f; /* Changes border to Red on hover */
+    cursor: pointer;
+}
+
+/* Tablet & Mobile Adjustments */
+@media (max-width: 768px) {
+    .photo-item {
+        flex: 1 1 calc(50% - 20px); /* 2 images per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-item {
+        flex: 1 1 100%; /* 1 image per row on small phones */
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
 /* --- CONTACT PAGE RESET & VARIABLES --- */
 :root {
     --primary-red: #ff0000;
