@@ -20,6 +20,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // ... your existing code ...
+
+    // 1. Select all "Read More" buttons
+    const readMoreBtns = document.querySelectorAll(".read-more-btn");
+
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener("click", function() {
+            // 2. Select the div immediately before this button
+            const fullBio = this.previousElementSibling;
+
+            // 3. Check if the content is currently visible
+            const isExpanded = fullBio.classList.contains("active");
+
+            if (isExpanded) {
+                fullBio.classList.remove("active");
+                this.textContent = "Read More";
+            } else {
+                fullBio.classList.add("active");
+                this.textContent = "Read Less";
+            }
+        });
+    });
+});
+
 /* ================= ADMIN DASHBOARD LOGIC ================= */
 
 const token = localStorage.getItem("token");
