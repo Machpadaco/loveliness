@@ -1456,122 +1456,7 @@ grid-template-columns:1fr;
     margin: 0 auto;
 }
 
-/* Photo Item Styling */
-.photo-item {
-    flex: 1 1 calc(33.333% - 20px); /* 3 images per row on desktop */
-    min-width: 300px; /* Prevents images from getting too small */
-    box-sizing: border-box;
-    overflow: hidden;
-    border: 4px solid #f0f0f0;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
 
-/* Image behavior for Landscape */
-.photo-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-/* Hover Effect */
-.photo-item:hover {
-    transform: scale(1.02);
-    border-color: #d32f2f; /* Changes border to Red on hover */
-    cursor: pointer;
-}
-
-/* Tablet & Mobile Adjustments */
-@media (max-width: 768px) {
-    .photo-item {
-        flex: 1 1 calc(50% - 20px); /* 2 images per row */
-    }
-}
-
-@media (max-width: 480px) {
-    .photo-item {
-        flex: 1 1 100%; /* 1 image per row on small phones */
-    }
-    .section-title {
-        font-size: 1.8rem;
-    }
-}
-
-/* Unique Section Styles */
-#awards-video-section {
-    background-color: #ffffff;
-    padding: 60px 20px;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.awards-title {
-    color: #cc0000; /* Main Red */
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Flexbox for Desktop Side-by-Side */
-.awards-flex-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-    flex-wrap: wrap; /* Allows wrapping on mobile */
-}
-
-.award-video-box {
-    flex: 1 1 480px; /* Side-by-side on desktop */
-    max-width: 540px;
-}
-
-/* 16:9 Landscape Responsive Frame */
-.award-video-frame {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-    border: 4px solid #cc0000; /* Red Border */
-    background: #000; /* Black bars for vertical video content */
-    border-radius: 5px;
-}
-
-.award-video-frame iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.award-text {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .awards-flex-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .award-video-box {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .awards-title {
-        font-size: 1.5rem;
-    }
-}
 
 /* --- CONTACT PAGE RESET & VARIABLES --- */
 :root {
@@ -2689,4 +2574,121 @@ main {
   .ll-video-card iframe {
     height: 420px; /* keeps tall portrait look */
   }
+}
+
+/* Photo Item Styling */
+.photo-item {
+    flex: 1 1 calc(33.333% - 20px); /* 3 images per row on desktop */
+    min-width: 300px; /* Prevents images from getting too small */
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 4px solid #f0f0f0;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Image behavior for Landscape */
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Hover Effect */
+.photo-item:hover {
+    transform: scale(1.02);
+    border-color: #d32f2f; /* Changes border to Red on hover */
+    cursor: pointer;
+}
+
+/* Tablet & Mobile Adjustments */
+@media (max-width: 768px) {
+    .photo-item {
+        flex: 1 1 calc(50% - 20px); /* 2 images per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-item {
+        flex: 1 1 100%; /* 1 image per row on small phones */
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Unique Section Styles */
+#awards-video-section {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.awards-title {
+    color: #cc0000; /* Main Red */
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Flexbox for Desktop Side-by-Side */
+.awards-flex-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Allows wrapping on mobile */
+}
+
+.award-video-box {
+    flex: 1 1 480px; /* Side-by-side on desktop */
+    max-width: 540px;
+}
+
+/* 16:9 Landscape Responsive Frame */
+.award-video-frame {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border: 4px solid #cc0000; /* Red Border */
+    background: #000; /* Black bars for vertical video content */
+    border-radius: 5px;
+}
+
+.award-video-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.award-text {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .awards-flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .award-video-box {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .awards-title {
+        font-size: 1.5rem;
+    }
 }
