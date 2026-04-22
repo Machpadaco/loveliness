@@ -435,14 +435,13 @@ border-radius:8px;
     
 }
 
-/* 1. Functional Styles: Handles Hiding/Showing */
 .full-bio-content {
-    display: none; /* Hidden by default */
+    display: none;
     margin-top: 15px;
 }
 
-.full-bio-content.active {
-    display: block; /* Shown when JS adds the 'active' class */
+.full-bio-content.show {
+    display: block;
 }
 
 /* 2. Design Styles: Using your specific red theme */
