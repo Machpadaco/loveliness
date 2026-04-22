@@ -12,33 +12,29 @@ const API_ADMIN = "https://loveliness-backend.onrender.com/api/admin";
 // Initialize UI elements
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Main.js UI Initialized");
-    
-    // Check if we are on an admin page to auto-load data
+
+    // ✅ Auto-load admin data if on dashboard
     const tableBody = document.getElementById("tableBody");
     if (tableBody) {
         loadContact();
     }
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-    // ... your existing code ...
+    /* ================= READ MORE FUNCTION ================= */
 
-    // 1. Select all "Read More" buttons
     const readMoreBtns = document.querySelectorAll(".read-more-btn");
 
     readMoreBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-            // 2. Select the div immediately before this button
-            const fullBio = this.previousElementSibling;
+        btn.addEventListener("click", function () {
+            // More reliable selector
+            const fullBio = this.parentElement.querySelector(".full-bio-content");
 
-            // 3. Check if the content is currently visible
-            const isExpanded = fullBio.classList.contains("active");
+            const isExpanded = fullBio.classList.contains("show");
 
             if (isExpanded) {
-                fullBio.classList.remove("active");
+                fullBio.classList.remove("show");
                 this.textContent = "Read More";
             } else {
-                fullBio.classList.add("active");
+                fullBio.classList.add("show");
                 this.textContent = "Read Less";
             }
         });
@@ -52,17 +48,17 @@ const token = localStorage.getItem("token");
 let currentType = "";
 
 // Sidebar/Tab Switchers
-window.loadContact = async function() {
+window.loadContact = async function () {
     currentType = "contacts";
     fetchData("contacts");
 };
 
-window.loadCounselling = async function() {
+window.loadCounselling = async function () {
     currentType = "counselling";
     fetchData("counselling");
 };
 
-window.loadVolunteer = async function() {
+window.loadVolunteer = async function () {
     currentType = "volunteers";
     fetchData("volunteers");
 };
@@ -144,29 +140,47 @@ function renderTable(data) {
         }
 
         const tr = document.createElement("tr");
-        tr.innerHTML = `${rowContent}<td><button onclick="deleteItem('${item._id}')" style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button></td>`;
+        tr.innerHTML = `
+            ${rowContent}
+            <td>
+                <button onclick="deleteItem('${item._id}')" 
+                    style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;">
+                    Delete
+                </button>
+            </td>
+        `;
         tableBody.appendChild(tr);
     });
 }
 
 /* ================= DELETE & LOGOUT ================= */
 
-window.deleteItem = async function(id) {
+window.deleteItem = async function (id) {
     if (!confirm("Are you sure?")) return;
+
     try {
-        let path = currentType === "contacts" ? "contact" : (currentType === "volunteers" ? "volunteer" : "counselling");
+        let path = currentType === "contacts"
+            ? "contact"
+            : (currentType === "volunteers" ? "volunteer" : "counselling");
+
         const res = await fetch(`${API_ADMIN}/${path}/${id}`, {
             method: "DELETE",
-            headers: { "Authorization": `Bearer ${token}` }
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         });
+
         if (res.ok) {
             alert("Deleted!");
             fetchData(currentType);
         }
-    } catch (err) { alert("Delete failed."); }
+
+    } catch (err) {
+        alert("Delete failed.");
+    }
 };
 
-window.logout = function() {
+window.logout = function () {
     localStorage.removeItem("token");
     window.location.href = "login.html";
 };
