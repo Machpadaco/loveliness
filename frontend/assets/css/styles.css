@@ -434,6 +434,7 @@ border-radius:8px;
     font-size: 20px;
     
 }
+
 /* 1. Functional Styles: Handles Hiding/Showing */
 .full-bio-content {
     display: none; /* Hidden by default */
