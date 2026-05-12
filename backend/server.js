@@ -19,11 +19,13 @@ const app = express();
 ======================= */
 
 app.use(cors({
-  origin: [
-    "https://loveliness-frontend.onrender.com", 
-    "http://localhost:5500",
-    "http://127.0.0.1:5500"
-  ],
+ origin: [
+  "https://www.lovelinesnig-africa.org",
+  "https://lovelinesnig-africa.org",
+  "https://loveliness-frontend.onrender.com",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500"
+],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true

@@ -1,4 +1,4 @@
-const API = "https://loveliness-backend.onrender.com/api/admin";
+const API = "/api/admin";
 
 // ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
