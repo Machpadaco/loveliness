@@ -3,7 +3,7 @@
  * Corrected for Production on Render
  */
 
-const API_BASE = "https://loveliness-backend.onrender.com/api";
+const API_BASE = "/api";
 
 // Helper for POST requests
 async function postData(endpoint, data) {
