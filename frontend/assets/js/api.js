@@ -21,7 +21,7 @@ async function postData(endpoint, data) {
 
         const contentType = res.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
-            throw new Error("Server temporarily unavailable. Please retry in a few second.");
+            throw new Error("Server temporarily unavailable. Please retry in a few seconds.");
         }
 
         const result = await res.json();
