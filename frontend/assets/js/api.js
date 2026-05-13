@@ -1,9 +1,9 @@
 /**
  * LOVELINES API HANDLER
- * Corrected for Production on Render
+ * Corrected for Frontend Domain + Render Backend
  */
 
-const API_BASE = "/api";
+const API_BASE = "https://YOUR-BACKEND-NAME.onrender.com/api";
 
 // Helper for POST requests
 async function postData(endpoint, data) {
@@ -20,6 +20,7 @@ async function postData(endpoint, data) {
         });
 
         const contentType = res.headers.get("content-type");
+
         if (!contentType || !contentType.includes("application/json")) {
             throw new Error("Server temporarily unavailable. Please retry in a few seconds.");
         }
@@ -39,8 +40,7 @@ async function postData(endpoint, data) {
 }
 
 /* ============================================================
-   GLOBAL FUNCTIONS 
-   (Attaching to window makes them accessible to forms.js)
+   GLOBAL FUNCTIONS
    ============================================================ */
 
 window.sendContact = function(data) {
