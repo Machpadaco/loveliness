@@ -5,7 +5,7 @@
  */
 
 // ✅ Production API URL for Admin tasks
-const API_ADMIN = "/api/admin";
+const API_ADMIN = "https://loveliness-backend.onrender.com/api/admin";
 
 /* ================= UI & NAVIGATION ================= */
 
