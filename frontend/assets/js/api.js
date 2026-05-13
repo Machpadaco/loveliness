@@ -3,7 +3,7 @@
  * Corrected for Frontend Domain + Render Backend
  */
 
-const API_BASE = "https://YOUR-BACKEND-NAME.onrender.com/api";
+const API_BASE = "https://loveliness-backend.onrender.com/api";
 
 // Helper for POST requests
 async function postData(endpoint, data) {
