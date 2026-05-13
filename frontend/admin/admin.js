@@ -1,7 +1,8 @@
-const API = "/api/admin";
+const API = "https://loveliness-backend.onrender.com/api/admin";
 
 // ✅ Protect page (must be logged in)
 const token = localStorage.getItem("token");
+
 if (!token) {
     window.location.href = "login.html";
 }
@@ -29,9 +30,13 @@ window.loadVolunteer = async function() {
 
 async function fetchData(type) {
     try {
+
+        console.log(`Fetching from: ${API}/${type}`);
+
         const res = await fetch(`${API}/${type}`, {
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             }
         });
 
@@ -40,11 +45,13 @@ async function fetchData(type) {
         const data = await res.json();
 
         if (!res.ok) {
+
             if (res.status === 401) {
                 alert("Session expired. Please login again.");
                 window.location.href = "login.html";
                 return;
             }
+
             alert(data.message || "Error loading data");
             return;
         }
@@ -57,14 +64,17 @@ async function fetchData(type) {
         renderTable(actualData);
 
     } catch (error) {
+
         console.error("FETCH ERROR:", error);
-        alert("Server error connecting to API. Check if the Render backend is awake.");
+
+        alert("Server error connecting to API. Backend may still be waking up on Render.");
     }
 }
 
 /* ================= RENDER TABLE ================= */
 
 function renderTable(data) {
+
     const tableBody = document.getElementById("tableBody");
     const theadRow = document.querySelector("thead tr");
 
@@ -74,7 +84,12 @@ function renderTable(data) {
     theadRow.innerHTML = "";
 
     if (data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 20px;">No records found in database.</td></tr>`;
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align:center; padding:20px;">
+                    No records found in database.
+                </td>
+            </tr>`;
         return;
     }
 
@@ -97,10 +112,15 @@ function renderTable(data) {
     });
 
     data.forEach(item => {
+
         let rowContent = "";
-        const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "N/A";
+
+        const dateStr = item.createdAt
+            ? new Date(item.createdAt).toLocaleDateString()
+            : "N/A";
 
         if (currentType === "contacts") {
+
             rowContent = `
                 <td>${item.name || ''}</td>
                 <td>${item.email || ''}</td>
@@ -108,8 +128,10 @@ function renderTable(data) {
                 <td>${item.subject || ''}</td>
                 <td>${item.message || ''}</td>
                 <td>${dateStr}</td>`;
+
         } 
         else if (currentType === "counselling") {
+
             rowContent = `
                 <td>${item.name || ''}</td>
                 <td>${item.email || ''}</td>
@@ -119,8 +141,10 @@ function renderTable(data) {
                 <td>${item.preferredContact || ''}</td>
                 <td>${item.message || ''}</td>
                 <td>${dateStr}</td>`;
+
         } 
         else if (currentType === "volunteers") {
+
             rowContent = `
                 <td>${item.name || ''}</td>
                 <td>${item.email || ''}</td>
@@ -133,12 +157,19 @@ function renderTable(data) {
         }
 
         const tr = document.createElement("tr");
+
         tr.innerHTML = `
             ${rowContent}
             <td>
-                <button class="btn-delete" style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;" 
-                onclick="deleteItem('${item._id}')">Delete</button>
-            </td>`;
+                <button 
+                    class="btn-delete"
+                    style="background:#cc0000; color:white; border:none; padding:5px 10px; cursor:pointer;"
+                    onclick="deleteItem('${item._id}')">
+                    Delete
+                </button>
+            </td>
+        `;
+
         tableBody.appendChild(tr);
     });
 }
@@ -146,16 +177,16 @@ function renderTable(data) {
 /* ================= DELETE FUNCTION ================= */
 
 window.deleteItem = async function(id) {
+
     if (!confirm("Are you sure you want to delete this record?")) return;
 
     try {
+
         let deletePath = currentType;
 
-        // Normalizing plural to singular for backend routes
         if (currentType === "contacts") deletePath = "contact";
         if (currentType === "volunteers") deletePath = "volunteer";
-        // ✅ Fixed spelling to 'counselling' (double L)
-        if (currentType === "counselling") deletePath = "counselling"; 
+        if (currentType === "counselling") deletePath = "counselling";
 
         const res = await fetch(`${API}/${deletePath}/${id}`, {
             method: "DELETE",
@@ -165,16 +196,22 @@ window.deleteItem = async function(id) {
         });
 
         if (!res.ok) {
+
             const data = await res.json();
+
             alert(data.message || "Delete failed");
+
             return;
         }
 
         alert("Deleted successfully");
+
         fetchData(currentType);
 
     } catch (error) {
+
         console.error("DELETE ERROR:", error);
+
         alert("Server error during deletion");
     }
 };
@@ -182,13 +219,15 @@ window.deleteItem = async function(id) {
 /* ================= LOGOUT ================= */
 
 window.logout = function() {
+
     localStorage.removeItem("token");
+
     window.location.href = "login.html";
 };
 
 /* ================= INIT ================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Initial data load - defaults to contacts
+
     loadContact();
 });
