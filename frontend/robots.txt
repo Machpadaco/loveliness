@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Keep the staff/admin area out of crawling.
+Disallow: /admin/
+
+Sitemap: https://lovelinesnig-africa.org/sitemap.xml
